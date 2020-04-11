@@ -72,16 +72,31 @@ Version:
 
 | ID        | Description  |
 | ------------- |:-------------:| 
-
+|  FR_RU1     |Perform log in and log out operations  |
+|  FR_RU2     |Registered user can insert the fuel type price for a gas station   |
+|  FR_RU3	  |Registered user can signal a price error|
+|  FR_RU4     |Registered user can signal a location error|
+|  FR_RU5     |Registered user can add a new gas station|
+|  FR_RU6     |Registered user can signal a gas station closure|
+|  FR_RU7     |Registered user can see the points he collected and their equivalent money value in his wallet|
+|  FR_RU8     |Registered user can print the coupon|
+|  FR_RU9     |Registered user can delete his account|
+|  FR_RU10    |Registered user can update its profile and settings|
+|  FR_RU11    |Registered user can insert a gas station into a favourite list|
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
 
 | ID        | Type (efficiency, reliability, ..)           | Description  | Refers to |
 | ------------- |:-------------:| :-----:| -----:|
-|  NFR1     |   |  | |
-|  NFR2     | |  | |
-|  NFR3     | | | |
+|  NFR_RU1     | Performance  |All operations should be completed in less than 1 sec  | ALL FR_RU |
+|  NFR_RU2     | Localisation |Prices are expressed in EUR  |FR_RU2, FR_RU3, FR_RU7, FR_RU8 |
+|  NFR_RU3     | Usability | Send a notification to registered user when one of his favourites gas stations' price is updated |FR_RU5, FR_RU11 |
+|  NFR_RU4     | Usability | When a registered user insert a new gas station or notify a closure, it's necessary to attach a photo of the gas station and check if his location is around 500m|FR_RU5, FR_RU6|
+|  NFR_RU5	   | Localisation | Points are integer values |FR_RU2, FR_RU7|
+|  NFR_RU6     | Usability |Registered user receives points when he insert a new price. Points are computing according to this time parameter:  p= (timestamp_lastupdate-timestamp_now). The older the last update , the higher the number of points (p=24h -> 10 points; p=48h->15 points; ...) |FR_RU2, FR_RU7|
+|  NFR_RU7     | Usability |Registered user receives 50 points when the insert or the signal of closure of a gas station is correctly verified. |FR_RU2, FR_RU7|
+| NFR_RU8 | Usability | 100 points = 1 EUR | FR_RU7, FR_RU8|
 
 
 # Use case diagram and use cases
