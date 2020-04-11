@@ -31,7 +31,12 @@ Version:
 
 | Stakeholder name  | Description | 
 | ----------------- |:-----------:|
-|                   |             | 
+|User               |Uses the application          |
+|Car Driver (Unregistered - User Profile 1)	|He uses the application without an account. He can view the list of gas stations around him and give a feedback about prices veracity|
+|Registered Car Driver (User Profile 2)|He uses the application with an account. Because of it, he can also notify a different price for a certain gas station or an error. He can also get points for keeping prices updated|
+|App Developer | manages the system and databases |
+|Map System | The app is based on a map system (like Google Maps) and every change can possibly modify the behaviour of the application|
+
 
 # Context Diagram and interfaces
 
@@ -67,8 +72,6 @@ Version:
 
 | ID        | Description  |
 | ------------- |:-------------:| 
-|  FR1     |  |
-|  FR2     |   |
 
 ## Non Functional Requirements
 
