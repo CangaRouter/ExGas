@@ -8,22 +8,48 @@ Version:
 
 # Contents
 
+- [Abstract](#abstract)
 - [Stakeholders](#stakeholders)
 - [Context Diagram and interfaces](#context-diagram-and-interfaces)
 	+ [Context Diagram](#context-diagram)
 	+ [Interfaces](#interfaces) 
 	
+- [Requirements Document](#requirements-document)
+- [Contents](#contents)
+- [Abstract](#abstract)
+- [Stakeholders](#stakeholders)
+- [Context Diagram and interfaces](#context-diagram-and-interfaces)
+	- [Context Diagram](#context-diagram)
+	- [Interfaces](#interfaces)
 - [Stories and personas](#stories-and-personas)
 - [Functional and non functional requirements](#functional-and-non-functional-requirements)
-	+ [Functional Requirements](#functional-requirements)
-	+ [Non functional requirements](#non-functional-requirements)
+	- [Functional Requirements](#functional-requirements)
+	- [Non Functional Requirements](#non-functional-requirements)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
-	+ [Use case diagram](#use-case-diagram)
-	+ [Use cases](#use-cases)
-    	+ [Relevant scenarios](#relevant-scenarios)
+	- [Use case diagram](#use-case-diagram)
+		- [Use case 1, UC1](#use-case-1-uc1)
+				- [Scenario 1.1](#scenario-11)
+				- [Scenario 1.2](#scenario-12)
+				- [Scenario 1.3](#scenario-13)
+		- [Use case 2, UC2](#use-case-2-uc2)
+				- [Scenario 2.1](#scenario-21)
+		- [Use case 3, UC3](#use-case-3-uc3)
+				- [Scenario 3.1](#scenario-31)
+		- [Use case 4, UC4](#use-case-4-uc4)
+				- [Scenario 4.1](#scenario-41)
+		- [Use case](#use-case)
 - [Glossary](#glossary)
-- [System design](#system-design)
-- [Deployment diagram](#deployment-diagram)
+- [System Design](#system-design)
+- [Deployment Diagram](#deployment-diagram)
+
+# Abstract
+
+Since cars have been invented, car owners have had the need to refill the fuel tank in order to make them move. Sometimes you know where you are goning to refuels, sometimes you don't. If you're travelling a long distance it will happen that you need to find a gas station, and probably you want to find the cheapest near. Car drivers need to know the different prices and precise position of gas stations in their neighboring area or in the middle of their road. In order to do this, they use EZGas that allow to:
+
+1 - collect prices of fuels in different gas stations;
+2 - locate gas stations in an area.
+
+Each user can use the app also to send a feedback about reliability of informations of a specific gas station. If a user has also a registered account, he can set a new price for a specific fuel type for a certain gas station and possibly its location. By doing this, the registered user can collect point to obtain coupon. Moreover, a registered user can have a list of its favourite gas stations and receive a notifications if changes occur to those gas stations.
 
 
 # Stakeholders
@@ -31,11 +57,9 @@ Version:
 
 | Stakeholder name  | Description | 
 | ----------------- |:-----------:|
-|User               |Uses the application          |
-|Unregistered user - User Profile 1	|He uses the application without an account. He can view the list of gas stations around him and give a feedback about prices veracity|
-|Registered user - User Profile 2|He uses the application with an account. Because of it, he can also notify a different price for a certain gas station or an error. He can also get points for keeping prices updated|
-|App Developer | manages the system and databases |
-|GoogleMaps | The app is based on a map system (like Google Maps) and every change can possibly modify the behaviour of the application|
+| Unregistered User	|Can find a gas station based on its location or prices. Can also send a feedback about correctness of gas station data| 
+| Registered User 	| Can insert/delete gas station and insert/modify fuel price. By doing this, it collects points to obtain coupon| 
+| GoogleMaps	    |External service used to map user and gas stations|
 
 
 # Context Diagram and interfaces
@@ -45,6 +69,16 @@ Version:
 
 \<actors are a subset of stakeholders>
 
+```plantuml
+left to right direction
+actor "Unregistered User" as uu
+actor "Registered User" as ru
+actor GoogleMaps as gm
+uu -- (EZGas) 
+ru -- (EZGas)
+gm <=> (EZGas)
+```
+
 ## Interfaces
 \<describe here each interface in the context diagram>
 
@@ -52,7 +86,8 @@ Version:
 
 | Actor | Logical Interface | Physical Interface  |
 | ------------- |:-------------:| -----:|
-|       |  |  |
+| User (both types)	| GUI |Touchscreen     |
+| GoogleMaps	    | API |Internet        |
 
 # Stories and personas
 \<A Persona is a realistic impersonation of an actor. Define here a few personas and describe in plain text how a persona interacts with the system>
@@ -72,23 +107,35 @@ Version:
 
 | ID        | Description  |
 | ------------- |:-------------:| 
-|  FR7     |Registered user can insert a fuel type price for a gas station   |
-|  FR8	  |Registered user can signal a price error|
-|  FR9     |Registered user can signal a location error|
+ 
+|  FR1      |Manage operations of registration, log in and log out|  
+|  FR2      |Every user can visualize informations of a gas station|
+|  FR3      |Every user can visualize the list of the closest gas stations|             
+|  FR4      |Every user can visualize the list of the cheapest gas stations|
+|  FR5      |Every user can get from GoogleMaps the route to the selected gas station|
+|  FR6      |Every user can send a feedback about data of a specific gas station|
+|  FR7      |Registered user can insert a fuel type price for a gas station|
+|  FR8	    |Registered user can signal a price error|
+|  FR9      |Registered user can signal a location error|
 |  FR10     |Registered user can add a new gas station|
 |  FR11     |Registered user can signal a gas station closure|
-|  FR12    |Registered user can see the points he collected and their equivalent money value in his wallet|
+|  FR12     |Registered user can see the points he collected and their equivalent money value in his wallet|
 |  FR13     |Registered user can print the coupon|
-|  FR14   |Registered user can delete his account|
-|  FR15    |Registered user can update its profile and settings|
-|  FR16   |Registered user can insert a gas station into a favourite list|
+|  FR14     |Registered user can delete his account|
+|  FR15     |Registered user can update its profile and settings|
+|  FR16     |Registered user can insert a gas station into a favourite list|
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
 
 | ID        | Type (efficiency, reliability, ..)           | Description  | Refers to |
 | ------------- |:-------------:| :-----:| -----:|
-|  NFR6   | Localisation |Prices are expressed in EUR  |FR7, FR8, FR12, FR13 |
+|  NFR1     | Performance   | All functions should be completed in < 0.5 sec  			                                           | All FR   |
+|  NFR2     | Portability   | The application must be available on every OS 						                               | All FR   |
+|  NFR3     | Functionality | Every user can send one feedback a day for each gas station                                          | FR6      |
+|  NFR4     | Functionality | A feedback can be sent only if the user is located at most 3 km from the selected gas station        | FR6      |
+|  NFR5     | Functionality | The user can search gas stations located in an area selected by the user itself directly on the map  | FR3, FR4 |
+|  NFR6   | Localisation |Prices are expressed in EUR  | FR2, FR4, FR7, FR8, FR12, FR13 |
 |  NFR7    | Usability | Send a notification to registered user when one of his favourites gas stations' price is updated |FR10, FR16 |
 |  NFR8     | Usability | When a registered user insert a new gas station or notify a closure, it's necessary to attach a photo of the gas station and check if his location is around 500m|FR10, FR11|
 |  NFR9	   | Localisation | Points are integer values |FR7, FR12|
