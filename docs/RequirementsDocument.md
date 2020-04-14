@@ -107,7 +107,6 @@ gm <=> (EZGas)
 
 | ID        | Description  |
 | ------------- |:-------------:| 
- 
 |  FR1      |Manage operations of registration, log in and log out|  
 |  FR2      |Every user can visualize informations of a gas station|
 |  FR3      |Every user can visualize the list of the closest gas stations|             
@@ -124,6 +123,7 @@ gm <=> (EZGas)
 |  FR14     |Registered user can delete his account|
 |  FR15     |Registered user can update its profile and settings|
 |  FR16     |Registered user can insert a gas station into a favourite list|
+
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
@@ -160,7 +160,7 @@ Registration, login, logout
 |  Precondition     | |  
 |  Post condition     | |
 |  Nominal Scenario     | |
-|  Variants     |in case of registration or login errors issue a warning |
+|  Variants     |in case of registration errors or login errors issue a warning |
 
 ##### Scenario 1.1 
 
@@ -256,7 +256,7 @@ Manage Feedback
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas station G exists, User's location < G's location + 3 km, User has not already expressed a feedback for G on that day |  
 |  Post condition     |User can no longer express a feedback for G on that day |
-|  Nominal Scenario     |The user choices a gas station in a renge of 3km around him and sent a feedback (positive/negative) about the correctness of prices. |
+|  Nominal Scenario     |The user choices a gas station in a range of 3km around him and he send a feedback (positive/negative) about the correctness of prices. |
 |  Variants     | |
 
 ##### Scenario 4.1
@@ -268,6 +268,28 @@ Manage Feedback
 | Step#        | Description  |
 |  1     | The  user choices a gas station G  |  
 |  2     | The user presses one of the feedback's buttons (up/down) |
+
+### Use case 5, UC5
+
+Manage Feedback
+
+| Actors Involved        | User |
+| ------------- |:-------------:| 
+|  Precondition     | Map M exists, Gas station G exists, User's location < G's location + 3 km |  
+|  Post condition     | |
+|  Nominal Scenario     |The user choices a gas station in a renge of 3km around him and he notify an error about gas station's informations |
+|  Variants     | |
+
+##### Scenario 5.1
+
+| Scenario 5.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |Map M exists, Gas station G exists |
+|  Post condition     | |
+| Step#        | Description  |
+|  1     | The  user choices a gas station G  |
+|  2     | The user presses a button to signal an error |
+|  3     | The user insert all the infomration required about the error|
 
 ### Use case
 ..
@@ -346,6 +368,7 @@ PriceLog "0..*" -- GasStation : for a
 FuelType "1..*" --  "0..*" GasStation : provides
 
 Account -- "0..*" ErrorLog : sends
+UnregisteredUser -- "0..*" ErrorLog : sends
 ErrorLog "0..*" -- GasStation : for a
 
 Account -- "0..*" NewStationLog : sends
