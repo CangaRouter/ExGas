@@ -39,6 +39,12 @@ Version:
 				- [Scenario 4.1](#scenario-41)
 		- [Use case 5, UC5](#use-case-5-uc5)
 				- [Scenario 5.1](#scenario-51)
+		- [Use case 6, UC6](#use-case-6-uc6)
+		- [Use case 7, UC7](#use-case-7-uc7)
+		- [Use case 8, UC8](#use-case-8-uc8)
+		- [Use case 9, UC9](#use-case-9-uc9)
+		- [Use case 10, UC10](#use-case-10-uc10)
+		- [Use case 11, UC11](#use-case-11-uc11)
 - [Glossary](#glossary)
 - [System Design](#system-design)
 - [Deployment Diagram](#deployment-diagram)
@@ -48,6 +54,7 @@ Version:
 Since cars have been invented, car owners have had the need to refill the fuel tank in order to make them move. Sometimes you know where you are goning to refuels, sometimes you don't. If you're travelling a long distance it will happen that you need to find a gas station, and probably you want to find the cheapest near. Car drivers need to know the different prices and precise position of gas stations in their neighboring area or in the middle of their road. In order to do this, they use EZGas that allow to:
 
 1 - collect prices of fuels in different gas stations;
+
 2 - locate gas stations in an area.
 
 Each user can use the app also to send a feedback about reliability of informations of a specific gas station. If a user has also a registered account, he can set a new price for a specific fuel type for a certain gas station and possibly its location. By doing this, the registered user can collect point to obtain coupon. Moreover, a registered user can have a list of its favourite gas stations and receive a notifications if changes occur to those gas stations.
@@ -178,7 +185,7 @@ Registration
 
 ##### Scenario 1.2
 
-login
+Login
 
 | Scenario 1.2 | |
 | ------------- |:-------------:| 
@@ -191,7 +198,7 @@ login
 
 ##### Scenario 1.3
 
-logout
+Logout
 
 | Scenario 1.3 | |
 | ------------- |:-------------:| 
@@ -199,7 +206,7 @@ logout
 |  Post condition     | User is not logged in |
 | Step#        | Description  |
 |  1     | The user clicks to the logout button  |  
-|  3     |  He is not logged anymore|
+|  3     |  He is not logged anymore |
 
 ### Use case 2, UC2
 
@@ -233,7 +240,7 @@ Get the route
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas station G exists |  
 |  Post condition     | User's location <= G's location + 500mt |
-|  Nominal Scenario     |The user choices a gas station on the list and the GoogleMaps system gets a route for it. |
+|  Nominal Scenario     |The user chooses a gas station on the list and the GoogleMaps system gets a route for it. |
 |  Variants     | |
 
 ##### Scenario 3.1
@@ -243,7 +250,7 @@ Get the route
 |  Precondition     | User GPS should be activated|
 |  Post condition     | User's position <= G's position + 500mt |
 | Step#        | Description  |
-|  1     | The  user choices a gas station G  |  
+|  1     | The  user chooses a gas station G  |  
 |  2     | The user presses the route button |
 |  3     | User's location and G's location are sent to GoogleMaps  |
 |  4     | GoogleMaps provides a route|
@@ -257,7 +264,7 @@ Manage Feedback
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas station G exists, User's location < G's location + 3 km, User has not already expressed a feedback for G on that day |  
 |  Post condition     |User can no longer express a feedback for G on that day |
-|  Nominal Scenario     |The user choices a gas station in a range of 3km around him and he send a feedback (positive/negative) about the correctness of prices. |
+|  Nominal Scenario     |The user chooses a gas station in a range of 3km around him and he send a feedback (positive/negative) about the correctness of prices. |
 |  Variants     | |
 
 ##### Scenario 4.1
@@ -267,7 +274,7 @@ Manage Feedback
 |  Precondition     |Map M exists, Gas station G exists, User's location < G's location + 3 km, User has not already expressed a feedback for G on that day|
 |  Post condition     | User can no longer express a feedback for G on that day |
 | Step#        | Description  |
-|  1     | The  user choices a gas station G  |  
+|  1     | The  user chooses a gas station G  |  
 |  2     | The user presses one of the feedback's buttons (up/down) |
 
 ### Use case 5, UC5
@@ -278,7 +285,7 @@ Manage Feedback
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas station G exists, User's location < G's location + 3 km |  
 |  Post condition     | |
-|  Nominal Scenario     |The user choices a gas station in a renge of 3km around him and he notify an error about gas station's informations |
+|  Nominal Scenario     |The user chooses a gas station in a range of 3km around him and he notify an error about gas station's informations |
 |  Variants     | |
 
 ##### Scenario 5.1
@@ -290,12 +297,132 @@ Manage Feedback
 | Step#        | Description  |
 |  1     | The  user choices a gas station G  |
 |  2     | The user presses a button to signal an error |
-|  3     | The user insert all the infomration required about the error|
+|  3     | The user inserts all the information required about the error|
 
-### Use case
-..
+### Use case 6, UC6
 
+Insert/modify a fuel type price for a gas station
 
+| Actors Involved        | Registered User |
+| ------------- |:-------------:| 
+|  Precondition     | Log-in successful, User's location < G's location + 3 km |  
+|  Post condition     | Gas station updated |
+|  Nominal Scenario     |The registered user chooses a gas station in a range of 3km around him and inserts a fuel type price |
+|  Variants     | Error message if log-in fails |
+
+| Scenario 6.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |User has an account, Gas station G exists |
+|  Post condition     | Data recorded |
+| Step#        | Description  |
+|  1     | The  user choices a gas station G  |
+|  2     | The user presses a button to insert/modify a fuel type price |
+|  3     | The user inserts all the informations needed |
+|  4	 | New information are now available to every other user |
+|  5	 | The registered user receives an amount of points base on rule in NFR10 | 
+
+### Use case 7, UC7
+
+Add a new gas station
+
+| Actors Involved        | Registered User |
+| ------------- |:-------------:| 
+|  Precondition     | Log-in successful, User's location < Selected location + 500 m |  
+|  Post condition     | Gas station inserted |
+|  Nominal Scenario     | The registered user inserts a new gas station with as many information as possible, providing also a photo |
+|  Variants     | Error message if log-in fails |
+
+| Scenario 7.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |User has an account|
+|  Post condition     | Data recorded |
+| Step#        | Description  |
+|  1     | The  user selects a point in the map where there should be a gas station  |
+|  2     | The user presses a button to insert the gas station |
+|  3     | The user inserts all the information needed, together with a photo |
+|  4	 | New gas station now appears in the map to every other user |
+|  5	 | Once existence of the gas station will be correctly verified, the user will receive 50 points |
+
+### Use case 8, UC8
+
+Signal a gas station closure
+
+| Actors Involved        | Registered User |
+| ------------- |:-------------:| 
+|  Precondition     | Log-in successful & User's location < G' location + 500 m |  
+|  Post condition     | Gas station signaled as closed |
+|  Nominal Scenario     | The registered user signals a gas station closure, providing also a photo |
+|  Variants     | Error message if log-in fails |
+
+| Scenario 8.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |User has an account|
+|  Post condition     | |
+| Step#        | Description  |
+|  1     | The  user selects a gas station in the map |
+|  2     | The user presses a button to signal the closure of the gas station |
+|  3     | The user provides also a photo |
+|  4	 | If correctly verified, the gas station disappears from the map and the user receives 50 points |
+
+### Use case 9, UC9
+
+Delete an account
+
+| Actors Involved        | Registered User |
+| ------------- |:-------------:| 
+|  Precondition     | Log-in successful |  
+|  Post condition     | Account deleted |
+|  Nominal Scenario     | The user selects delete option |
+|  Variants     | Error message if log-in fails |
+
+| Scenario 9.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |User has an account|
+|  Post condition     | |
+| Step#        | Description  |
+|  1     | The  user selects setting and option |
+|  2     | The user presses a button to delete his account |
+|  3     | The user will no longer be able to log with the deleted profile |
+
+### Use case 10, UC10
+
+Update profile
+
+| Actors Involved        | Registered User |
+| ------------- |:-------------:| 
+|  Precondition     | Log-in successful |  
+|  Post condition     | Profile updated |
+|  Nominal Scenario     | The user can modify different information like username, password, email, telephone number, date of birth |
+|  Variants     | Error message if log-in fails |
+
+| Scenario 10.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |User has an account|
+|  Post condition     | |
+| Step#        | Description  |
+|  1     | The  user selects setting and option |
+|  2     | The user presses a button to modify his profile information |
+|  3     | Information updated |
+
+### Use case 11, UC11
+
+Insert gas station in the favourite list
+
+| Actors Involved        | Registered User |
+| ------------- |:-------------:| 
+|  Precondition     | Log-in successful |  
+|  Post condition     | Gas station appears in the favourite list |
+|  Nominal Scenario     | The user selects a gas station and press the option 'add to favourite' |
+|  Variants     | Error message if log-in fails |
+
+| Scenario 11.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |User has an account, Gas station G exists |
+|  Post condition     | List updated |
+| Step#        | Description  |
+|  1     | The  user selects a gas station from the map |
+|  2     | The user presses a button to insert the gas station in the list of the favourite ones |
+|  3     | The gas station will appear in the list |
 
 # Glossary
 ```plantuml
