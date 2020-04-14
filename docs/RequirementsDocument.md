@@ -72,29 +72,29 @@ Version:
 
 | ID        | Description  |
 | ------------- |:-------------:| 
-|  FR6     |Registered user can insert a fuel type price for a gas station   |
-|  FR7	  |Registered user can signal a price error|
-|  FR8     |Registered user can signal a location error|
-|  FR9     |Registered user can add a new gas station|
-|  FR10     |Registered user can signal a gas station closure|
-|  FR11    |Registered user can see the points he collected and their equivalent money value in his wallet|
-|  FR12     |Registered user can print the coupon|
-|  FR13   |Registered user can delete his account|
-|  FR14    |Registered user can update its profile and settings|
-|  FR15   |Registered user can insert a gas station into a favourite list|
+|  FR7     |Registered user can insert a fuel type price for a gas station   |
+|  FR8	  |Registered user can signal a price error|
+|  FR9     |Registered user can signal a location error|
+|  FR10     |Registered user can add a new gas station|
+|  FR11     |Registered user can signal a gas station closure|
+|  FR12    |Registered user can see the points he collected and their equivalent money value in his wallet|
+|  FR13     |Registered user can print the coupon|
+|  FR14   |Registered user can delete his account|
+|  FR15    |Registered user can update its profile and settings|
+|  FR16   |Registered user can insert a gas station into a favourite list|
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
 
 | ID        | Type (efficiency, reliability, ..)           | Description  | Refers to |
 | ------------- |:-------------:| :-----:| -----:|
-|  NFR6   | Localisation |Prices are expressed in EUR  |FR6, FR7, FR11, FR12 |
-|  NFR7    | Usability | Send a notification to registered user when one of his favourites gas stations' price is updated |FR9, FR15 |
-|  NFR8     | Usability | When a registered user insert a new gas station or notify a closure, it's necessary to attach a photo of the gas station and check if his location is around 500m|FR9, FR10|
-|  NFR9	   | Localisation | Points are integer values |FR6, FR11|
-|  NFR10     | Usability |Registered user receives points when he insert a new price. Points are computing according to this time parameter:  p= (timestamp_lastupdate-timestamp_now). The older the last update , the higher the number of points (p=24h -> 10 points; p=48h->15 points; ...) |FR6, FR11|
-|  NFR11     | Usability |Registered user receives 50 points when the insert or the signal of closure of a gas station is correctly verified. |FR6, FR11|
-| NFR12 | Usability | 100 points = 1 EUR | FR11, FR12|
+|  NFR6   | Localisation |Prices are expressed in EUR  |FR7, FR8, FR12, FR13 |
+|  NFR7    | Usability | Send a notification to registered user when one of his favourites gas stations' price is updated |FR10, FR16 |
+|  NFR8     | Usability | When a registered user insert a new gas station or notify a closure, it's necessary to attach a photo of the gas station and check if his location is around 500m|FR10, FR11|
+|  NFR9	   | Localisation | Points are integer values |FR7, FR12|
+|  NFR10     | Usability |Registered user receives points when he insert a new price. Points are computing according to this time parameter:  p= (timestamp_lastupdate-timestamp_now). The older the last update , the higher the number of points (p=24h -> 10 points; p=48h->15 points; ...) |FR7, FR12|
+|  NFR11     | Usability |Registered user receives 50 points when the insert or the signal of closure of a gas station is correctly verified. |FR7, FR12|
+| NFR12 | Usability | 100 points = 1 EUR | FR12, FR13|
 
 
 # Use case diagram and use cases
@@ -129,6 +129,7 @@ Registration
 |  3     |  He has an account |
 
 ##### Scenario 1.2
+
 login
 
 | Scenario 1.2 | |
