@@ -229,11 +229,91 @@ Manage Feedback
 
 
 # Glossary
+```plantuml
+@startuml
+Class EZGas{}
+Class GoogleMaps{}
+note top of GoogleMaps : "System that provides\n maps to EZGas"
+Class UnregisteredUser{
+ID
+GPS Location
+}
+note top of UnregisteredUser : "User that uses the application\n without an account"
+Class RegisteredUser{
+Fiscal Code
+Name
+Surname
+Date of birth
+Email
+Telephone Number
+}
+note top of RegisteredUser : "User that uses the application\n with an account"
+Class Account{
+Username
+Password
+OverallPoints
+}
 
-\<use UML class diagram to define important concepts in the domain of the system, and their relationships> 
+Class GasStation{
+ID
+Location
+}
+note top of GasStation : "Place where car drivers\n can refuel their car"
+Class FuelType{
+Name
+}
+note top of FuelType : "i.e. GPL, Diesel ,..."
 
-\<concepts are used consistently all over the document, ex in use cases, requirements etc>
+Class PriceLog{
+Amount
+Date
+Points
+}
+note top of PriceLog : "It is the price specification\n for a specific fuel type\n for a certain gas station"
 
+Class PriceFeedback{
+value
+date
+}
+note top of PriceFeedback : "It is a feedback about\n a PriceLog correctness"
+
+Class ErrorLog{
+Type
+Date
+Points
+}
+note left of ErrorLog : "It is a feedback about correctness\n of the information of a gas station\n (location error, closure,...).\n It gives points to user."
+
+Class NewStationLog{
+Date
+Points
+}
+note top of NewStationLog : "It contains the information\n about the new gas station \nsignaled by the user.\n It gives points to user"
+EZGas -- GoogleMaps
+EZGas -- "*" UnregisteredUser : uses
+EZGas -- "*" GasStation : recorded into
+UnregisteredUser <|-- RegisteredUser
+RegisteredUser -- Account : has
+Account -- "0..*" PriceLog : records
+PriceLog "0..*" -- FuelType : for a
+PriceLog "0..*" -- GasStation : for a
+FuelType "1..*" --  "0..*" GasStation : provides
+
+Account -- "0..*" ErrorLog : sends
+ErrorLog "0..*" -- GasStation : for a
+
+Account -- "0..*" NewStationLog : sends
+NewStationLog "0..1" -- GasStation : for a
+
+UnregisteredUser --  PriceFeedback : sends
+PriceFeedback "0..*"-- PriceLog : for a
+
+
+
+
+
+@enduml
+```
 # System Design
 \<describe here system design>
 
