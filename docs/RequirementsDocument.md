@@ -109,6 +109,7 @@ Version:
 \<next describe here each use case in the UCD>
 ### Use case 1, UC1
 Registration, login, logout
+
 | Actors Involved        | Registered user |
 | ------------- |:-------------:| 
 |  Precondition     | \<Boolean expression, must evaluate to true before the UC can start> |  
@@ -126,6 +127,7 @@ Registration, login, logout
 
 \<only relevant scenarios should be described>
 Registration
+
 | Scenario 1.1 | |
 | ------------- |:-------------:| 
 |  Precondition     | Account does not exist |
@@ -137,6 +139,7 @@ Registration
 
 ##### Scenario 1.2
 login
+
 | Scenario 1.2 | |
 | ------------- |:-------------:| 
 |  Precondition     | User is not logged in|
@@ -147,6 +150,7 @@ login
 |  3     |  He is logged |
 
 ##### Scenario 1.3
+
 logout
 | Scenario 1.3 | |
 | ------------- |:-------------:| 
@@ -157,7 +161,9 @@ logout
 |  3     |  He is not logged anymore|
 
 ### Use case 2, UC2
+
 Visualize the list of gas stations
+
 | Actors Involved        | User, Google Maps |
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas stations' positions <= User position + 10 km |  
@@ -166,6 +172,7 @@ Visualize the list of gas stations
 |  Variants     | |
 
 ##### Scenario 2.1
+
 | Scenario 2.1 | |
 | ------------- |:-------------:| 
 |  Precondition     | User GPS should be activated|
@@ -178,7 +185,9 @@ Visualize the list of gas stations
 |  5     | The cheapest and the most expensive gas stations are highlighted|
 
 ### Use case 3, UC3
+
 Get the route 
+
 | Actors Involved        | User, Google Maps |
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas station G exists |  
@@ -187,6 +196,7 @@ Get the route
 |  Variants     | |
 
 ##### Scenario 3.1
+
 | Scenario 3.1 | |
 | ------------- |:-------------:| 
 |  Precondition     | User GPS should be activated|
@@ -199,7 +209,9 @@ Get the route
 |  5     | User follows this route and he reaches the gas station G|
 
 ### Use case 4, UC4
+
 Manage Feedback
+
 | Actors Involved        | User |
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas station G exists, User's location < G's location + 3 km, User has not already expressed a feedback for G on that day |  
@@ -208,6 +220,7 @@ Manage Feedback
 |  Variants     | |
 
 ##### Scenario 4.1
+
 | Scenario 4.1 | |
 | ------------- |:-------------:| 
 |  Precondition     |Map M exists, Gas station G exists, User's location < G's location + 3 km, User has not already expressed a feedback for G on that day|
