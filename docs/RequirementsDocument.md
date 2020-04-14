@@ -108,12 +108,13 @@ Version:
 
 \<next describe here each use case in the UCD>
 ### Use case 1, UC1
-| Actors Involved        |  |
+Registration, login, logout
+| Actors Involved        | Registered user |
 | ------------- |:-------------:| 
 |  Precondition     | \<Boolean expression, must evaluate to true before the UC can start> |  
 |  Post condition     | \<Boolean expression, must evaluate to true after UC is finished> |
 |  Nominal Scenario     | \<Textual description of actions executed by the UC> |
-|  Variants     | \<other executions, ex in case of errors> |
+|  Variants     |in case of registration or login errors issue a warning |
 
 ##### Scenario 1.1 
 
@@ -124,20 +125,96 @@ Version:
 \<a scenario is a more formal description of a story>
 
 \<only relevant scenarios should be described>
-
+Registration
 | Scenario 1.1 | |
 | ------------- |:-------------:| 
-|  Precondition     | \<Boolean expression, must evaluate to true before the scenario can start> |
-|  Post condition     | \<Boolean expression, must evaluate to true after scenario is finished> |
+|  Precondition     | Account does not exist |
+|  Post condition     | Account exists |
 | Step#        | Description  |
-|  1     |  |  
-|  2     |  |
-|  ...     |  |
+|  1     | The user clicks to the registration button  |  
+|  2     | He fills a form with all required informations |
+|  3     |  He has an account |
 
 ##### Scenario 1.2
+login
+| Scenario 1.2 | |
+| ------------- |:-------------:| 
+|  Precondition     | User is not logged in|
+|  Post condition     | User is logged in |
+| Step#        | Description  |
+|  1     | The  user clicks to the login button  |  
+|  2     | He inserts username and password |
+|  3     |  He is logged |
+
+##### Scenario 1.3
+logout
+| Scenario 1.3 | |
+| ------------- |:-------------:| 
+|  Precondition     | User logged in|
+|  Post condition     | User is not logged in |
+| Step#        | Description  |
+|  1     | The user clicks to the logout button  |  
+|  3     |  He is not logged anymore|
 
 ### Use case 2, UC2
-..
+Visualize the list of gas stations
+| Actors Involved        | User, Google Maps |
+| ------------- |:-------------:| 
+|  Precondition     | Map M exists, Gas stations' positions <= User position + 10 km |  
+|  Post condition     |  |
+|  Nominal Scenario     |The user opens the app, the map is retrieved by the map system and the gas stations (with their prices) are list on the map. |
+|  Variants     | |
+
+##### Scenario 2.1
+| Scenario 2.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | User GPS should be activated|
+|  Post condition     | All the gas stations are in a range of 10 km around the user position |
+| Step#        | Description  |
+|  1     | The  user opens the app  |  
+|  2     | The GPS signal is captured |
+|  3     | The map is retrieved by GoogleMaps |
+|  4     | The gas stations are selected and listed with their prices on the map|
+|  5     | The cheapest and the most expensive gas stations are highlighted|
+
+### Use case 3, UC3
+Get the route 
+| Actors Involved        | User, Google Maps |
+| ------------- |:-------------:| 
+|  Precondition     | Map M exists, Gas station G exists |  
+|  Post condition     | User's location <= G's location + 500mt |
+|  Nominal Scenario     |The user choices a gas station on the list and the GoogleMaps system gets a route for it. |
+|  Variants     | |
+
+##### Scenario 3.1
+| Scenario 3.1 | |
+| ------------- |:-------------:| 
+|  Precondition     | User GPS should be activated|
+|  Post condition     | User's position <= G's position + 500mt |
+| Step#        | Description  |
+|  1     | The  user choices a gas station G  |  
+|  2     | The user presses the route button |
+|  3     | User's location and G's location are sent to GoogleMaps  |
+|  4     | GoogleMaps provides a route|
+|  5     | User follows this route and he reaches the gas station G|
+
+### Use case 4, UC4
+Manage Feedback
+| Actors Involved        | User |
+| ------------- |:-------------:| 
+|  Precondition     | Map M exists, Gas station G exists, User's location < G's location + 3 km, User has not already expressed a feedback for G on that day |  
+|  Post condition     |User can no longer express a feedback for G on that day |
+|  Nominal Scenario     |The user choices a gas station in a renge of 3km around him and sent a feedback (positive/negative) about the correctness of prices. |
+|  Variants     | |
+
+##### Scenario 4.1
+| Scenario 4.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |Map M exists, Gas station G exists, User's location < G's location + 3 km, User has not already expressed a feedback for G on that day|
+|  Post condition     | User can no longer express a feedback for G on that day |
+| Step#        | Description  |
+|  1     | The  user choices a gas station G  |  
+|  2     | The user presses one of the feedback's buttons (up/down) |
 
 ### Use case
 ..
