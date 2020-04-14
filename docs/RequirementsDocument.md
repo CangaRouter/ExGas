@@ -112,20 +112,13 @@ Registration, login, logout
 
 | Actors Involved        | Registered user |
 | ------------- |:-------------:| 
-|  Precondition     | \<Boolean expression, must evaluate to true before the UC can start> |  
-|  Post condition     | \<Boolean expression, must evaluate to true after UC is finished> |
-|  Nominal Scenario     | \<Textual description of actions executed by the UC> |
+|  Precondition     | |  
+|  Post condition     | |
+|  Nominal Scenario     | |
 |  Variants     |in case of registration or login errors issue a warning |
 
 ##### Scenario 1.1 
 
-\<describe here scenarios instances of UC1>
-
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
-
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
 Registration
 
 | Scenario 1.1 | |
@@ -152,6 +145,7 @@ login
 ##### Scenario 1.3
 
 logout
+
 | Scenario 1.3 | |
 | ------------- |:-------------:| 
 |  Precondition     | User logged in|
