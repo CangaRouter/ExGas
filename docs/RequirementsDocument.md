@@ -245,9 +245,9 @@ Visualize the list of gas stations
 | Actors Involved        | User, Google Maps |
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists |  
-|  Post condition     | , Gas stations' positions are in a specific area |
+|  Post condition     |  Gas stations' positions are in a specific area |
 |  Nominal Scenario     |The user opens the app, the map is retrieved by the map system and the gas stations (with their prices) are list on the map. |
-|  Variants     | The area is retrieved automatically based on user's GPS location or it can be defined by the user  |
+|  Variants     | The area can be retrieved automatically (based on user's GPS location) or it can be defined by the user  |
 
 ##### Scenario 2.1
 
