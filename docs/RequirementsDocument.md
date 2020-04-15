@@ -40,11 +40,17 @@ Version:
 		- [Use case 5, UC5](#use-case-5-uc5)
 				- [Scenario 5.1](#scenario-51)
 		- [Use case 6, UC6](#use-case-6-uc6)
+			- [Scenario 6.1](#scenario-61)
 		- [Use case 7, UC7](#use-case-7-uc7)
+			- [Scenario 7.1](#scenario-71)
 		- [Use case 8, UC8](#use-case-8-uc8)
+			- [Scenario 8.1](#scenario-81)
 		- [Use case 9, UC9](#use-case-9-uc9)
+			- [Scenario 9.1](#scenario-91)
 		- [Use case 10, UC10](#use-case-10-uc10)
+			- [Scenario 10.1](#scenario-101)
 		- [Use case 11, UC11](#use-case-11-uc11)
+			- [Scenario 11.1](#scenario-111)
 - [Glossary](#glossary)
 - [System Design](#system-design)
 - [Deployment Diagram](#deployment-diagram)
@@ -99,10 +105,17 @@ gm <=> (EZGas)
 
 \<stories will be formalized later as use cases>
 
+Tom is a bank worker who has been transferred in a office pretty far from his house. The bank has not provided Tom with a company car, so he must use his own vehicle. He would like to know what are the gas station in the middle of the road between his house and the bank and what are the ones with the lowest price. He also would like to communicate these informations to his colleagues and friends, in an efficient way. He discovers a new app, EZGas, where he can find gas stations located around his position and check their price. He can also leave a positive/negative feedback about the gas station. Moreover, he decides to register an account. By doing so, he can also signal errors about information of a gas station, insert fuel type price, insert a new gas station or signal a closure. In this way he obtains pointS that can be converted in coupon.  
+
+Jess is a car driver that wants only saving her money for fuel. She would have a system to choose the cheapest gas station in the area where she is, but she is not interested in supporting this system. Therefore, she has not an account and she cannot update prices or notify the presence of a new gas station.
 
 # Functional and non functional requirements
 
 ## Functional Requirements
+
+<In the form DO SOMETHING, or VERB NOUN, describe high level capabilities of the system>
+
+<will match to high level use cases>
 
 | ID        | Description  |
 | ------------- |:-------------:| 
@@ -125,6 +138,7 @@ gm <=> (EZGas)
 
 ## Non Functional Requirements
 
+<Describe constraints on functional requirements>
 
 | ID        | Type (efficiency, reliability, ..)           | Description  | Refers to |
 | ------------- |:-------------:| :-----:| -----:|
@@ -148,6 +162,31 @@ gm <=> (EZGas)
 ## Use case diagram
 \<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
 
+```plantuml
+left to right direction
+actor "Registered user" as ru
+actor "Unregistered user" as uu
+actor GoogleMaps as gm
+uu -- (FR3 Visualize the closest gas stations)
+uu -- (FR4 Visualize the cheapest gas stations)
+(FR3 Visualize the closest gas stations) --> (FR2 Visualize gas station info)
+(FR4 Visualize the cheapest gas stations) --> (FR2 Visualize gas station info)
+(FR2 Visualize gas station info) --> (mp)
+uu -- (FR6 Send a feedback)
+ru --> uu
+ru -- (FR7 Insert a fuel type price)
+ru -- (FR8 Signal a price error)
+ru -- (FR9 Signal a location error)
+ru -- (FR10 Add a gas station)
+ru -- (FR11 Signal a gas station closure)
+ru -- (FR12 See the points collected)
+(FR12 See the points collected) --> (FR13 Print a coupon)
+ru -- (FR14 Delete account)
+ru -- (FR15 Update profile)
+ru -- (FR16 Insert a gas station into a favourite list)
+(FR10 Add a gas station) --> (mp)
+(FR11 Signal a gas station closure) --> (mp)
+```
 
 \<next describe here each use case in the UCD>
 ### Use case 1, UC1
@@ -300,6 +339,8 @@ Insert/modify a fuel type price for a gas station
 |  Nominal Scenario     |The registered user chooses a gas station in a range of 3km around him and inserts a fuel type price |
 |  Variants     | Error message if log-in fails |
 
+#### Scenario 6.1
+
 | Scenario 6.1 | |
 | ------------- |:-------------:| 
 |  Precondition     |User has an account, Gas station G exists |
@@ -321,6 +362,8 @@ Add a new gas station
 |  Post condition     | Gas station inserted |
 |  Nominal Scenario     | The registered user inserts a new gas station with as many information as possible, providing also a photo |
 |  Variants     | Error message if log-in fails |
+
+#### Scenario 7.1
 
 | Scenario 7.1 | |
 | ------------- |:-------------:| 
@@ -344,6 +387,8 @@ Signal a gas station closure
 |  Nominal Scenario     | The registered user signals a gas station closure, providing also a photo |
 |  Variants     | Error message if log-in fails |
 
+#### Scenario 8.1
+
 | Scenario 8.1 | |
 | ------------- |:-------------:| 
 |  Precondition     |User has an account|
@@ -365,6 +410,8 @@ Delete an account
 |  Nominal Scenario     | The user selects delete option |
 |  Variants     | Error message if log-in fails |
 
+#### Scenario 9.1
+
 | Scenario 9.1 | |
 | ------------- |:-------------:| 
 |  Precondition     |User has an account|
@@ -385,6 +432,8 @@ Update profile
 |  Nominal Scenario     | The user can modify different information like username, password, email, telephone number, date of birth |
 |  Variants     | Error message if log-in fails |
 
+#### Scenario 10.1
+
 | Scenario 10.1 | |
 | ------------- |:-------------:| 
 |  Precondition     |User has an account|
@@ -404,6 +453,8 @@ Insert gas station in the favourite list
 |  Post condition     | Gas station appears in the favourite list |
 |  Nominal Scenario     | The user selects a gas station and press the option 'add to favourite' |
 |  Variants     | Error message if log-in fails |
+
+#### Scenario 11.1
 
 | Scenario 11.1 | |
 | ------------- |:-------------:| 
