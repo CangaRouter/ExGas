@@ -554,10 +554,10 @@ PriceFeedback "0..*"-- PriceLog : for a
 @startuml
 Class EZGas 
 Class Database 
-Class WebServer 
+ 
 Class ApplicationServer
 EZGas *-- Database
-EZGas *-- WebServer
+
 EZGas *-- ApplicationServer
 @enduml
 ```
@@ -569,7 +569,6 @@ EZGas *-- ApplicationServer
 node "Application Server" as as{
 artifact "EZGas"
 }
-node "Web Server" as w
 node "Smartphone/PC client" as sc{
 artifact "EZGas Client"
 }
@@ -577,7 +576,6 @@ node "Map System" as m
 node "Database" as d
 d--as : internet
 m--as : internet
-w --as : internet
-w -- "*" sc : internet
+as -- "*" sc : internet
 @enduml
 ```
