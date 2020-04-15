@@ -33,6 +33,7 @@ Version:
 				- [Scenario 1.3](#scenario-13)
 		- [Use case 2, UC2](#use-case-2-uc2)
 				- [Scenario 2.1](#scenario-21)
+				- [Scenario 2.2](#scenario-22)
 		- [Use case 3, UC3](#use-case-3-uc3)
 				- [Scenario 3.1](#scenario-31)
 		- [Use case 4, UC4](#use-case-4-uc4)
@@ -243,12 +244,14 @@ Visualize the list of gas stations
 
 | Actors Involved        | User, Google Maps |
 | ------------- |:-------------:| 
-|  Precondition     | Map M exists, Gas stations' positions <= User position + 10 km |  
-|  Post condition     |  |
+|  Precondition     | Map M exists |  
+|  Post condition     | , Gas stations' positions are in a specific area |
 |  Nominal Scenario     |The user opens the app, the map is retrieved by the map system and the gas stations (with their prices) are list on the map. |
-|  Variants     | |
+|  Variants     | The area is retrieved automatically based on user's GPS location or it can be defined by the user  |
 
 ##### Scenario 2.1
+
+Visualize the list of gas stations around user's GPS location
 
 | Scenario 2.1 | |
 | ------------- |:-------------:| 
@@ -258,6 +261,21 @@ Visualize the list of gas stations
 |  1     | The  user opens the app  |  
 |  2     | The GPS signal is captured |
 |  3     | The map is retrieved by GoogleMaps |
+|  4     | The gas stations are selected and listed with their prices on the map|
+|  5     | The cheapest and the most expensive gas stations are highlighted|
+
+##### Scenario 2.2
+
+Visualize the list of gas stations in a user-defined area
+
+| Scenario 2.2 | |
+| ------------- |:-------------:| 
+|  Precondition     | User GPS should be activated|
+|  Post condition     | All the gas stations are in a range defined by user |
+| Step#        | Description  |
+|  1     | The  user opens the app  |  
+|  2     | The map is retrieved by GoogleMaps |
+|  3     | The user defines an area of the map he is interested in |
 |  4     | The gas stations are selected and listed with their prices on the map|
 |  5     | The cheapest and the most expensive gas stations are highlighted|
 
