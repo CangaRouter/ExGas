@@ -73,9 +73,7 @@ Each user can use the app also to send a feedback about reliability of informati
 # Context Diagram and interfaces
 
 ## Context Diagram
-\<Define here Context diagram using UML use case diagram>
 
-\<actors are a subset of stakeholders>
 
 ```plantuml
 left to right direction
@@ -88,9 +86,6 @@ gm <=> (EZGas)
 ```
 
 ## Interfaces
-\<describe here each interface in the context diagram>
-
-\<GUIs will be described graphically in a separate document>
 
 | Actor | Logical Interface | Physical Interface  |
 | ------------- |:-------------:| -----:|
@@ -108,10 +103,6 @@ gm <=> (EZGas)
 # Functional and non functional requirements
 
 ## Functional Requirements
-
-\<In the form DO SOMETHING, or VERB NOUN, describe high level capabilities of the system>
-
-\<will match to high level use cases>
 
 | ID        | Description  |
 | ------------- |:-------------:| 
@@ -134,7 +125,6 @@ gm <=> (EZGas)
 
 ## Non Functional Requirements
 
-\<Describe constraints on functional requirements>
 
 | ID        | Type (efficiency, reliability, ..)           | Description  | Refers to |
 | ------------- |:-------------:| :-----:| -----:|
@@ -504,18 +494,39 @@ NewStationLog "0..1" -- GasStation : for a
 
 UnregisteredUser --  PriceFeedback : sends
 PriceFeedback "0..*"-- PriceLog : for a
-
-
-
-
-
 @enduml
 ```
 # System Design
-\<describe here system design>
 
-\<must be consistent with Context diagram>
+
+```plantuml
+@startuml
+Class EZGas 
+Class Database 
+Class WebServer 
+Class ApplicationServer
+EZGas *-- Database
+EZGas *-- WebServer
+EZGas *-- ApplicationServer
+@enduml
+```
 
 # Deployment Diagram 
 
-\<describe here deployment diagram >
+```plantuml
+@startuml
+node "Application Server" as as{
+artifact "EZGas"
+}
+node "Web Server" as w
+node "Smartphone/PC client" as sc{
+artifact "EZGas Client"
+}
+node "Map System" as m
+node "Database" as d
+d--as : internet
+m--as : internet
+w --as : internet
+w -- "*" sc : internet
+@enduml
+```
