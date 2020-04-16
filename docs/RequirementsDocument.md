@@ -539,6 +539,8 @@ OverallPoints
 
 Class GasStation{
 ID
+Brand
+Name
 Location
 }
 note top of GasStation : "Place where car drivers\n can refuel their car"
@@ -552,7 +554,7 @@ Amount
 Date
 Points
 }
-note top of PriceLog : "It is the price specification\n for a specific fuel type\n for a certain gas station"
+note bottom of PriceLog : "It is the price specification\n for a specific fuel type\n for a certain gas station"
 
 Class PriceFeedback{
 value
@@ -560,9 +562,15 @@ date
 }
 note top of PriceFeedback : "It is a feedback about\n a PriceLog correctness"
 
+
+Class RegisteredPriceFeedback{
+points
+}
+note top of RegisteredPriceFeedback : "It gives points to the registered user"
 Class ErrorLog{
 Type
 Date
+Value
 Photo
 }
 note top of ErrorLog : "It is a feedback about correctness\n of the information of a gas station\n (location error, closure,...).\n (the attribute "photo" is optional)"
@@ -575,7 +583,7 @@ Date
 Photo
 Points
 }
-note bottom of NewStationLog : "It contains the information\n about the new gas station \nsignaled by the user.\n It gives points to user"
+note top of NewStationLog : "It contains the information\n about the new gas station \nsignaled by the user.\n It gives points to user"
 EZGas -- GoogleMaps
 EZGas -- "*" UnregisteredUser : uses
 EZGas -- "*" GasStation : recorded into
@@ -595,6 +603,12 @@ NewStationLog "0..1" -- GasStation : for a
 NewStationLog o-- "*" PriceLog
 UnregisteredUser --  PriceFeedback : sends
 PriceFeedback "0..*"-- PriceLog : for a
+PriceFeedback <|-- RegisteredPriceFeedback
+
+Account --  RegisteredPriceFeedback : sends
+
+
+RegisteredPriceFeedback "0..*"-- PriceLog : for a
 @enduml
 ```
 # System Design
