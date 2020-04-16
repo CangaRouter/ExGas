@@ -1,8 +1,9 @@
 # Requirements Document 
 
-Authors:
+Authors:<br />
+Barco Luca<br />Di Vincenzo Alessandro<br />Pappalardo Marco Giulio Lorenzo<br />Petruzzi Rocco Luigi<br />
 
-Date:
+Date:<br />16/04/2020
 
 Version:
 
@@ -62,8 +63,7 @@ Version:
 
 Since cars have been invented, car owners have had the need to refill the fuel tank in order to make them move. Sometimes you know where you are goning to refuels, sometimes you don't. If you're travelling a long distance it will happen that you need to find a gas station, and probably you want to find the cheapest near. Car drivers need to know the different prices and precise position of gas stations in their neighboring area or in the middle of their road. In order to do this, they use EZGas that allow to:
 
-1 - collect prices of fuels in different gas stations;
-
+1 - collect prices of fuels in different gas stations;<br />
 2 - locate gas stations in an area.
 
 Each user can use the app also to send a feedback about reliability of information of a specific gas station. If a user has also a registered account, he can set a new price for a specific fuel type for a certain gas station and possibly its location. By doing this, the registered user can collect point to obtain coupon. Moreover, a registered user can have a list of its favourite gas stations and receive a notifications if changes occur to those gas stations.
@@ -74,8 +74,8 @@ Each user can use the app also to send a feedback about reliability of informati
 
 | Stakeholder name  | Description | 
 | ----------------- |:-----------:|
-| Unregistered User	|Can find a gas station based on its location or prices. Can also send a feedback about correctness of gas station data| 
-| Registered User 	| Can insert/delete gas station and insert/modify fuel price. By doing this, it collects points to obtain coupon| 
+| Unregistered User	|Can find a gas station based on its location or prices; can send a feedback about correctness of gas station data; can signal a gas station closure| 
+| Registered User 	| Can insert a gas station and insert/modify fuel price. By doing this, it collects points to obtain coupon| 
 | GoogleMaps	    |External service used to map user and gas stations|
 
 
@@ -108,9 +108,9 @@ gm <=> (EZGas)
 
 \<stories will be formalized later as use cases>
 
-Tom is a bank worker who has been transferred in a office pretty far from his house. The bank has not provided Tom with a company car, so he must use his own vehicle. He would like to know what are the gas station in the middle of the road between his house and the bank and what are the ones with the lowest price. He also would like to communicate this information to his colleagues and friends, in an efficient way. He discovers a new app, EZGas, where he can find gas stations located around his position and check their price. He can also leave a positive/negative feedback about the gas station. Moreover, he decides to register an account. By doing so, he can also signal errors about information of a gas station, insert fuel type price, insert a new gas station or signal a closure. In this way he obtains pointS that can be converted in coupon.  
+Tom is a bank worker who has been transferred in a office pretty far from his house. The bank has not provided Tom with a company car, so he must use his own vehicle. He would like to know what are the gas station in the middle of the road between his house and the bank and what are the ones with the lowest price. He also would like to communicate this information to his colleagues and friends, in an efficient way. He discovers a new app, EZGas, where he can find gas stations located around his position and check their price. He can also leave a positive/negative feedback about the gas station. Moreover, he decides to register an account. By doing so, he can also insert fuel type price or insert a new gas station. In this way he obtains points that can be converted in coupon.  
 
-Jess is a car driver that wants only saving her money for fuel. She would have a system to choose the cheapest gas station in the area where she is, but she is not interested in supporting this system. Therefore, she has not an account and she cannot update prices or notify the presence of a new gas station.
+Jess is a car driver that wants only saving her money for fuel. She would have a system to choose the cheapest gas station in the area where she is, but she is not interested in supporting this system. Therefore, she has not an account and she cannot update prices or notify the presence of a new gas station, but she can signal errors about information of a gas station or signal a closure.
 
 # Functional and non functional requirements
 
@@ -125,7 +125,7 @@ Jess is a car driver that wants only saving her money for fuel. She would have a
 |  FR1      |Manage operations of registration, log in and log out|  
 |  FR2      |Every user can visualize information of a gas station|
 |  FR3      |Every user can visualize the list of the closest gas stations|
-|  FR4     |The user can search gas stations located in an area selected by the user itself directly on the map  |             
+|  FR4     |Every user can search gas stations located in an area selected by the user itself directly on the map  |             
 |  FR5      |Every user can visualize the list of the cheapest gas stations|
 |  FR6      |Every user can get from GoogleMaps the route to the selected gas station|
 |  FR7      |Every user can send a feedback about data of a specific gas station (price, location, ...)|
@@ -138,7 +138,7 @@ Jess is a car driver that wants only saving her money for fuel. She would have a
 |  FR14     |Registered user can update its profile and settings|
 |  FR15     |Registered user can insert a gas station into a favourite list|
 |  FR16     |Send a notification to registered user when one of his favourites gas stations' price is updated |
-|  FR17     | Every user can view the list of gas stations along a specif route |
+|  FR17     | Every user can view the list of gas stations along a specific route |
 
 ## Non Functional Requirements
 
@@ -170,24 +170,27 @@ actor "Registered user" as ru
 actor "Unregistered user" as uu
 actor GoogleMaps as gm
 uu -- (FR3 Visualize the closest gas stations)
-uu -- (FR4 Visualize the cheapest gas stations)
+uu -- (FR4 Visualize the gas stations in a specific area)
+uu -- (FR5 Visualize the cheapest gas stations)
 (FR3 Visualize the closest gas stations) --> (FR2 Visualize gas station info)
-(FR4 Visualize the cheapest gas stations) --> (FR2 Visualize gas station info)
-(FR2 Visualize gas station info) --> (mp)
-uu -- (FR6 Send a feedback)
+(FR4 Visualize the gas stations in a specific area) --> (FR2 Visualize gas station info)
+(FR5 Visualize the cheapest gas stations) --> (FR2 Visualize gas station info)
+(FR2 Visualize gas station info) --> (FR6 Get from GoogleMaps the route)
+(gm) --> (FR6 Get from GoogleMaps the route)
+uu -- (FR7 Send a feedback)
+uu -- (FR10 Signal a gas station closure)
+(FR10 Signal a gas station closure) --> (gm)
+uu -- (FR17 View gas stations along a specific route)
+(gm) --> (FR17 View gas stations along a specific route)
 ru --> uu
-ru -- (FR7 Insert a fuel type price)
-ru -- (FR8 Signal a price error)
-ru -- (FR9 Signal a location error)
-ru -- (FR10 Add a gas station)
-ru -- (FR11 Signal a gas station closure)
-ru -- (FR12 See the points collected)
-(FR12 See the points collected) --> (FR13 Print a coupon)
-ru -- (FR14 Delete account)
-ru -- (FR15 Update profile)
-ru -- (FR16 Insert a gas station into a favourite list)
-(FR10 Add a gas station) --> (mp)
-(FR11 Signal a gas station closure) --> (mp)
+ru -- (FR8 Insert a fuel type price)
+ru -- (FR9 Add a gas station)
+(FR9 Add a gas station) --> (gm)
+ru -- (FR11 See the points collected)
+(FR11 See the points collected) --> (FR12 Print a coupon)
+ru -- (FR13 Delete account)
+ru -- (FR14 Update profile)
+ru -- (FR15 Insert a gas station into a favourite list)
 ```
 
 \<next describe here each use case in the UCD>
