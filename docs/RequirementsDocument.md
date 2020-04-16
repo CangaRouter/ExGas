@@ -564,16 +564,18 @@ Class ErrorLog{
 Type
 Date
 Photo
+}
+note top of ErrorLog : "It is a feedback about correctness\n of the information of a gas station\n (location error, closure,...).\n (the attribute "photo" is optional)"
+Class RegisteredErrorLog{
 Points
 }
-note left of ErrorLog : "It is a feedback about correctness\n of the information of a gas station\n (location error, closure,...).\n It gives points only to registered user.\n(the attributes "points" and "photo" are optionals)"
-
+note bottom of RegisteredErrorLog: "It gives points only to registered user"
 Class NewStationLog{
 Date
 Photo
 Points
 }
-note top of NewStationLog : "It contains the information\n about the new gas station \nsignaled by the user.\n It gives points to user"
+note bottom of NewStationLog : "It contains the information\n about the new gas station \nsignaled by the user.\n It gives points to user"
 EZGas -- GoogleMaps
 EZGas -- "*" UnregisteredUser : uses
 EZGas -- "*" GasStation : recorded into
@@ -584,13 +586,13 @@ PriceLog "0..*" -- FuelType : for a
 PriceLog "0..*" -- GasStation : for a
 FuelType "1..*" --  "0..*" GasStation : provides
 
-Account -- "0..*" ErrorLog : sends
+Account -- "0..*" RegisteredErrorLog : sends
 UnregisteredUser -- "0..*" ErrorLog : sends
 ErrorLog "0..*" -- GasStation : for a
-
+ErrorLog <|-- RegisteredErrorLog
 Account -- "0..*" NewStationLog : sends
 NewStationLog "0..1" -- GasStation : for a
-
+NewStationLog o-- "*" PriceLog
 UnregisteredUser --  PriceFeedback : sends
 PriceFeedback "0..*"-- PriceLog : for a
 @enduml
