@@ -52,6 +52,8 @@ Version:
 			- [Scenario 10.1](#scenario-101)
 		- [Use case 11, UC11](#use-case-11-uc11)
 			- [Scenario 11.1](#scenario-111)
+		- [Use case 12, UC12](#use-case-12-uc12)
+			- [Scenario 12.1](#scenario-121)
 - [Glossary](#glossary)
 - [System Design](#system-design)
 - [Deployment Diagram](#deployment-diagram)
@@ -64,7 +66,7 @@ Since cars have been invented, car owners have had the need to refill the fuel t
 
 2 - locate gas stations in an area.
 
-Each user can use the app also to send a feedback about reliability of informations of a specific gas station. If a user has also a registered account, he can set a new price for a specific fuel type for a certain gas station and possibly its location. By doing this, the registered user can collect point to obtain coupon. Moreover, a registered user can have a list of its favourite gas stations and receive a notifications if changes occur to those gas stations.
+Each user can use the app also to send a feedback about reliability of information of a specific gas station. If a user has also a registered account, he can set a new price for a specific fuel type for a certain gas station and possibly its location. By doing this, the registered user can collect point to obtain coupon. Moreover, a registered user can have a list of its favourite gas stations and receive a notifications if changes occur to those gas stations.
 
 
 # Stakeholders
@@ -106,7 +108,7 @@ gm <=> (EZGas)
 
 \<stories will be formalized later as use cases>
 
-Tom is a bank worker who has been transferred in a office pretty far from his house. The bank has not provided Tom with a company car, so he must use his own vehicle. He would like to know what are the gas station in the middle of the road between his house and the bank and what are the ones with the lowest price. He also would like to communicate these informations to his colleagues and friends, in an efficient way. He discovers a new app, EZGas, where he can find gas stations located around his position and check their price. He can also leave a positive/negative feedback about the gas station. Moreover, he decides to register an account. By doing so, he can also signal errors about information of a gas station, insert fuel type price, insert a new gas station or signal a closure. In this way he obtains pointS that can be converted in coupon.  
+Tom is a bank worker who has been transferred in a office pretty far from his house. The bank has not provided Tom with a company car, so he must use his own vehicle. He would like to know what are the gas station in the middle of the road between his house and the bank and what are the ones with the lowest price. He also would like to communicate this information to his colleagues and friends, in an efficient way. He discovers a new app, EZGas, where he can find gas stations located around his position and check their price. He can also leave a positive/negative feedback about the gas station. Moreover, he decides to register an account. By doing so, he can also signal errors about information of a gas station, insert fuel type price, insert a new gas station or signal a closure. In this way he obtains pointS that can be converted in coupon.  
 
 Jess is a car driver that wants only saving her money for fuel. She would have a system to choose the cheapest gas station in the area where she is, but she is not interested in supporting this system. Therefore, she has not an account and she cannot update prices or notify the presence of a new gas station.
 
@@ -121,21 +123,22 @@ Jess is a car driver that wants only saving her money for fuel. She would have a
 | ID        | Description  |
 | ------------- |:-------------:| 
 |  FR1      |Manage operations of registration, log in and log out|  
-|  FR2      |Every user can visualize informations of a gas station|
-|  FR3      |Every user can visualize the list of the closest gas stations|             
-|  FR4      |Every user can visualize the list of the cheapest gas stations|
-|  FR5      |Every user can get from GoogleMaps the route to the selected gas station|
-|  FR6      |Every user can send a feedback about data of a specific gas station|
-|  FR7      |Registered user can insert a fuel type price for a gas station|
-|  FR8	    |Registered user can signal a price error|
-|  FR9      |Registered user can signal a location error|
-|  FR10     |Registered user can add a new gas station|
-|  FR11     |Registered user can signal a gas station closure|
-|  FR12     |Registered user can see the points he collected and their equivalent money value in his wallet|
-|  FR13     |Registered user can print the coupon|
-|  FR14     |Registered user can delete his account|
-|  FR15     |Registered user can update its profile and settings|
-|  FR16     |Registered user can insert a gas station into a favourite list|
+|  FR2      |Every user can visualize information of a gas station|
+|  FR3      |Every user can visualize the list of the closest gas stations|
+|  FR4     |The user can search gas stations located in an area selected by the user itself directly on the map  |             
+|  FR5      |Every user can visualize the list of the cheapest gas stations|
+|  FR6      |Every user can get from GoogleMaps the route to the selected gas station|
+|  FR7      |Every user can send a feedback about data of a specific gas station (price, location, ...)|
+|  FR8      |Registered user can insert a fuel type price for a gas station|
+|  FR9     |Registered user can add a new gas station|
+|  FR10     |Every user can signal a gas station closure|
+|  FR11     |Registered user can see the points he collected and their equivalent money value in his wallet|
+|  FR12     |Registered user can print the coupon|
+|  FR13     |Registered user can delete his account|
+|  FR14     |Registered user can update its profile and settings|
+|  FR15     |Registered user can insert a gas station into a favourite list|
+|  FR16     |Send a notification to registered user when one of his favourites gas stations' price is updated |
+|  FR17     | Every user can view the list of gas stations along a specif route |
 
 ## Non Functional Requirements
 
@@ -145,16 +148,14 @@ Jess is a car driver that wants only saving her money for fuel. She would have a
 | ------------- |:-------------:| :-----:| -----:|
 |  NFR1     | Performance   | All functions should be completed in < 0.5 sec  			                                           | All FR   |
 |  NFR2     | Portability   | The application must be available on every OS 						                               | All FR   |
-|  NFR3     | Functionality | Every user can send one feedback a day for each gas station                                          | FR6      |
-|  NFR4     | Functionality | A feedback can be sent only if the user is located at most 3 km from the selected gas station        | FR6      |
-|  NFR5     | Functionality | The user can search gas stations located in an area selected by the user itself directly on the map  | FR3, FR4 |
-|  NFR6   | Localisation |Prices are expressed in EUR  | FR2, FR4, FR7, FR8, FR12, FR13 |
-|  NFR7    | Usability | Send a notification to registered user when one of his favourites gas stations' price is updated |FR10, FR16 |
-|  NFR8     | Usability | When a registered user insert a new gas station or notify a closure, it's necessary to attach a photo of the gas station and check if his location is around 500m|FR10, FR11|
-|  NFR9	   | Localisation | Points are integer values |FR7, FR12|
-|  NFR10     | Usability |Registered user receives points when he insert a new price. Points are computing according to this time parameter:  p= (timestamp_lastupdate-timestamp_now). The older the last update , the higher the number of points (p=24h -> 10 points; p=48h->15 points; ...) |FR7, FR12|
-|  NFR11     | Usability |Registered user receives 50 points when the insert or the signal of closure of a gas station is correctly verified. |FR7, FR12|
-| NFR12 | Usability | 100 points = 1 EUR | FR12, FR13|
+|  NFR3     | Functionality | Every user can send one feedback a day for each gas station                                          | FR7      |
+|  NFR4     | Functionality | A feedback can be sent only if the user is located at most 3 km from the selected gas station        | FR7      |
+|  NFR5  | Localisation |Prices are expressed in EUR, USD,GBP (according to user's location)  | FR2, FR5, FR7, FR8, FR9, FR11, FR12 |
+|  NFR6     | Usability | When an user notifies a closure  or a registered user inserts a new gas station, it's necessary to attach a photo of the gas station and check if his location is around 500m|FR9, FR10|
+|  NFR7	   | Localisation | Points are integer values |FR7, FR8, FR9, FR10, FR11|
+|  NFR8     | Usability |Registered user receives points when he insert a new price. Points are computing according to this time parameter:  p= (timestamp_lastupdate-timestamp_now). The older the last update , the higher the number of points (p=24h -> 10 points; p=48h->15 points; ...) |FR8 |
+|  NFR9     | Usability |Registered user receives 50 points when the insert of a gas station or the signal of errors about it is correctly verified. |FR7, FR9, FR10|
+| NFR10    | Usability | When a specific route is defined, the ' information of the gas stations is about those located within a range of 1 km from the route | FR17 |
 
 
 # Use case diagram and use cases
@@ -210,7 +211,7 @@ Registration
 |  Post condition     | Account exists |
 | Step#        | Description  |
 |  1     | The user clicks to the registration button  |  
-|  2     | He fills a form with all required informations |
+|  2     | He fills a form with all required information |
 |  3     |  He has an account |
 
 ##### Scenario 1.2
@@ -305,14 +306,14 @@ Get the route
 
 ### Use case 4, UC4
 
-Manage Feedback
+Manage Feedback about prices
 
 | Actors Involved        | User |
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas station G exists, User's location < G's location + 3 km, User has not already expressed a feedback for G on that day |  
 |  Post condition     |User can no longer express a feedback for G on that day |
 |  Nominal Scenario     |The user chooses a gas station in a range of 3km around him and he send a feedback (positive/negative) about the correctness of prices. |
-|  Variants     | |
+|  Variants     | If the user is a registered user, he receives points|
 
 ##### Scenario 4.1
 
@@ -323,17 +324,18 @@ Manage Feedback
 | Step#        | Description  |
 |  1     | The  user chooses a gas station G  |  
 |  2     | The user presses one of the feedback's buttons (up/down) |
+|  3     | If the user is a registered user, he receives points|
 
 ### Use case 5, UC5
 
-Manage Feedback
+Manage Feedback about gas station's information (location, ...)
 
 | Actors Involved        | User |
 | ------------- |:-------------:| 
 |  Precondition     | Map M exists, Gas station G exists, User's location < G's location + 3 km |  
 |  Post condition     | |
-|  Nominal Scenario     |The user chooses a gas station in a range of 3km around him and he notify an error about gas station's informations |
-|  Variants     | |
+|  Nominal Scenario     |The user chooses a gas station in a range of 3km around him and he notify an error about gas station's information |
+|  Variants     | If the user is a registered user, he receives points|
 
 ##### Scenario 5.1
 
@@ -345,6 +347,7 @@ Manage Feedback
 |  1     | The  user choices a gas station G  |
 |  2     | The user presses a button to signal an error |
 |  3     | The user inserts all the information required about the error|
+|  3     | If the user is a registered user, he receives points|
 
 ### Use case 6, UC6
 
@@ -366,8 +369,8 @@ Insert/modify a fuel type price for a gas station
 | Step#        | Description  |
 |  1     | The  user choices a gas station G  |
 |  2     | The user presses a button to insert/modify a fuel type price |
-|  3     | The user inserts all the informations needed |
-|  4	 | New information are now available to every other user |
+|  3     | The user inserts all the information needed |
+|  4	 | New information is now available to every other user |
 |  5	 | The registered user receives an amount of points base on rule in NFR10 | 
 
 ### Use case 7, UC7
@@ -398,24 +401,25 @@ Add a new gas station
 
 Signal a gas station closure
 
-| Actors Involved        | Registered User |
+| Actors Involved        | User |
 | ------------- |:-------------:| 
-|  Precondition     | Log-in successful & User's location < G' location + 500 m |  
+|  Precondition     |Gas Station G exists,  User's location < G' location + 500 m |  
 |  Post condition     | Gas station signaled as closed |
-|  Nominal Scenario     | The registered user signals a gas station closure, providing also a photo |
-|  Variants     | Error message if log-in fails |
+|  Nominal Scenario     | The user signals a gas station closure, providing also a photo |
+|  Variants     |If the user is a registered user, he receives points |
 
 #### Scenario 8.1
 
 | Scenario 8.1 | |
 | ------------- |:-------------:| 
-|  Precondition     |User has an account|
+|  Precondition     |Gas Station G exists|
 |  Post condition     | |
 | Step#        | Description  |
 |  1     | The  user selects a gas station in the map |
 |  2     | The user presses a button to signal the closure of the gas station |
 |  3     | The user provides also a photo |
-|  4	 | If correctly verified, the gas station disappears from the map and the user receives 50 points |
+|  4	 | If correctly verified, the gas station disappears from the map
+|  5     | If the user is a registered user, he receives 50 points|
 
 ### Use case 9, UC9
 
@@ -483,6 +487,30 @@ Insert gas station in the favourite list
 |  2     | The user presses a button to insert the gas station in the list of the favourite ones |
 |  3     | The gas station will appear in the list |
 
+### Use case 12, UC12
+
+View the list of gas stations along a specif route
+
+| Actors Involved        |  User |
+| ------------- |:-------------:| 
+|  Precondition     | Map M exists |  
+|  Post condition     |Route and list of gas stations are generated |
+|  Nominal Scenario     | The user selects a destination, a route is generated with a list of gas stations along it |
+|  Variants     |  |
+
+#### Scenario 12.1
+
+| Scenario 12.1 | |
+| ------------- |:-------------:| 
+|  Precondition     |Map M exists |
+|  Post condition     | Route and list of gas stations are generated|
+| Step#        | Description  |
+|  1     | The  user selects the destination |
+|  2     | The route is generated by GoogleMaps|
+|  3     | Select the gas stations located within a range of 1 km from the route |
+|  4     | The route and the list of gas stations are displayed|
+
+
 # Glossary
 ```plantuml
 @startuml
@@ -535,12 +563,14 @@ note top of PriceFeedback : "It is a feedback about\n a PriceLog correctness"
 Class ErrorLog{
 Type
 Date
+Photo
 Points
 }
-note left of ErrorLog : "It is a feedback about correctness\n of the information of a gas station\n (location error, closure,...).\n It gives points to user."
+note left of ErrorLog : "It is a feedback about correctness\n of the information of a gas station\n (location error, closure,...).\n It gives points only to registered user.\n(the attributes "points" and "photo" are optionals)"
 
 Class NewStationLog{
 Date
+Photo
 Points
 }
 note top of NewStationLog : "It contains the information\n about the new gas station \nsignaled by the user.\n It gives points to user"
