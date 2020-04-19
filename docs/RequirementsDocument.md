@@ -61,7 +61,7 @@ Version:
 
 # Abstract
 
-Since cars have been invented, car owners have had the need to refill the fuel tank in order to make them move. Sometimes you know where you're goning to refuel, sometimes you don't. If you're travelling a long distance it will happen that you need to find a gas station, and probably you want to find the cheapest or the closest one. Car drivers need to know the different prices and precise position of gas stations in their neighboring area or anywherelse. In order to do this, they use EZGas that allows to:
+Since cars have been invented, car owners have had the need to refill the fuel tank in order to make them move. Sometimes you know where you're going to refuel, sometimes you don't. If you're travelling a long distance it will happen that you need to find a gas station, and probably you want to find the cheapest or the closest one. Car drivers need to know the different prices and precise position of gas stations in their neighboring area or anywherelse. In order to do this, they use EZGas that allows to:
 
 1 - collect prices of fuels in different gas stations;<br />
 2 - locate gas stations in an area.
