@@ -61,12 +61,12 @@ Version:
 
 # Abstract
 
-Since cars have been invented, car owners have had the need to refill the fuel tank in order to make them move. Sometimes you know where you are goning to refuels, sometimes you don't. If you're travelling a long distance it will happen that you need to find a gas station, and probably you want to find the cheapest near. Car drivers need to know the different prices and precise position of gas stations in their neighboring area or in the middle of their road. In order to do this, they use EZGas that allow to:
+Since cars have been invented, car owners have had the need to refill the fuel tank in order to make them move. Sometimes you know where you're goning to refuel, sometimes you don't. If you're travelling a long distance it will happen that you need to find a gas station, and probably you want to find the cheapest or the closest one. Car drivers need to know the different prices and precise position of gas stations in their neighboring area or anywherelse. In order to do this, they use EZGas that allows to:
 
 1 - collect prices of fuels in different gas stations;<br />
 2 - locate gas stations in an area.
 
-Each user can use the app also to send a feedback about reliability of information of a specific gas station. If a user has also a registered account, he can set a new price for a specific fuel type for a certain gas station and possibly its location. By doing this, the registered user can collect point to obtain coupon. Moreover, a registered user can have a list of its favourite gas stations and receive a notifications if changes occur to those gas stations.
+Each user can use the app also to send a feedback about reliability of information of a specific gas station. If a user has a registered account, he can also update the price for a specific fuel type for a certain gas station and, possibly, its location. By doing this, the registered user can collect points to obtain coupons. Moreover, a registered user can have a list of its favourite gas stations and receive notifications if changes occur to those gas stations.
 
 
 # Stakeholders
@@ -108,9 +108,9 @@ gm <=> (EZGas)
 
 \<stories will be formalized later as use cases>
 
-Tom is a bank worker who has been transferred in a office pretty far from his house. The bank has not provided Tom with a company car, so he must use his own vehicle. He would like to know what are the gas station in the middle of the road between his house and the bank and what are the ones with the lowest price. He also would like to communicate this information to his colleagues and friends, in an efficient way. He discovers a new app, EZGas, where he can find gas stations located around his position and check their price. He can also leave a positive/negative feedback about the gas station. Moreover, he decides to register an account. By doing so, he can also insert fuel type price or insert a new gas station. In this way he obtains points that can be converted in coupon.  
+Tom is a bank worker who has been transferred in a office pretty far from his house. The bank has not provided Tom with a company car, so he must use his own vehicle. He would like to know what are the gas stations along the road between his house and the bank and which are the ones with the lower prices. He also would like to communicate this information to his colleagues and friends, in an efficient way. He discovers a new app, EZGas, where he can find gas stations located around his position and check their prices. He can also leave a positive/negative feedback about the gas station. Moreover, he decides to register an account. By doing so, he can also update fuels prices or insert a new gas station. In this way he obtains points that can be converted in coupons to get free fuel. 
 
-Jess is a car driver that wants only saving her money for fuel. She would have a system to choose the cheapest gas station in the area where she is, but she is not interested in supporting this system. Therefore, she has not an account and she cannot update prices or notify the presence of a new gas station, but she can signal errors about information of a gas station or signal a closure.
+Jess is a car driver that just wants to save some money on fuel. She uses EZGas to choose the cheapest gas station in the area where she is, but she is not interested in supporting this system. Therefore, she has not an account and can't update prices or notify the presence of a new gas station; however, she can signal any kind of error about information of a gas station, for example if it's closed.
 
 # Functional and non functional requirements
 
