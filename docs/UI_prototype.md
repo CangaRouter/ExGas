@@ -26,12 +26,11 @@ Version:
 
 ![S2.1](./UI_Adobe_XD_Artboards/home.png)
 
-#UC3 and UC12:
+#UC3:
 
 - Get the route
-- View the list of gas stations along a specif route
 
-![S3.1](./UI_Adobe_XD_Artboards/)
+![S3.1](./UI_Adobe_XD_Artboards/Directions.png)
 
 #UC4:
 
@@ -39,11 +38,10 @@ Version:
 
 ![S4.1](./UI_Adobe_XD_Artboards/ENI-guest.png)
 
-#UC5, UC6 and UC8:
+#UC5, UC6:
 
 - Manage Feedback about gas station's information (location, ...)
 - Insert/modify a fuel type price for a gas station
-- Signal a gas station closure
 
 ![S5.1-S6.1](./UI_Adobe_XD_Artboards/ENI-update.png)
 
@@ -52,6 +50,10 @@ Version:
 - Add a new gas station
 
 ![S7.1](./UI_Adobe_XD_Artboards/add-station.png)
+
+#UC8
+- Signal a gas station closure
+![S8.1](./UI_Adobe_XD_Artboards/error-signaling1.png)
 
 #UC9 and UC10:
 
@@ -65,6 +67,11 @@ Version:
 - Insert gas station in the favourite list
 
 ![S11.1](./UI_Adobe_XD_Artboards/favourites.png)
+
+#UC12
+- Every user can view the list of gas stations along a specific route
+
+![S12.1](./UI_Adobe_XD_Artboards/route-based.png)
 
 #FR2
 
@@ -95,5 +102,3 @@ Version:
 - Registered user can print the coupon
 
 ![FR12](./UI_Adobe_XD_Artboards/print-coupon.png)
-
-
