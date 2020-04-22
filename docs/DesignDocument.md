@@ -225,7 +225,7 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 ```plantuml
 @startuml
-
+left to right direction
 Package it.polito.ezgas.controller{
 Class Controller{}
 }
