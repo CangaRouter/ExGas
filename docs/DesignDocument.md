@@ -223,8 +223,180 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 <Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
 
 
+```plantuml
+@startuml
+
+Package it.polito.ezgas.controller{
+Class Controller{}
+}
+
+package it.polito.ezgas.entity{
+
+class User {
+ email
+ trust_level
+ 
+ set_account_name()
+ set_account_credentials()
+ set_account_email()
+ set_trust_level()
+ get_trust_level()
+ increment_trust_level()
+ decrement_trust_level()
+}
+
+class IdPw{
+    username
+    password
+    
+    set_email()
+    set_password()
+    get_email()
+}
+
+class GasStation {
+ ID
+ name
+ address
+ brand
+ carSharingCompany
+ hasCarSharingCompany
+ hasDiesel
+ hasGasoline
+ hasPremiumDiesel
+ hasPremiumGasoline
+ hasLPG
+ hasMethane
+ isAdmin
+
+ 
+ set_name()
+ set_address()
+ set_brand()
+ set_carSharingCompany()
+ set_hascarSharingCompany()
+ set_hasGasoline()
+ set_hasDiesel()
+ set_hasPremiumDiesel()
+ set_hasLPG()
+ set_hasMethane()
+ set_isAdmin()
+ get_ID()
+ get_name()
+ get_address()
+ get_brand()
+ get_carSharingCompany()
+ get_hascarSharingCompany()
+ get_hasGasoline()
+ get_hasDiesel()
+ get_hasPremiumDiesel()
+ get_hasLPG()
+ get_hasMethane()
+ get_isAdmin()
+}
+
+class PriceReport {
+ time_tag
+ dieselPrice
+ gasolinePrice
+ premiumDieselPrice
+ premiumGasolinePrice
+ LPGPrice
+ methanePrice
+ trust_level
+
+ set_time_tag()
+ set_dieselPrice()
+ set_gasolinePrice()
+ set_premiumDieselPrice()
+ set_premiumGasolinePrice()
+ set_LPGPrice()
+ set_methanPrice()
+ set_trust_level()
+ get_time_tag()
+ get_dieselPrice()
+ get_gasolinePrice()
+ get_premiumDieselPrice()
+ get_premiumGasolinePrice()
+ get_LPGPrice()
+ get_methanPrice()
+ get_trust_level()
+}
+
+class GeoPoint{
+ latitude
+ longitude
+ 
+ set_latitude()
+ set_longitude()
+ get_latitude()
+ get_longitude()
+}
 
 
+GasStation--GeoPoint
+User--GeoPoint
+User--"*"PriceReport
+PriceReport"0..1"--GasStation
+User -- IdPw
+}
+
+Package it.polito.ezgas.repository{
+class UserRepository{}
+class PriceReportRepository{}
+class GasStationRepository{}
+class IdPwRepository{}
+}
+
+Package it.polito.ezgas.converter{
+class UserConverter{}
+class PriceReportConverter{}
+class GasStationConverter{}
+class IdPwConverter{}
+}
+
+Package it.polito.ezgas.dto{
+class UserDTO{}
+class PriceReportDTO{}
+class GasStationDTO{}
+class IdPwDTO{}
+}
+
+Package it.polito.ezgas.service{
+Interface GasStationService{
+    getGasStationById(gs_id)
+    saveGasStation(gasstation)
+    getAllGasStations()
+    deleteGasStation(gs_id)
+    getGasStationsByGasolineType(gastype)
+    getGasStationsByProximity(lat,lon)
+    getGasStationsWithCoordinates(lat,lon,gastype,carsharing)
+    getGasStationsWithoutCoordinates(gastype,carsharing)
+    setReport(gs_id, dieselPrice, superPrice, superPlusPrice, gasPrice,methanPrice,userid)
+    getGasStationByCarSharing(carsharing)
+}
+Interface UserService{
+    getUserById(u_id)
+    saveUser(user)
+    getAllUsers()
+    deleteUser(u_id)
+    login(credentials)
+    increaseUserReputation(u_id)
+    decreaseUserReputation(u_id)
+}
+}
+
+Package it.polito.ezgas.serviceimpl{
+ Class GasStationServiceImp{}
+ Class UserServiceImp{}
+}
+
+UserService <|-- UserServiceImp
+GasStationService <|-- GasStationServiceImp
+
+@enduml
+
+```
 
 
 
