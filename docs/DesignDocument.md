@@ -346,6 +346,7 @@ class UserRepository{}
 class PriceReportRepository{}
 class GasStationRepository{}
 class IdPwRepository{}
+class GeoPointRepository{}
 }
 
 Package it.polito.ezgas.converter{
@@ -353,6 +354,7 @@ class UserConverter{}
 class PriceReportConverter{}
 class GasStationConverter{}
 class IdPwConverter{}
+class GeoPointConverter{}
 }
 
 Package it.polito.ezgas.dto{
@@ -360,6 +362,7 @@ class UserDTO{}
 class PriceReportDTO{}
 class GasStationDTO{}
 class IdPwDTO{}
+class GeoPointDTO{}
 }
 
 Package it.polito.ezgas.service{
