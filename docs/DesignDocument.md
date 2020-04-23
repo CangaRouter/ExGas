@@ -225,7 +225,7 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 ```plantuml
 @startuml
-left to right direction
+
 skinparam linetype ortho
 Package it.polito.ezgas.controller{
 Class Controller{
@@ -557,17 +557,20 @@ UserServiceImp -- UserRepository
 UserServiceImp -- IdPwRepository
 UserServiceImp -- UserConverter
 UserServiceImp -- IdPwConverter
-UserServiceImp -- "*"UserDTO
-UserServiceImp -- "*"IdPwDTO
+
+UserDTO "*"-- UserServiceImp
+IdPwDTO "*"-- UserServiceImp
+
 GasStationServiceImp -- GasStationRepository
 GasStationServiceImp -- GeoPointRepository
 GasStationServiceImp -- PriceReportRepository
 GasStationServiceImp -- GasStationConverter
 GasStationServiceImp -- GeoPointConverter
 GasStationServiceImp -- PriceReportConverter
+
 GasStationDTO "*"-- GasStationServiceImp
 GeoPointDTO "*"-- GasStationServiceImp 
-GasStationServiceImp --"*" PriceReportDTO
+PriceReportDTO "*"--GasStationServiceImp
 User "*"-- UserServiceImp
 GasStation "*"--GasStationServiceImp 
 
