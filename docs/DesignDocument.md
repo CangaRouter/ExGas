@@ -227,6 +227,8 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 @startuml
 left to right direction
 skinparam linetype ortho
+skinparam nodesep 5
+skinparam ranksep 10
 Package it.polito.ezgas.controller{
 Class Controller{
     create_user()
@@ -416,6 +418,8 @@ class GasStationDTO{
  ID
  name
  address
+ latitude
+ longitude
  brand
  carSharingCompany
  hasCarSharingCompany
@@ -490,11 +494,11 @@ GasStationServiceImp -- GasStationConverter
 GasStationServiceImp -- GeoPointConverter
 GasStationServiceImp -- PriceReportConverter
 
-GasStationDTO "*"-- GasStationServiceImp
-GeoPointDTO "*"-- GasStationServiceImp 
-PriceReportDTO "*"--GasStationServiceImp
-User "*"-- UserServiceImp
-GasStation "*"--GasStationServiceImp 
+GasStationDTO "*"- GasStationServiceImp
+GeoPointDTO "*"- GasStationServiceImp 
+PriceReportDTO "*"-GasStationServiceImp
+UserServiceImp -"*" User
+GasStationServiceImp -"*" GasStation
 
 Controller -- UserService
 Controller -- GasStationService
