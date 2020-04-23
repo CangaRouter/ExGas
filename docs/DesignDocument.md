@@ -225,8 +225,7 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 ```plantuml
 @startuml
-scale 1040 height
-scale 1100 width
+left to right direction
 skinparam linetype ortho
 Package it.polito.ezgas.controller{
 Class Controller{
@@ -357,7 +356,7 @@ GasStation--GeoPoint
 User--GeoPoint
 User--"*"PriceReport
 PriceReport"0..1"--GasStation
-User -- IdPw
+IdPw -- User
 }
 
 Package it.polito.ezgas.repository{
