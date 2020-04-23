@@ -565,11 +565,11 @@ GasStationServiceImp -- PriceReportRepository
 GasStationServiceImp -- GasStationConverter
 GasStationServiceImp -- GeoPointConverter
 GasStationServiceImp -- PriceReportConverter
-GasStationServiceImp --"*" GasStationDTO
-GasStationServiceImp --"*" GeoPointDTO
+GasStationDTO "*"-- GasStationServiceImp
+GeoPointDTO "*"-- GasStationServiceImp 
 GasStationServiceImp --"*" PriceReportDTO
-UserServiceImp --"*" User
-GasStationServiceImp --"*" GasStation
+User "*"-- UserServiceImp
+GasStation "*"--GasStationServiceImp 
 
 Controller -- UserService
 Controller -- GasStationService
