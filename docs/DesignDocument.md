@@ -399,19 +399,6 @@ class UserDTO{
  username
  password
  isAdmin
- set_name()
- set_surname()
- set_email()
- set_trust_level()
- set_credentials()
- set_isAdmin()
- get_credentials()
- get_name()
- get_surname()
- get_trust_level()
- get_isAdmin()
- increment_trust_level()
- decrement_trust_level()
 }
 class PriceReportDTO{
  time_tag
@@ -424,27 +411,6 @@ class PriceReportDTO{
  trust_level
  userId
  GasStationId
-
- set_time_tag()
- set_dieselPrice()
- set_gasolinePrice()
- set_premiumDieselPrice()
- set_premiumGasolinePrice()
- set_LPGPrice()
- set_methanPrice()
- set_trust_level()
- set_userId()
- set_GasStationId()
- get_time_tag()
- get_dieselPrice()
- get_gasolinePrice()
- get_premiumDieselPrice()
- get_premiumGasolinePrice()
- get_LPGPrice()
- get_methanPrice()
- get_trust_level()
- get_userId()
- get_GasStationId()
 }
 class GasStationDTO{
  ID
@@ -466,58 +432,14 @@ class GasStationDTO{
  premiumGasolinePrice
  LPGPrice
  methanePrice   
- 
- set_name()
- set_address()
- set_brand()
- set_carSharingCompany()
- set_hascarSharingCompany()
- set_hasGasoline()
- set_hasDiesel()
- set_hasPremiumDiesel()
- set_hasLPG()
- set_hasMethane()
- set_dieselPrice()
- set_gasolinePrice()
- set_premiumDieselPrice()
- set_premiumGasolinePrice()
- set_LPGPrice()
- set_methanPrice()
- get_ID()
- get_name()
- get_address()
- get_brand()
- get_carSharingCompany()
- get_hascarSharingCompany()
- get_hasGasoline()
- get_hasDiesel()
- get_hasPremiumDiesel()
- get_hasLPG()
- get_hasMethane()
- get_time_tag()
- get_dieselPrice()
- get_gasolinePrice()
- get_premiumDieselPrice()
- get_premiumGasolinePrice()
- get_LPGPrice()
- get_methanPrice()
 }
 class IdPwDTO{
     username
     password
-    
-    set_email()
-    set_password()
-    get_email()
 }
 class GeoPointDTO{
     latitude
     longitude
- 
-    set_latitude()
-    set_longitude()
-    get_latitude()
-    get_longitude()
 }
 }
 
