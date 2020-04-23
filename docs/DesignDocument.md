@@ -226,20 +226,40 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 ```plantuml
 @startuml
 left to right direction
+scale 2000 width
+scale 4000 height
+skinparam linetype ortho
 Package it.polito.ezgas.controller{
-Class Controller{}
+Class Controller{
+    create_user()
+    authorize_user()
+    modify_user()
+    delete_user()
+    create_GasStation()
+    modify_GasStation()
+    delete_GasStation()
+    insert_Report()
+    list_GasStations()
+    evaluate_price()
+}
 }
 
 package it.polito.ezgas.entity{
 
 class User {
+ name
+ surname
  email
  trust_level
  
- set_account_name()
- set_account_credentials()
- set_account_email()
+ set_name()
+ set_surname()
+ set_email()
  set_trust_level()
+ set_credentials()
+ get_credentials()
+ get_name()
+ get_surname()
  get_trust_level()
  increment_trust_level()
  decrement_trust_level()
@@ -350,19 +370,157 @@ class GeoPointRepository{}
 }
 
 Package it.polito.ezgas.converter{
-class UserConverter{}
-class PriceReportConverter{}
-class GasStationConverter{}
-class IdPwConverter{}
-class GeoPointConverter{}
+class UserConverter{
+    toUserDto(user)
+    toUser(userdto)
+}
+class PriceReportConverter{
+    toPriceReportDto(priceReport)
+    toPriceReport(priceReportdto)
+}
+class GasStationConverter{
+    toGasStationDto(gasStation)
+    toGasStation(gasStationdto)
+}
+class IdPwConverter{
+    toIdPwDto(idPw)
+    toIdPw(idPwdto)
+}
+class GeoPointConverter{
+    toGeoPointDto(geoPoint)
+    toGeoPoint(geoPointdto)
+}
 }
 
 Package it.polito.ezgas.dto{
-class UserDTO{}
-class PriceReportDTO{}
-class GasStationDTO{}
-class IdPwDTO{}
-class GeoPointDTO{}
+class UserDTO{
+ name
+ surname
+ email
+ trust_level
+ username
+ password
+ isAdmin
+ set_name()
+ set_surname()
+ set_email()
+ set_trust_level()
+ set_credentials()
+ set_isAdmin()
+ get_credentials()
+ get_name()
+ get_surname()
+ get_trust_level()
+ get_isAdmin()
+ increment_trust_level()
+ decrement_trust_level()
+}
+class PriceReportDTO{
+ time_tag
+ dieselPrice
+ gasolinePrice
+ premiumDieselPrice
+ premiumGasolinePrice
+ LPGPrice
+ methanePrice
+ trust_level
+ userId
+ GasStationId
+
+ set_time_tag()
+ set_dieselPrice()
+ set_gasolinePrice()
+ set_premiumDieselPrice()
+ set_premiumGasolinePrice()
+ set_LPGPrice()
+ set_methanPrice()
+ set_trust_level()
+ set_userId()
+ set_GasStationId()
+ get_time_tag()
+ get_dieselPrice()
+ get_gasolinePrice()
+ get_premiumDieselPrice()
+ get_premiumGasolinePrice()
+ get_LPGPrice()
+ get_methanPrice()
+ get_trust_level()
+ get_userId()
+ get_GasStationId()
+}
+class GasStationDTO{
+ ID
+ name
+ address
+ brand
+ carSharingCompany
+ hasCarSharingCompany
+ hasDiesel
+ hasGasoline
+ hasPremiumDiesel
+ hasPremiumGasoline
+ hasLPG
+ hasMethane
+ time_tag
+ dieselPrice
+ gasolinePrice
+ premiumDieselPrice
+ premiumGasolinePrice
+ LPGPrice
+ methanePrice   
+ 
+ set_name()
+ set_address()
+ set_brand()
+ set_carSharingCompany()
+ set_hascarSharingCompany()
+ set_hasGasoline()
+ set_hasDiesel()
+ set_hasPremiumDiesel()
+ set_hasLPG()
+ set_hasMethane()
+ set_dieselPrice()
+ set_gasolinePrice()
+ set_premiumDieselPrice()
+ set_premiumGasolinePrice()
+ set_LPGPrice()
+ set_methanPrice()
+ get_ID()
+ get_name()
+ get_address()
+ get_brand()
+ get_carSharingCompany()
+ get_hascarSharingCompany()
+ get_hasGasoline()
+ get_hasDiesel()
+ get_hasPremiumDiesel()
+ get_hasLPG()
+ get_hasMethane()
+ get_time_tag()
+ get_dieselPrice()
+ get_gasolinePrice()
+ get_premiumDieselPrice()
+ get_premiumGasolinePrice()
+ get_LPGPrice()
+ get_methanPrice()
+}
+class IdPwDTO{
+    username
+    password
+    
+    set_email()
+    set_password()
+    get_email()
+}
+class GeoPointDTO{
+    latitude
+    longitude
+ 
+    set_latitude()
+    set_longitude()
+    get_latitude()
+    get_longitude()
+}
 }
 
 Package it.polito.ezgas.service{
@@ -396,6 +554,28 @@ Package it.polito.ezgas.serviceimpl{
 
 UserService <|-- UserServiceImp
 GasStationService <|-- GasStationServiceImp
+
+UserServiceImp -- UserRepository
+UserServiceImp -- IdPwRepository
+UserServiceImp -- UserConverter
+UserServiceImp -- IdPwConverter
+UserServiceImp -- "*"UserDTO
+UserServiceImp -- "*"IdPwDTO
+GasStationServiceImp -- GasStationRepository
+GasStationServiceImp -- GeoPointRepository
+GasStationServiceImp -- PriceReportRepository
+GasStationServiceImp -- GasStationConverter
+GasStationServiceImp -- GeoPointConverter
+GasStationServiceImp -- PriceReportConverter
+GasStationServiceImp --"*" GasStationDTO
+GasStationServiceImp --"*" GeoPointDTO
+GasStationServiceImp --"*" PriceReportDTO
+UserServiceImp --"*" User
+GasStationServiceImp --"*" GasStation
+
+Controller -- UserService
+Controller -- GasStationService
+
 
 @enduml
 
