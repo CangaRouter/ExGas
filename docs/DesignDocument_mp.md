@@ -222,6 +222,291 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 <Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
 
+```plantuml
+@startuml
+left to right direction
+skinparam linetype ortho
+skinparam nodesep 5
+skinparam ranksep 10
+Package it.polito.ezgas.controller{
+Class UserController{
+    void createUser()
+    void authorizeUser()
+    UserDto getUser()
+    void modifyUser()
+    void deleteUser()
+}
+Class GasStationController{
+    void createGasStation()
+    voif modifyGasStation()
+    void deleteGasStation()
+    GasStationDto getGasStation()
+    void insertReport()
+    List<GasStationDto> listGasStations()
+    void evaluatePrice()
+}
+}
+
+package it.polito.ezgas.entity{
+class IdPw{
+    String id
+    String password
+    void setId()
+    void setPassword()
+    String getId()
+    String getPassword()
+}
+
+class User {
+ String name
+ String surname
+ String email
+ int trust_level
+ boolean isAdmin
+ 
+ void setName()
+ void setSurname()
+ void setEmail()
+ void seTrustLevel()
+ void setCredentials()
+ void setIsAdmin()
+ Login getCredentials()
+ String getName()
+ String getEmail()
+ String getSurname()
+ Int getTrustLevel()
+ boolean getIsAdmin()
+ void incremenTrustLevel()
+ void decremenTrusLevel()
+ 
+}
+
+class Login{
+   String email
+   String name
+   boolean IsAdmin
+    
+    void setEmail()
+    void setIsAdmin()
+    void setName()
+    String getName()
+    String getEmail()
+    String getIsAdmin()
+}
+
+class GasStation {
+ String ID
+ String name
+ String address
+ String brand
+ List<String> carSharingCompany
+ boolean hasCarSharingCompany
+ boolean hasDiesel
+ boolean hasGasoline
+ boolean hasPremiumDiesel
+ boolean hasPremiumGasoline
+ boolean hasLPG
+ boolean hasMethane
+ 
+
+ 
+ void setName()
+ void setAddress()
+ void setBrand()
+ void addCarSharingCompany()
+ void setHascarSharingCompany()
+ void setHasGasoline()
+ void setHasDiesel()
+ void setHasPremiumDiesel()
+ void setHasLPG()
+ void setHasMethane()
+ void setIsAdmin()
+ String getID()
+ String getName()
+ String getAddress()
+ String getBrand()
+ List<String> getCarSharingCompany()
+ boolean getHascarSharingCompany()
+ boolean getHasGasoline()
+ boolean getHasDiesel()
+ boolean getHasPremiumDiesel()
+ boolean getHasLPG()
+ boolean getHasMethane()
+}
+
+
+
+
+
+User--"*"PriceList
+PriceList"0..1"--GasStation
+IdPw -- User
+}
+
+Package it.polito.ezgas.repository{
+class UserRepository{}
+class GasStationRepository{}
+class LoginRepository{}
+}
+
+Package it.polito.ezgas.converter{
+class UserConverter{
+    UserDto toUserDto(user)
+    User toUser(userdto)
+}
+class GasStationConverter{
+   GasStationDto toGasStationDto(gasStation)
+   GasStation toGasStation(gasStationdto)
+}
+class LoginConverter {
+    LoginDto toLoginDto(Login)
+    Login toLogin(LoginDto)
+}
+}
+
+Package it.polito.ezgas.dto{
+Class LoginDto{
+    String name
+    String email
+    boolean isAdmin
+    void setName()
+    void setEmail()
+    void setIsAdmin()
+    String getEmail()
+    String getName()
+    boolean getIsAdmin()
+}
+Class UserDto{
+String name
+String surname
+String email
+int trust_level
+String name
+boolean isAdmin
+
+void setName()
+ void setSurname()
+ void setEmail()
+ void seTrustLevel()
+ void setIsAdmin()
+ String getName()
+ String getEmail()
+ String getSurname()
+ Int getTrustLevel()
+ boolean getIsAdmin()
+}
+Class GasStationDto{
+ String ID
+ String name
+ String address
+ doube latitude
+ double longitude
+ String brand
+ List<String> carSharingCompany
+ TimeStamp time_tag
+ double dieselPrice
+ double gasolinePrice
+ double premiumDieselPrice
+ double premiumGasolinePrice
+ double LPGPrice
+ double methanePrice   
+ void setName()
+ void setAddress()
+ void setBrand()
+ void addCarSharingCompany()
+ void setIsAdmin()
+ String getID()
+ String getName()
+ String getAddress()
+ String getBrand()
+ List<String> getCarSharingCompany()
+ boolean hasCarSharingCompany()
+ boolean hasDiesel()
+ boolean hasGasoline()
+ boolean hasPremiumDiesel()
+ boolean hasPremiumGasoline()
+ boolean hasLPG()
+ boolean hasMethane()
+
+}
+}
+
+Package it.polito.ezgas.service{
+Interface GasStationService{
+}
+Interface UserService{
+}
+}
+
+Package it.polito.ezgas.serviceimpl{
+ Class GasStationServiceImp{}
+ Class UserServiceImp{}
+ Class PriceList {
+ TimeStamp time_tag
+ double dieselPrice
+ double gasolinePrice
+ double premiumdieselPrice
+ double premiumgasolinePrice
+ double LPGPrice
+ double methanePrice
+ int trust_level
+
+ void setTimeTag()
+ void setDieselPrice()
+ void setGasolinePrice()
+ void setPremiumDieselPrice()
+ void setPremiumGasolinePrice()
+ void setLPGPrice()
+ void setMethanPrice()
+ void setTrust_level()
+ void getTime_tag()
+ double getDieselPrice()
+ double getGasolinePrice()
+ double getPremiumDieselPrice()
+ double getPremiumGasolinePrice()
+ double getLPGPrice()
+ double getMethanPrice()
+ int getTrust_level()
+}
+
+}
+
+UserService <|-- UserServiceImp
+GasStationService <|-- GasStationServiceImp
+
+UserServiceImp -- User
+UserServiceImp -- Login
+UserServiceImp -- UserConverter
+UserServiceImp -- LoginConverter
+UserServiceImp -- Login
+
+LoginConverter -- Login
+UserConverter -- User
+GasStationConverter-- GasStation
+
+LoginConverter -- LoginDto
+UserConverter -- UserDto
+GasStationConverter-- GasStationDto
+
+LoginRepository --"*" Login
+GasStationRepository --"*" GasStation
+UserRepository --"*" User
+
+UserDto "*"-- UserServiceImp
+
+GasStationServiceImp --"*" GasStation
+GasStationServiceImp -- GasStationConverter
+
+GasStationDto "*"- GasStationServiceImp
+
+
+UserController -- UserService
+GasStationController -- GasStationService
+
+
+@enduml
+
+```
 
 
 
