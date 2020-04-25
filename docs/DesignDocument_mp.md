@@ -347,6 +347,7 @@ Package it.polito.ezgas.repository{
 class UserRepository{}
 class GasStationRepository{}
 class LoginRepository{}
+class IdPwRepository{}
 }
 
 Package it.polito.ezgas.converter{
@@ -362,9 +363,21 @@ class LoginConverter {
     LoginDto toLoginDto(Login)
     Login toLogin(LoginDto)
 }
+class IdPwConverter{
+   IdPwDto toIdPwDto(IdPw)
+    IdPw toIdPw(IdPwDto)
+}
 }
 
 Package it.polito.ezgas.dto{
+    class IdPwDto{
+    String id
+    String password
+    void setId()
+    void setPassword()
+    String getId()
+    String getPassword()
+}
 Class LoginDto{
     String name
     String email
@@ -479,15 +492,19 @@ UserServiceImp -- Login
 UserServiceImp -- UserConverter
 UserServiceImp -- LoginConverter
 UserServiceImp -- Login
+UserServiceImp --IdPw
 
 LoginConverter -- Login
 UserConverter -- User
+IdPwConverter -- IdPw
 GasStationConverter-- GasStation
 
+IdPwConverter --IdPwDto
 LoginConverter -- LoginDto
 UserConverter -- UserDto
 GasStationConverter-- GasStationDto
 
+IdPwRepository --"*" IdPw
 LoginRepository --"*" Login
 GasStationRepository --"*" GasStation
 UserRepository --"*" User
@@ -507,296 +524,6 @@ GasStationController -- GasStationService
 @enduml
 
 ```
-
-```plantuml
-@startuml
-left to right direction
-skinparam linetype ortho
-skinparam nodesep 5
-skinparam ranksep 10
-Package it.polito.ezgas.controller{
-Class Controller{
-    create_user()
-    authorize_user()
-    modify_user()
-    delete_user()
-    create_GasStation()
-    modify_GasStation()
-    delete_GasStation()
-    insert_Report()
-    list_GasStations()
-    evaluate_price()
-}
-}
-
-package it.polito.ezgas.entity{
-
-class User {
- name
- surname
- email
- trust_level
- 
- set_name()
- set_surname()
- set_email()
- set_trust_level()
- set_credentials()
- get_credentials()
- get_name()
- get_surname()
- get_trust_level()
- increment_trust_level()
- decrement_trust_level()
-}
-
-class IdPw{
-    username
-    password
-    
-    set_email()
-    set_password()
-    get_email()
-}
-
-class GasStation {
- ID
- name
- address
- brand
- carSharingCompany
- hasCarSharingCompany
- hasDiesel
- hasGasoline
- hasPremiumDiesel
- hasPremiumGasoline
- hasLPG
- hasMethane
- isAdmin
-
- 
- set_name()
- set_address()
- set_brand()
- set_carSharingCompany()
- set_hascarSharingCompany()
- set_hasGasoline()
- set_hasDiesel()
- set_hasPremiumDiesel()
- set_hasLPG()
- set_hasMethane()
- set_isAdmin()
- get_ID()
- get_name()
- get_address()
- get_brand()
- get_carSharingCompany()
- get_hascarSharingCompany()
- get_hasGasoline()
- get_hasDiesel()
- get_hasPremiumDiesel()
- get_hasLPG()
- get_hasMethane()
- get_isAdmin()
-}
-
-class PriceReport {
- time_tag
- dieselPrice
- gasolinePrice
- premiumDieselPrice
- premiumGasolinePrice
- LPGPrice
- methanePrice
- trust_level
-
- set_time_tag()
- set_dieselPrice()
- set_gasolinePrice()
- set_premiumDieselPrice()
- set_premiumGasolinePrice()
- set_LPGPrice()
- set_methanPrice()
- set_trust_level()
- get_time_tag()
- get_dieselPrice()
- get_gasolinePrice()
- get_premiumDieselPrice()
- get_premiumGasolinePrice()
- get_LPGPrice()
- get_methanPrice()
- get_trust_level()
-}
-
-class GeoPoint{
- latitude
- longitude
- 
- set_latitude()
- set_longitude()
- get_latitude()
- get_longitude()
-}
-
-
-GasStation--GeoPoint
-User--GeoPoint
-User--"*"PriceReport
-PriceReport"0..1"--GasStation
-IdPw -- User
-}
-
-Package it.polito.ezgas.repository{
-class UserRepository{}
-class PriceReportRepository{}
-class GasStationRepository{}
-class IdPwRepository{}
-class GeoPointRepository{}
-}
-
-Package it.polito.ezgas.converter{
-class UserConverter{
-    toUserDto(user)
-    toUser(userdto)
-}
-class PriceReportConverter{
-    toPriceReportDto(priceReport)
-    toPriceReport(priceReportdto)
-}
-class GasStationConverter{
-    toGasStationDto(gasStation)
-    toGasStation(gasStationdto)
-}
-class IdPwConverter{
-    toIdPwDto(idPw)
-    toIdPw(idPwdto)
-}
-class GeoPointConverter{
-    toGeoPointDto(geoPoint)
-    toGeoPoint(geoPointdto)
-}
-}
-
-Package it.polito.ezgas.dto{
-class UserDTO{
- name
- surname
- email
- trust_level
- username
- password
- isAdmin
-}
-class PriceReportDTO{
- time_tag
- dieselPrice
- gasolinePrice
- premiumDieselPrice
- premiumGasolinePrice
- LPGPrice
- methanePrice
- trust_level
- userId
- GasStationId
-}
-class GasStationDTO{
- ID
- name
- address
- latitude
- longitude
- brand
- carSharingCompany
- hasCarSharingCompany
- hasDiesel
- hasGasoline
- hasPremiumDiesel
- hasPremiumGasoline
- hasLPG
- hasMethane
- time_tag
- dieselPrice
- gasolinePrice
- premiumDieselPrice
- premiumGasolinePrice
- LPGPrice
- methanePrice   
-}
-class IdPwDTO{
-    username
-    password
-}
-class GeoPointDTO{
-    latitude
-    longitude
-}
-}
-
-Package it.polito.ezgas.service{
-Interface GasStationService{
-    getGasStationById(gs_id)
-    saveGasStation(gasstation)
-    getAllGasStations()
-    deleteGasStation(gs_id)
-    getGasStationsByGasolineType(gastype)
-    getGasStationsByProximity(lat,lon)
-    getGasStationsWithCoordinates(lat,lon,gastype,carsharing)
-    getGasStationsWithoutCoordinates(gastype,carsharing)
-    setReport(gs_id, dieselPrice, superPrice, superPlusPrice, gasPrice,methanPrice,userid)
-    getGasStationByCarSharing(carsharing)
-}
-Interface UserService{
-    getUserById(u_id)
-    saveUser(user)
-    getAllUsers()
-    deleteUser(u_id)
-    login(credentials)
-    increaseUserReputation(u_id)
-    decreaseUserReputation(u_id)
-}
-}
-
-Package it.polito.ezgas.serviceimpl{
- Class GasStationServiceImp{}
- Class UserServiceImp{}
-}
-
-UserService <|-- UserServiceImp
-GasStationService <|-- GasStationServiceImp
-
-UserServiceImp -- UserRepository
-UserServiceImp -- IdPwRepository
-UserServiceImp -- UserConverter
-UserServiceImp -- IdPwConverter
-
-UserDTO "*"-- UserServiceImp
-IdPwDTO "*"-- UserServiceImp
-
-GasStationServiceImp -- GasStationRepository
-GasStationServiceImp -- GeoPointRepository
-GasStationServiceImp -- PriceReportRepository
-GasStationServiceImp -- GasStationConverter
-GasStationServiceImp -- GeoPointConverter
-GasStationServiceImp -- PriceReportConverter
-
-GasStationDTO "*"- GasStationServiceImp
-GeoPointDTO "*"- GasStationServiceImp 
-PriceReportDTO "*"-GasStationServiceImp
-UserServiceImp -"*" User
-GasStationServiceImp -"*" GasStation
-
-Controller -- UserService
-Controller -- GasStationService
-
-
-@enduml
-
-```
-
-
-
-
-
 
 
 
