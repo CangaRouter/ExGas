@@ -237,13 +237,13 @@ Class UserController{
     void deleteUser()
 }
 Class GasStationController{
-    void createGasStation()
-    voif modifyGasStation()
-    void deleteGasStation()
+    boolean createGasStation()
+    boolean modifyGasStation()
+    boolean deleteGasStation()
     GasStationDto getGasStation()
-    void insertReport()
+    boolean insertReport()
     List<GasStationDto> listGasStations()
-    void evaluatePrice()
+    boolean evaluatePrice()
 }
 }
 
@@ -267,7 +267,7 @@ class PriceList {
  void setLPGPrice()
  void setMethanPrice()
  void setTrust_level()
- void getTime_tag()
+ TimeStamp getTime_tag()
  double getDieselPrice()
  double getGasolinePrice()
  double getPremiumDieselPrice()
@@ -407,8 +407,8 @@ Package it.polito.ezgas.dto{
     class IdPwDto{
     String id
     String password
-    void setId()
-    void setPassword()
+    boolean setId()
+    boolean setPassword()
     String getId()
     String getPassword()
 }
@@ -416,9 +416,9 @@ Class LoginDto{
     String name
     String email
     boolean isAdmin
-    void setName()
-    void setEmail()
-    void setIsAdmin()
+    boolean setName()
+    boolean setEmail()
+    boolean setIsAdmin()
     String getEmail()
     String getName()
     boolean getIsAdmin()
@@ -432,10 +432,10 @@ String name
 boolean isAdmin
 
 void setName()
- void setSurname()
- void setEmail()
- void seTrustLevel()
- void setIsAdmin()
+ boolean setSurname()
+ boolean setEmail()
+ boolean seTrustLevel()
+ boolean setIsAdmin()
  String getName()
  String getEmail()
  String getSurname()
@@ -457,10 +457,11 @@ Class GasStationDto{
  double premiumGasolinePrice
  double LPGPrice
  double methanePrice   
- void setName()
- void setAddress()
- void setBrand()
- void addCarSharingCompany()
+ boolean setName()
+ boolean setAddress()
+ boolean setBrand()
+ boolean addCarSharingCompany()
+ boolean setIsAdmin()
  String getID()
  String getName()
  String getAddress()
@@ -489,8 +490,6 @@ Class PriceListDto {
  void setPremiumGasolinePrice()
  void setLPGPrice()
  void setMethanPrice()
- void setTrust_level()
- void getTime_tag()
  double getDieselPrice()
  double getGasolinePrice()
  double getPremiumDieselPrice()
