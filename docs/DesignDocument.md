@@ -461,7 +461,6 @@ Class GasStationDto{
  void setAddress()
  void setBrand()
  void addCarSharingCompany()
- void setIsAdmin()
  String getID()
  String getName()
  String getAddress()
@@ -574,7 +573,139 @@ GasStationController -- GasStationService
 # Verification sequence diagrams 
 \<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
 
+## UC1 - Create User Account
+```plantuml
+@startuml
+        FrontEnd --> UserController : createUser(userDTO)
+        UserController -> UserService : saveUser(userDTO)
+        UserService -> UserConverter : toUser(userDTO)
+        UserConverter -> User: new(...)
+        User -> UserConverter: user
+        UserConverter -> UserService : user
+        UserService -> UserRepository: save(user)
+        UserService -> UserController: userDTO
+@enduml
+```
+## UC2 - Modify user account
+```plantuml
+@startuml
+    FrontEnd --> UserController : modifyUser(userDTO)
+    UserController -> UserService: saveUser(userDTO)
+    UserService -> UserConverter: toUser(userDTO)
+    UserConverter -> User: new(...)
+    User -> UserConverter: user
+    UserConverter -> UserService : user
+    UserService -> UserRepository: save(user)
+    UserService -> UserConverter: toDTO(user)
+    UserConverter -> UserDTO: new(...)
+    UserDTO -> UserConverter: userDTO
+    UserService -> UserController: userDTO
+@enduml
+```
+## UC3 - Delete user account
+```plantuml
+@startuml
+    @startuml
+    FrontEnd -> UserController: deleteUser(userId)
+    UserController -> UserService: deleteUser(userId)
+    UserService -> UserRepository: delete(userId)
+    UserRepository -> UserService : booleanResult
+    UserService -> UserController: booleanResult
+    @enduml
+@enduml
+```
+## UC4 - Create Gas Station 
+```plantuml
+@startuml
+     @startuml
+        FrontEnd --> GasStationController : createGasStation(gasStationDTO)
+        GasStationController -> GasStationService : saveGasStation(gasStationDTO)
+        GasStationService -> GasStationConverter : toGasStation(gasStationDTO)
+        GasStationConverter -> GasStation: new(...)
+        GasStation -> GasStationConverter: gasStation
+        GasStationConverter -> GasStationService: gasStation
+        GasStationService -> GasStationRepository: save(gasStation)
+        GasStationService -> GasStation: gasStationDTO
+@enduml
+```
+## UC5 - Modify Gas Station information
+```plantuml
+@startuml
+     @startuml
+    FrontEnd -> GasStationController : modifyGasStation(gasStationDTO)
+    GasStationController ->GasStationService: saveGasStation(gasStationDTO)
+    GasStationService -> GasStationConverter: toGasStation(gasStationDTO)
+    GasStationConverter -> GasStation: new(...)
+    GasStation -> GasStationConverter: gasStation
+    GasStationConverter -> GasStationService: gasStation
+    GasStationService -> GasStationRepository: save(gasStation)
+    GasStationService -> GasStationConverter: toDTO(gasStation)
+    GasStationConverter -> GasStationDTO: new(...)
+    GasStationDTO -> GasStationConverter: gasStationDTO
+    GasStationService -> GasStation: gasStationDTO
+@enduml
+```
+## UC6 - Delete Gas Station
+```plantuml
+ @startuml
+    FrontEnd -> GasStationController: deleteGasStation(gasStationId) 
+    GasStationController -> GasStationService: deleteGasStation(gasStationId)
+    GasStationService -> GasStationRepository: delete(gasStationId)
+    GasStationRepository -> GasStationService: booleanResult
+    GasStationService -> GasStationController: booleanResult
+@enduml
+```
+## UC7 - Report fuel price for a gas station
+```plantuml
+@startuml
+    FrontEnd -> GasStationController : insertReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
+    GasStationController -> GasStationService: setReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
+    GasStationService -> PriceList: new(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
+    PriceList -> GasStationService -> priceList
+    GasStationService -> PriceListRepository: save(priceList)
+    PriceListRepository -> GasStationService: booleanResult
+    GasStationService -> GasStationRepository: find(gasStationId)
+    GasStationRepository -> GasStationService: gasStation
+    GasStationService -> GasStation: gasStation.setPriceList(priceList)
+@enduml
+```
+## UC8 - Obtain price of fuel for gas stations in a certain geographic area
+```plantuml
+@startuml
+    FrontEnd -> GasStationController : listGasStations(lat,lon,gasolinetype,carsharing)
+    GasStationController -> GasStationService: getGasStationsWithCoordinates(lat,lon,gasolinetype,carsharing)
+    GasStationService -> GasStationRepository : findAll(lat,lon,gasolinetype,carsharing)
+    GasStationRepository -> GasStationServices: gasStationList
+    GasStationServices -> GasStationConverter: toDTOList(gasStationList)
+    GasStationConverter -> GasStationServices: gasStationListDTO
+    GasStationService -> GasStationController: gasStationListDTO
+@enduml
 
+```
+## UC10 - Evaluate price
+```plantuml
+@startuml
+    FrontEnd -> GasStationController : evaluatePrice(gasStationId)
+    GasStationController -> GasStationService: insertFeedbackGasStationPriceList(gasStationId)
+    note left: add new method to GasStationService
+    GasStationService -> GasStationRepository: find(gasStationId)
+    GasStationRepository -> GasStationService: gasStation
+    GasStationService->  GasStation: gasStation.getPriceList()
+    GasStation -> GasStationService: priceList
+    GasStationService -> PriceList: priceList.getUserId()
+    PriceList -> GasStationService: userId
+    GasStationService -> UserService: increaseUserReputation(userId)
+    UserService -> UserRepository: find(userId)
+    UserRepository -> UserService: user
+    GasStationService -> PriceList: priceList.getTimeTag()
+    PriceList -> GasStationService: timeTag
+    UserService -> User: user.setTrustLevel(timeTag)
+    User -> UserService: newTrustLevel
+    UserService -> UserRepository: save(user)
+    UserRepository -> UserService: boolenaResult
+    UserService -> UserController: newTrustLevel
+@enduml
+```
 
 
 
