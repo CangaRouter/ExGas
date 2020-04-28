@@ -665,7 +665,7 @@ GasStationController -- GasStationService
     FrontEnd -> GasStationController : insertReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
     GasStationController -> GasStationService: setReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
     GasStationService -> PriceList: new(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
-    PriceList -> GasStationService -> priceList
+    PriceList -> GasStationService :priceList
     GasStationService -> PriceListRepository: save(priceList)
     PriceListRepository -> GasStationService: booleanResult
     GasStationService -> GasStationRepository: find(gasStationId)
