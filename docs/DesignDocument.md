@@ -230,11 +230,11 @@ skinparam nodesep 5
 skinparam ranksep 10
 Package it.polito.ezgas.controller{
 Class UserController{
-    void createUser()
-    void authorizeUser()
+    boolean createUser()
+    boolean authorizeUser()
     UserDto getUser()
-    void modifyUser()
-    void deleteUser()
+    boolean modifyUser()
+    boolean deleteUser()
 }
 Class GasStationController{
     boolean createGasStation()
@@ -349,7 +349,6 @@ class GasStation {
  void setHasPremiumDiesel()
  void setHasLPG()
  void setHasMethane()
- void setIsAdmin()
  String getID()
  String getName()
  String getAddress()
@@ -583,6 +582,7 @@ GasStationController -- GasStationService
         UserConverter -> UserService : user
         UserService -> UserRepository: save(user)
         UserService -> UserController: userDTO
+        UserController -> FrontEnd: booleanResult
 @enduml
 ```
 ## UC2 - Modify user account
@@ -599,6 +599,7 @@ GasStationController -- GasStationService
     UserConverter -> UserDTO: new(...)
     UserDTO -> UserConverter: userDTO
     UserService -> UserController: userDTO
+    UserController -> FrontEnd: booleanResult
 @enduml
 ```
 ## UC3 - Delete user account
@@ -610,6 +611,7 @@ GasStationController -- GasStationService
     UserService -> UserRepository: delete(userId)
     UserRepository -> UserService : booleanResult
     UserService -> UserController: booleanResult
+    UserController -> FrontEnd: booleanResult
     @enduml
 @enduml
 ```
@@ -625,6 +627,7 @@ GasStationController -- GasStationService
         GasStationConverter -> GasStationService: gasStation
         GasStationService -> GasStationRepository: save(gasStation)
         GasStationService -> GasStation: gasStationDTO
+        GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
 ## UC5 - Modify Gas Station information
@@ -642,6 +645,7 @@ GasStationController -- GasStationService
     GasStationConverter -> GasStationDTO: new(...)
     GasStationDTO -> GasStationConverter: gasStationDTO
     GasStationService -> GasStation: gasStationDTO
+    GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
 ## UC6 - Delete Gas Station
@@ -652,6 +656,7 @@ GasStationController -- GasStationService
     GasStationService -> GasStationRepository: delete(gasStationId)
     GasStationRepository -> GasStationService: booleanResult
     GasStationService -> GasStationController: booleanResult
+    GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
 ## UC7 - Report fuel price for a gas station
@@ -666,6 +671,7 @@ GasStationController -- GasStationService
     GasStationService -> GasStationRepository: find(gasStationId)
     GasStationRepository -> GasStationService: gasStation
     GasStationService -> GasStation: gasStation.setPriceList(priceList)
+    GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
 ## UC8 - Obtain price of fuel for gas stations in a certain geographic area
@@ -678,6 +684,7 @@ GasStationController -- GasStationService
     GasStationServices -> GasStationConverter: toDTOList(gasStationList)
     GasStationConverter -> GasStationServices: gasStationListDTO
     GasStationService -> GasStationController: gasStationListDTO
+    GasStationController -> FrontEnd: booleanResult
 @enduml
 
 ```
@@ -701,8 +708,9 @@ GasStationController -- GasStationService
     UserService -> User: user.setTrustLevel(timeTag)
     User -> UserService: newTrustLevel
     UserService -> UserRepository: save(user)
-    UserRepository -> UserService: boolenaResult
-    UserService -> UserController: newTrustLevel
+    UserRepository -> UserService: booleanResult
+    UserService -> GasStationController: newTrustLevel
+    GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
 
