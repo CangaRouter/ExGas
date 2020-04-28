@@ -248,6 +248,35 @@ Class GasStationController{
 }
 
 package it.polito.ezgas.entity{
+
+class PriceList {
+ TimeStamp time_tag
+ double dieselPrice
+ double gasolinePrice
+ double premiumdieselPrice
+ double premiumgasolinePrice
+ double LPGPrice
+ double methanePrice
+ int trust_level
+
+ void setTimeTag()
+ void setDieselPrice()
+ void setGasolinePrice()
+ void setPremiumDieselPrice()
+ void setPremiumGasolinePrice()
+ void setLPGPrice()
+ void setMethanPrice()
+ void setTrust_level()
+ void getTime_tag()
+ double getDieselPrice()
+ double getGasolinePrice()
+ double getPremiumDieselPrice()
+ double getPremiumGasolinePrice()
+ double getLPGPrice()
+ double getMethanPrice()
+ int getTrust_level()
+ }
+
 class IdPw{
     String id
     String password
@@ -346,6 +375,7 @@ IdPw -- User
 Package it.polito.ezgas.repository{
 class UserRepository{}
 class GasStationRepository{}
+class PriceListRepository{}
 class LoginRepository{}
 class IdPwRepository{}
 }
@@ -366,6 +396,10 @@ class LoginConverter {
 class IdPwConverter{
    IdPwDto toIdPwDto(IdPw)
     IdPw toIdPw(IdPwDto)
+}
+class PriceListConverter{
+    PriceList toPriceList(PriceListDto)
+    PriceListDto toPriceListDto(PriceList)
 }
 }
 
@@ -442,29 +476,14 @@ Class GasStationDto{
  boolean hasMethane()
 
 }
-}
-
-Package it.polito.ezgas.service{
-Interface GasStationService{
-}
-Interface UserService{
-}
-}
-
-Package it.polito.ezgas.serviceimpl{
- Class GasStationServiceImp{}
- Class UserServiceImp{}
- Class PriceList {
- TimeStamp time_tag
+Class PriceListDto {
  double dieselPrice
  double gasolinePrice
  double premiumdieselPrice
  double premiumgasolinePrice
  double LPGPrice
  double methanePrice
- int trust_level
 
- void setTimeTag()
  void setDieselPrice()
  void setGasolinePrice()
  void setPremiumDieselPrice()
@@ -479,10 +498,21 @@ Package it.polito.ezgas.serviceimpl{
  double getPremiumGasolinePrice()
  double getLPGPrice()
  double getMethanPrice()
- int getTrust_level()
+ }
 }
 
+Package it.polito.ezgas.service{
+Interface GasStationService{
 }
+Interface UserService{
+}
+}
+
+Package it.polito.ezgas.serviceimpl {
+ Class GasStationServiceImp{}
+ Class UserServiceImp{}
+}
+
 
 UserService <|-- UserServiceImp
 GasStationService <|-- GasStationServiceImp
