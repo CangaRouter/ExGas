@@ -142,14 +142,14 @@ n -- ps
 
 
 
-The Spring framework implements the MC of the MVC pattern. The M is implemented in the packages Entity and Repository. The C is implemented in the packages Service, ServiceImpl and Controller. The packages DTO and Converter contain classes for translation services.
+The Spring framework implements the MC of the MVC pattern. The M is implemented in the packages Entity and Repository. The C is implemented in the packages Service, ServiceImpl and Controller. The packages Dto and Converter contain classes for translation services.
 
 
 
 **Entity Package**
 
 Each Model class should have a corresponding class in this package. Model classes contain the data that the application must handle.
-The various models of the application are organised under the model package, their DTOs(data transfer objects) are present under the dto package.
+The various models of the application are organised under the model package, their Dtos(data transfer objects) are present under the dto package.
 
 In the Entity package all the Entities of the system are provided. Entities classes provide the model of the application, and represent all the data that the application must handle.
 
@@ -166,11 +166,11 @@ Extending class JpaRepository provides a lot of CRUD operations by inheritance. 
 
 
 
-**DTO package**
+**Dto package**
 
-The DTO package contains all the DTO classes. DTO classes are used to transfer only the data that we need to share with the user interface and not the entire model object that we may have aggregated using several sub-objects and persisted in the database.
+The Dto package contains all the Dto classes. Dto classes are used to transfer only the data that we need to share with the user interface and not the entire model object that we may have aggregated using several sub-objects and persisted in the database.
 
-For each Entity class, a DTO class is created (in a 1:1 mapping).  For Spring the Dto class associated to class "XClass" must be called "XClassDto".  This allows Spring to find automatically the DTO class having the corresponding Entity class, and viceversa. 
+For each Entity class, a Dto class is created (in a 1:1 mapping).  For Spring the Dto class associated to class "XClass" must be called "XClassDto".  This allows Spring to find automatically the Dto class having the corresponding Entity class, and viceversa. 
 
 
 
@@ -179,7 +179,7 @@ For each Entity class, a DTO class is created (in a 1:1 mapping).  For Spring th
 
 The Converter Package contains all the Converter classes of the project.
 
-For each Entity class, a Converter class is created (in a 1:1 mapping) to allow conversion from Entity class to DTO class and viceversa.
+For each Entity class, a Converter class is created (in a 1:1 mapping) to allow conversion from Entity class to Dto class and viceversa.
 
 For Spring to be able to map the association at runtime, the Converter class associated to class "XClass" has to be exactly named "XClassConverter".
 
@@ -192,7 +192,7 @@ The controller package is in charge of handling the calls to the REST API that a
 Services are in packages Service (interfaces of services) and ServiceImpl (classes that implement the interfaces)
 
 The controller layer interacts with the service layer (packages Service and ServieImpl) 
- to get a job done whenever it receives a request from the view or api layer, when it does it should not have access to the model objects and should always exchange neutral DTOs.
+ to get a job done whenever it receives a request from the view or api layer, when it does it should not have access to the model objects and should always exchange neutral Dtos.
 
 The service layer never accepts a model as input and never ever returns one either. This is another best practice that Spring enforces to implement  a layered architecture.
 
@@ -219,8 +219,6 @@ Contains Service classes that implement the Service Interfaces in the Service pa
 
 
 # Low level design
-
-<Based on the official requirements and on the Spring Boot design guidelines, define the required classes (UML class diagram) of the back-end in the proper packages described in the high-level design section.>
 
 ```plantuml
 @startuml
@@ -569,37 +567,36 @@ GasStationController -- GasStationService
 
 
 # Verification sequence diagrams 
-\<select key scenarios from the requirement document. For each of them define a sequence diagram showing that the scenario can be implemented by the classes and methods in the design>
 
 ## UC1 - Create User Account
 ```plantuml
 @startuml
-        FrontEnd --> UserController : createUser(userDTO)
-        UserController -> UserService : saveUser(userDTO)
-        UserService -> UserConverter : toUser(userDTO)
+        FrontEnd --> UserController : createUser(userDto)
+        UserController -> UserService : saveUser(userDto)
+        UserService -> UserConverter : toUser(userDto)
         UserConverter -> User: new(...)
         User -> UserConverter: user
         UserConverter -> UserService : user
         UserService -> UserRepository: save(user)
-        UserService -> UserController: userDTO
-        UserController -> FrontEnd: booleanResult
+        UserService -> UserController: userDto
+        UserController -> FrontEnd: userDto
 @enduml
 ```
 ## UC2 - Modify user account
 ```plantuml
 @startuml
-    FrontEnd --> UserController : modifyUser(userDTO)
-    UserController -> UserService: saveUser(userDTO)
-    UserService -> UserConverter: toUser(userDTO)
+    FrontEnd --> UserController : modifyUser(userDto)
+    UserController -> UserService: saveUser(userDto)
+    UserService -> UserConverter: toUser(userDto)
     UserConverter -> User: new(...)
     User -> UserConverter: user
     UserConverter -> UserService : user
-    UserService -> UserRepository: save(user)
-    UserService -> UserConverter: toDTO(user)
-    UserConverter -> UserDTO: new(...)
-    UserDTO -> UserConverter: userDTO
-    UserService -> UserController: userDTO
-    UserController -> FrontEnd: booleanResult
+    UserService -> UserRepository: update(user)
+    UserService -> UserConverter: toDto(user)
+    UserConverter -> UserDto: new(...)
+    UserDto -> UserConverter: userDto
+    UserService -> UserController: userDto
+    UserController -> FrontEnd: userDto
 @enduml
 ```
 ## UC3 - Delete user account
@@ -609,8 +606,6 @@ GasStationController -- GasStationService
     FrontEnd -> UserController: deleteUser(userId)
     UserController -> UserService: deleteUser(userId)
     UserService -> UserRepository: delete(userId)
-    UserRepository -> UserService : booleanResult
-    UserService -> UserController: booleanResult
     UserController -> FrontEnd: booleanResult
     @enduml
 @enduml
@@ -619,14 +614,14 @@ GasStationController -- GasStationService
 ```plantuml
 @startuml
      @startuml
-        FrontEnd --> GasStationController : createGasStation(gasStationDTO)
-        GasStationController -> GasStationService : saveGasStation(gasStationDTO)
-        GasStationService -> GasStationConverter : toGasStation(gasStationDTO)
+        FrontEnd --> GasStationController : createGasStation(gasStationDto)
+        GasStationController -> GasStationService : saveGasStation(gasStationDto)
+        GasStationService -> GasStationConverter : toGasStation(gasStationDto)
         GasStationConverter -> GasStation: new(...)
         GasStation -> GasStationConverter: gasStation
         GasStationConverter -> GasStationService: gasStation
         GasStationService -> GasStationRepository: save(gasStation)
-        GasStationService -> GasStation: gasStationDTO
+        GasStationService -> GasStationController: gasStationDto
         GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
@@ -634,17 +629,17 @@ GasStationController -- GasStationService
 ```plantuml
 @startuml
      @startuml
-    FrontEnd -> GasStationController : modifyGasStation(gasStationDTO)
-    GasStationController ->GasStationService: saveGasStation(gasStationDTO)
-    GasStationService -> GasStationConverter: toGasStation(gasStationDTO)
+    FrontEnd -> GasStationController : modifyGasStation(gasStationDto)
+    GasStationController ->GasStationService: saveGasStation(gasStationDto)
+    GasStationService -> GasStationConverter: toGasStation(gasStationDto)
     GasStationConverter -> GasStation: new(...)
     GasStation -> GasStationConverter: gasStation
     GasStationConverter -> GasStationService: gasStation
-    GasStationService -> GasStationRepository: save(gasStation)
-    GasStationService -> GasStationConverter: toDTO(gasStation)
-    GasStationConverter -> GasStationDTO: new(...)
-    GasStationDTO -> GasStationConverter: gasStationDTO
-    GasStationService -> GasStation: gasStationDTO
+    GasStationService -> GasStationRepository: update(gasStation)
+    GasStationService -> GasStationConverter: toDto(gasStation)
+    GasStationConverter -> GasStationDto: new(...)
+    GasStationDto -> GasStationConverter: gasStationDto
+    GasStationService -> GasStation: gasStationDto
     GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
@@ -654,8 +649,6 @@ GasStationController -- GasStationService
     FrontEnd -> GasStationController: deleteGasStation(gasStationId) 
     GasStationController -> GasStationService: deleteGasStation(gasStationId)
     GasStationService -> GasStationRepository: delete(gasStationId)
-    GasStationRepository -> GasStationService: booleanResult
-    GasStationService -> GasStationController: booleanResult
     GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
@@ -667,10 +660,10 @@ GasStationController -- GasStationService
     GasStationService -> PriceList: new(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
     PriceList -> GasStationService :priceList
     GasStationService -> PriceListRepository: save(priceList)
-    PriceListRepository -> GasStationService: booleanResult
     GasStationService -> GasStationRepository: find(gasStationId)
     GasStationRepository -> GasStationService: gasStation
     GasStationService -> GasStation: gasStation.setPriceList(priceList)
+    GasStationService -> GasStationRepository: update(GasStation)
     GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
@@ -680,37 +673,21 @@ GasStationController -- GasStationService
     FrontEnd -> GasStationController : listGasStations(lat,lon,gasolinetype,carsharing)
     GasStationController -> GasStationService: getGasStationsWithCoordinates(lat,lon,gasolinetype,carsharing)
     GasStationService -> GasStationRepository : findAll(lat,lon,gasolinetype,carsharing)
-    GasStationRepository -> GasStationServices: gasStationList
-    GasStationServices -> GasStationConverter: toDTOList(gasStationList)
-    GasStationConverter -> GasStationServices: gasStationListDTO
-    GasStationService -> GasStationController: gasStationListDTO
-    GasStationController -> FrontEnd: booleanResult
+    GasStationRepository -> GasStationService: List<GasStation>
+    GasStationService -> GasStationConverter: toDtoList(List<GasStation>)
+    GasStationConverter -> GasStationService: List<GasStatioDto>
+    GasStationService -> GasStationController: List<GasStatioDto>
+    GasStationController -> FrontEnd: List<GasStationDto>
 @enduml
 
 ```
 ## UC10 - Evaluate price
 ```plantuml
 @startuml
-    FrontEnd -> GasStationController : evaluatePrice(gasStationId)
-    GasStationController -> GasStationService: insertFeedbackGasStationPriceList(gasStationId)
-    note left: add new method to GasStationService
-    GasStationService -> GasStationRepository: find(gasStationId)
-    GasStationRepository -> GasStationService: gasStation
-    GasStationService->  GasStation: gasStation.getPriceList()
-    GasStation -> GasStationService: priceList
-    GasStationService -> PriceList: priceList.getUserId()
-    PriceList -> GasStationService: userId
-    GasStationService -> UserService: increaseUserReputation(userId)
-    UserService -> UserRepository: find(userId)
-    UserRepository -> UserService: user
-    GasStationService -> PriceList: priceList.getTimeTag()
-    PriceList -> GasStationService: timeTag
-    UserService -> User: user.setTrustLevel(timeTag)
-    User -> UserService: newTrustLevel
-    UserService -> UserRepository: save(user)
-    UserRepository -> UserService: booleanResult
-    UserService -> GasStationController: newTrustLevel
-    GasStationController -> FrontEnd: booleanResult
+    FrontEnd -> UserController : evaluatePrice()
+    UserController -> UserService: IncreaseUserReputation(userId)
+    UserService -> UserRepository: increaseReputation(userId)
+    UserController -> FrontEnd: booleanResult
 @enduml
 ```
 
