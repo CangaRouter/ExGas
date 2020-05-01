@@ -370,21 +370,57 @@ IdPw -- User
 }
 
 Package it.polito.ezgas.repository{
-class UserRepository{}
-class GasStationRepository{}
-class PriceListRepository{}
-class LoginRepository{}
-class IdPwRepository{}
+class UserRepository{ 
+User find(userId)
+List<User> findAll(List<userId>)
+void save(user)
+void update(user)
+void delete(userId)
+void increaseReputationLevel(userId)
+void decreaseReputationLevel(userId)
+}
+class GasStationRepository{
+GasStation find(gasStationId)
+List<GasStation> findAll(List<gasStationId>)
+void save(gasStation)
+void update(gasStation)
+void delete(gasStationId)
+}
+class PriceListRepository{
+PriceList find(priceListId)
+List<PriceList> findAll(List<priceListId>)
+void save(priceList)
+void update(priceList)
+void delete(priceListId)
+}
+class LoginRepository{
+Login find(loginId)
+List<Login> findAll(List<loginId>)
+void save(login)
+void update(login)
+void delete(loginId)
+}
+class IdPwRepository{
+IdPw find(idPw)
+List<IdPw> findAll(List<idPw>)
+void save(idPw)
+void update(idPw)
+void delete(IdPw)
+}
 }
 
 Package it.polito.ezgas.converter{
 class UserConverter{
     UserDto toUserDto(user)
     User toUser(userdto)
+    List<User> toUserList(List<UserDto>)
+    List<UserDto> toUserDtoList(List<User>)
 }
 class GasStationConverter{
    GasStationDto toGasStationDto(gasStation)
    GasStation toGasStation(gasStationdto)
+   List<GasStation> toGasStationDtoList(List<GasStationDto>)
+   List<GasStationDto> toGasStationList(List<GasStation>)
 }
 class LoginConverter {
     LoginDto toLoginDto(Login)
@@ -674,7 +710,7 @@ GasStationController -- GasStationService
     GasStationController -> GasStationService: getGasStationsWithCoordinates(lat,lon,gasolinetype,carsharing)
     GasStationService -> GasStationRepository : findAll(lat,lon,gasolinetype,carsharing)
     GasStationRepository -> GasStationService: List<GasStation>
-    GasStationService -> GasStationConverter: toDtoList(List<GasStation>)
+    GasStationService -> GasStationConverter: toGasStationDtoList(List<GasStation>)
     GasStationConverter -> GasStationService: List<GasStatioDto>
     GasStationService -> GasStationController: List<GasStatioDto>
     GasStationController -> FrontEnd: List<GasStationDto>
