@@ -590,26 +590,25 @@ GasStationController -- GasStationService
 
 # Verification traceability matrix
 
-\<for each functional requirement from the requirement document, list which classes concur to implement it>
 
 |   | UserController | GasStationController | PriceList | IdPw | User | Login | GasStation | UserRepository | GasStationRepository | PriceListRepository | LoginRepository | IdPwRepository | UserConverter | GasStationConverter | LoginConverter | IdPwConverter | PriceListConverter | IdPwDto | LoginDto | UserDto | GasStationDto | PriceListDto | GasStationServiceImp | UserServiceImp |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| FR1.1 | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |  
-| FR1.2 | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
-| FR1.3 | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
-| FR1.4 | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
-| FR2   | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
-| FR3.1 |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
-| FR3.2 |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
-| FR3.3 |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
-| FR4.1 |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR4.2 |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR4.3 |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR4.4 |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR4.5 |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR5.1 | X | X | X |   | X |   | X | X | X | X |   |   | X | X |   |   | X |   |   | X | X | X | X | X |
-| FR5.2 | X | X | X |   | X |   | X | X | X | X |   |   | X | X |   |   | X |   |   | X | X | X | X | X |
-| FR5.3 | X | X | X |   | X |   | X | X | X | X |   |   | X | X |   |   | X |   |   | X | X | X | X | X |
+|------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| FR1.1  | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |  
+| FR1.2  | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
+| FR1.3  | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
+| FR1.4  | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
+| FR2    | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
+| FR3.1  |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
+| FR3.2  |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
+| FR3.3  |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
+| FR4.1  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
+| FR4.2  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
+| FR4.3  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
+| FR4.4  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
+| FR4.5  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
+| FR5.1  | X |   |   |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
+| FR5.2  | X |   |   |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
+| FR5.3  | X |   |   |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
 
 # Verification sequence diagrams 
 
