@@ -59,9 +59,10 @@ Version:
 Insert here Gantt chart with above activities
 
 ```plantuml
-printscale daily
-Project starts the 06th of april 2020
 @startuml
+project starts the 2020/04/06
+saturday are closed
+sunday are closed
 -- Requirements --
 [Requirements] as [TASK1] lasts 2 days
 -- Design --
