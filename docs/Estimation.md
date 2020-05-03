@@ -28,12 +28,12 @@ Version:
 
 |             | Estimate                        |             
 | ----------- | ------------------------------- |  
-| NC =  Estimated number of classes to be developed   | 10 |             
+| NC =  Estimated number of classes to be developed   | 35 |             
 | A = Estimated average size per class, in LOC       | 50 | 
-| S = Estimated size of project, in LOC (= NC * A) | 500 |
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 50 |   
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 150 | 
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) | 2 |               
+| S = Estimated size of project, in LOC (= NC * A) | 1750 |
+| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 175 |   
+| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 5250 | 
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) | ~ 1.1 |               
 
 
 # Estimate by activity decomposition
@@ -44,36 +44,31 @@ Version:
 
 |         Activity name    | Estimated effort (person hours)   |             
 | ----------- | ------------------------------- | 
-| requirements | 15 |
-| design | 10 |
-| coding | 8 |
-| documentation | 4 |
-| test plan | 8 |
-| test data | 5 |
-| test unit | 10 |
-| system test | 3 |
-<!-- |TOTAL| 60 (50 hrs LOC + 10 hrs management) -->
-
+| requirements | 41 |
+| design | 28 |
+| coding | 22 |
+| documentation | 12 |
+| test plan | 22 |
+| test data | 14 |
+| test unit | 28 |
+| system test | 8 |
 
 ###
 Insert here Gantt chart with above activities
 
 ```plantuml
 @startuml
-project starts the 2020/04/06
-saturday are closed
-sunday are closed
 -- Requirements --
 [Requirements] as [TASK1] lasts 2 days
 -- Design --
-[Design] as [TASK2] lasts 2 days
+[Design] as [TASK2] lasts 1 days
 -- Coding --
 [Coding] as [TASK3] lasts 1 days
 [Documentation] as [TASK6] lasts 1 days
 -- Testing --
 [Test Plan] as [TASK7] lasts 1 days
 [Test Data] as [TASK4] lasts 1 days
-[Test Unit] as [TASK5] lasts 2 days
+[Test Unit] as [TASK5] lasts 1 days
 [System Test] as [TASK8] lasts 1 days
 [TASK1]->[TASK2]
 [TASK2]->[TASK3]
