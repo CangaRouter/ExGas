@@ -247,42 +247,6 @@ Class GasStationController{
 
 package it.polito.ezgas.entity{
 
-class PriceList {
- TimeStamp time_tag
- double dieselPrice
- double gasolinePrice
- double premiumdieselPrice
- double premiumgasolinePrice
- double LPGPrice
- double methanePrice
- int trust_level
-
- void setTimeTag()
- void setDieselPrice()
- void setGasolinePrice()
- void setPremiumDieselPrice()
- void setPremiumGasolinePrice()
- void setLPGPrice()
- void setMethanPrice()
- void setTrust_level()
- TimeStamp getTime_tag()
- double getDieselPrice()
- double getGasolinePrice()
- double getPremiumDieselPrice()
- double getPremiumGasolinePrice()
- double getLPGPrice()
- double getMethanPrice()
- int getTrust_level()
- }
-
-class IdPw{
-    String id
-    String password
-    void setId()
-    void setPassword()
-    String getId()
-    String getPassword()
-}
 
 class User {
  String name
@@ -290,6 +254,8 @@ class User {
  String email
  int trust_level
  boolean isAdmin
+ String id
+ String password
  
  void setName()
  void setSurname()
@@ -297,6 +263,8 @@ class User {
  void seTrustLevel()
  void setCredentials()
  void setIsAdmin()
+ void setId()
+ void setPassword()
  Login getCredentials()
  String getName()
  String getEmail()
@@ -305,7 +273,8 @@ class User {
  boolean getIsAdmin()
  void incremenTrustLevel()
  void decremenTrusLevel()
- 
+ String getId()
+ String getPassword()
 }
 
 class Login{
@@ -334,7 +303,15 @@ class GasStation {
  boolean hasPremiumGasoline
  boolean hasLPG
  boolean hasMethane
- 
+ double dieselPrice
+ double gasolinePrice
+ double premiumdieselPrice
+ double premiumgasolinePrice
+ double LPGPrice
+ double methanePrice
+ TimeStamp time_tag
+ int trust_level
+ String userId
 
  
  void setName()
@@ -347,6 +324,15 @@ class GasStation {
  void setHasPremiumDiesel()
  void setHasLPG()
  void setHasMethane()
+ void setTimeTag()
+ void setDieselPrice()
+ void setGasolinePrice()
+ void setPremiumDieselPrice()
+ void setPremiumGasolinePrice()
+ void setLPGPrice()
+ void setMethanPrice()
+ void setTrust_level()
+ void setUserId()
  String getID()
  String getName()
  String getAddress()
@@ -358,15 +344,19 @@ class GasStation {
  boolean getHasPremiumDiesel()
  boolean getHasLPG()
  boolean getHasMethane()
+ TimeStamp getTime_tag()
+ double getDieselPrice()
+ double getGasolinePrice()
+ double getPremiumDieselPrice()
+ double getPremiumGasolinePrice()
+ double getLPGPrice()
+ double getMethanPrice()
+ int getTrust_level()
+ String getUserId()
 }
 
+User"0..1"--GasStation
 
-
-
-
-User--"*"PriceList
-PriceList"0..1"--GasStation
-IdPw -- User
 }
 
 Package it.polito.ezgas.repository{
@@ -386,13 +376,7 @@ void save(gasStation)
 void update(gasStation)
 void delete(gasStationId)
 }
-class PriceListRepository{
-PriceList find(priceListId)
-List<PriceList> findAll(List<priceListId>)
-void save(priceList)
-void update(priceList)
-void delete(priceListId)
-}
+
 class LoginRepository{
 Login find(loginId)
 List<Login> findAll(List<loginId>)
@@ -400,13 +384,7 @@ void save(login)
 void update(login)
 void delete(loginId)
 }
-class IdPwRepository{
-IdPw find(idPw)
-List<IdPw> findAll(List<idPw>)
-void save(idPw)
-void update(idPw)
-void delete(IdPw)
-}
+
 }
 
 Package it.polito.ezgas.converter{
@@ -426,14 +404,7 @@ class LoginConverter {
     LoginDto toLoginDto(Login)
     Login toLogin(LoginDto)
 }
-class IdPwConverter{
-   IdPwDto toIdPwDto(IdPw)
-    IdPw toIdPw(IdPwDto)
-}
-class PriceListConverter{
-    PriceList toPriceList(PriceListDto)
-    PriceListDto toPriceListDto(PriceList)
-}
+
 }
 
 Package it.polito.ezgas.dto{
@@ -489,17 +460,36 @@ Class GasStationDto{
  double premiumDieselPrice
  double premiumGasolinePrice
  double LPGPrice
- double methanePrice   
+ double methanePrice
+ double dieselPrice
+ double gasolinePrice
+ double premiumdieselPrice
+ double premiumgasolinePrice
+ double LPGPrice
+ double methanePrice
+
  boolean setName()
  boolean setAddress()
  boolean setBrand()
  boolean addCarSharingCompany()
  boolean setIsAdmin()
+ void setDieselPrice()
+ void setGasolinePrice()
+ void setPremiumDieselPrice()
+ void setPremiumGasolinePrice()
+ void setLPGPrice()
+ void setMethanPrice()
  String getID()
  String getName()
  String getAddress()
  String getBrand()
  List<String> getCarSharingCompany()
+ double getDieselPrice()
+ double getGasolinePrice()
+ double getPremiumDieselPrice()
+ double getPremiumGasolinePrice()
+ double getLPGPrice()
+ double getMethanPrice()
  boolean hasCarSharingCompany()
  boolean hasDiesel()
  boolean hasGasoline()
@@ -509,27 +499,6 @@ Class GasStationDto{
  boolean hasMethane()
 
 }
-Class PriceListDto {
- double dieselPrice
- double gasolinePrice
- double premiumdieselPrice
- double premiumgasolinePrice
- double LPGPrice
- double methanePrice
-
- void setDieselPrice()
- void setGasolinePrice()
- void setPremiumDieselPrice()
- void setPremiumGasolinePrice()
- void setLPGPrice()
- void setMethanPrice()
- double getDieselPrice()
- double getGasolinePrice()
- double getPremiumDieselPrice()
- double getPremiumGasolinePrice()
- double getLPGPrice()
- double getMethanPrice()
- }
 }
 
 Package it.polito.ezgas.service{
@@ -553,19 +522,17 @@ UserServiceImp -- Login
 UserServiceImp -- UserConverter
 UserServiceImp -- LoginConverter
 UserServiceImp -- Login
-UserServiceImp --IdPw
+
 
 LoginConverter -- Login
 UserConverter -- User
-IdPwConverter -- IdPw
 GasStationConverter-- GasStation
 
-IdPwConverter --IdPwDto
+
 LoginConverter -- LoginDto
 UserConverter -- UserDto
 GasStationConverter-- GasStationDto
 
-IdPwRepository --"*" IdPw
 LoginRepository --"*" Login
 GasStationRepository --"*" GasStation
 UserRepository --"*" User
@@ -701,12 +668,9 @@ GasStationController -- GasStationService
 @startuml
     FrontEnd -> GasStationController : insertReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
     GasStationController -> GasStationService: setReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
-    GasStationService -> PriceList: new(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
-    PriceList -> GasStationService :priceList
-    GasStationService -> PriceListRepository: save(priceList)
     GasStationService -> GasStationRepository: find(gasStationId)
     GasStationRepository -> GasStationService: gasStation
-    GasStationService -> GasStation: gasStation.setPriceList(priceList)
+    GasStationService -> GasStation: gasStation.setPriceList(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
     GasStationService -> GasStationRepository: update(GasStation)
     GasStationController -> FrontEnd: booleanResult
 @enduml
