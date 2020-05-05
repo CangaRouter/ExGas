@@ -228,84 +228,53 @@ skinparam nodesep 5
 skinparam ranksep 10
 Package it.polito.ezgas.controller{
 Class UserController{
-    boolean createUser()
+    boolean saveUser()
     boolean authorizeUser()
-    UserDto getUser()
+    UserDto getUserById()
     boolean modifyUser()
     boolean deleteUser()
+    List<UserDto> getAllUsers()
+    Integer increaseUserReputation()
+    Integer decreaseUserReputation()
+    LoginDto login()
 }
 Class GasStationController{
-    boolean createGasStation()
+    boolean saveGasStation()
     boolean modifyGasStation()
     boolean deleteGasStation()
-    GasStationDto getGasStation()
-    boolean insertReport()
-    List<GasStationDto> listGasStations()
+    GasStationDto getGasStationById()
+    boolean setGasStationReport()
+    List<GasStationDto> getAllGasStations()
+    List<GasStationDto> getGasStationsByGasolineType()
+    List<GasStationDto> getGasStationsByProximity()
+    List<GasStationDto> getGasStationsWithCoordinates()
     boolean evaluatePrice()
 }
 }
 
 package it.polito.ezgas.entity{
 
-class PriceList {
- TimeStamp time_tag
- double dieselPrice
- double gasolinePrice
- double premiumdieselPrice
- double premiumgasolinePrice
- double LPGPrice
- double methanePrice
- int trust_level
-
- void setTimeTag()
- void setDieselPrice()
- void setGasolinePrice()
- void setPremiumDieselPrice()
- void setPremiumGasolinePrice()
- void setLPGPrice()
- void setMethanPrice()
- void setTrust_level()
- TimeStamp getTime_tag()
- double getDieselPrice()
- double getGasolinePrice()
- double getPremiumDieselPrice()
- double getPremiumGasolinePrice()
- double getLPGPrice()
- double getMethanPrice()
- int getTrust_level()
- }
-
-class IdPw{
-    String id
-    String password
-    void setId()
-    void setPassword()
-    String getId()
-    String getPassword()
-}
 
 class User {
- String name
- String surname
+ Integer userId
+ String userName
+ String password
  String email
- int trust_level
- boolean isAdmin
- 
- void setName()
- void setSurname()
- void setEmail()
- void seTrustLevel()
- void setCredentials()
- void setIsAdmin()
- Login getCredentials()
- String getName()
- String getEmail()
- String getSurname()
- Int getTrustLevel()
- boolean getIsAdmin()
- void incremenTrustLevel()
- void decremenTrusLevel()
- 
+ Integer reputation
+ Boolean admin
+
+void setUserId()
+void setUserName()
+void setPassword()
+void setEmail()
+void setReputation()
+void setAdmin()
+Integer getUserId()
+String getUserName()
+String getPassword()
+String getEmail()
+Integer getReputation()
+Boolean getAdmin()
 }
 
 class Login{
@@ -322,51 +291,70 @@ class Login{
 }
 
 class GasStation {
- String ID
- String name
- String address
- String brand
- List<String> carSharingCompany
- boolean hasCarSharingCompany
+ Integer gasStationId
+ String gasStationName
+ String gasStationAddress
+ String carSharing
  boolean hasDiesel
  boolean hasGasoline
  boolean hasPremiumDiesel
  boolean hasPremiumGasoline
  boolean hasLPG
  boolean hasMethane
- 
+ double dieselPrice
+ double superPrice
+ double superPlusPrice
+ double gasPrice
+ double methanePrice
+ double reportDependability
+ String reportTimestamp
+ Integer reportUser 
 
- 
- void setName()
- void setAddress()
- void setBrand()
- void addCarSharingCompany()
- void setHascarSharingCompany()
- void setHasGasoline()
- void setHasDiesel()
- void setHasPremiumDiesel()
- void setHasLPG()
- void setHasMethane()
- String getID()
- String getName()
- String getAddress()
- String getBrand()
- List<String> getCarSharingCompany()
- boolean getHascarSharingCompany()
- boolean getHasGasoline()
+ void setGasStationId()
+ void setGasStationName()
+ void setGasStationAddress()
+ void setReportDependability()
+ void setReportUser
+ void setReportTimestamp
+ void setHasDiesel
+ void setHasSuper
+ void setHasSuperPlus
+ void setHasGas()
+ void setLat()
+ void setLon()
+ void setDieselPrice()
+ void setSuperPrice()
+ void setSuperPlusPrice()
+ void setGasPrice()
+ void setUser()
+ void setHasMethane() 
+ void setMethanePrice()
+ void setCarSharing()
+ void setPriceList()
+ String getGasStationId()
+ String getGasStationName()
+ String getGasStationAddress()
+ double getReportDependability()
+ Integer getReportUser()
+ String getReportTimestamp()
  boolean getHasDiesel()
- boolean getHasPremiumDiesel()
- boolean getHasLPG()
+ boolean getHasSuper()
+ boolean getHasSuperPlus()
+ boolean getHasGas()
+ double getLat()
+ double getLon()
+ double getDieselPrice()
+ double getSuperPrice()
+ double getSuperPlusPrice()
+ double getGasPrice()
+ User getUser()
  boolean getHasMethane()
+ double getMethanePrice()
+ String getCarSharing()
 }
 
+User"0..1"--GasStation
 
-
-
-
-User--"*"PriceList
-PriceList"0..1"--GasStation
-IdPw -- User
 }
 
 Package it.polito.ezgas.repository{
@@ -386,13 +374,7 @@ void save(gasStation)
 void update(gasStation)
 void delete(gasStationId)
 }
-class PriceListRepository{
-PriceList find(priceListId)
-List<PriceList> findAll(List<priceListId>)
-void save(priceList)
-void update(priceList)
-void delete(priceListId)
-}
+
 class LoginRepository{
 Login find(loginId)
 List<Login> findAll(List<loginId>)
@@ -400,13 +382,7 @@ void save(login)
 void update(login)
 void delete(loginId)
 }
-class IdPwRepository{
-IdPw find(idPw)
-List<IdPw> findAll(List<idPw>)
-void save(idPw)
-void update(idPw)
-void delete(IdPw)
-}
+
 }
 
 Package it.polito.ezgas.converter{
@@ -426,110 +402,128 @@ class LoginConverter {
     LoginDto toLoginDto(Login)
     Login toLogin(LoginDto)
 }
-class IdPwConverter{
-   IdPwDto toIdPwDto(IdPw)
-    IdPw toIdPw(IdPwDto)
-}
-class PriceListConverter{
-    PriceList toPriceList(PriceListDto)
-    PriceListDto toPriceListDto(PriceList)
-}
+
 }
 
 Package it.polito.ezgas.dto{
-    class IdPwDto{
-    String id
-    String password
-    boolean setId()
-    boolean setPassword()
-    String getId()
-    String getPassword()
+    class IdPw{
+    String user
+    String psw
+    
+	void setUser()
+    void setPw()
+    String getUser() 
+	String getPw()
+	
 }
 Class LoginDto{
-    String name
+    Integer userId
+    String userName
+    String token
     String email
-    boolean isAdmin
-    boolean setName()
-    boolean setEmail()
-    boolean setIsAdmin()
-    String getEmail()
-    String getName()
-    boolean getIsAdmin()
+    Integer reputation
+    Boolean admin
+    
+	void setUserId()
+    void setUserName()
+    void setToken()
+    void setEmail()
+    void setReputation()
+    void setAdmin()
+    Integer getUserId() 
+	String getUserName() 
+	String getToken() 
+	String getEmail() 
+	Integer getReputation() 
+    Boolean getAdmin()
+    
+
 }
 Class UserDto{
-String name
-String surname
-String email
-int trust_level
-String name
-boolean isAdmin
-
-void setName()
- boolean setSurname()
- boolean setEmail()
- boolean seTrustLevel()
- boolean setIsAdmin()
- String getName()
- String getEmail()
- String getSurname()
- Int getTrustLevel()
- boolean getIsAdmin()
+    Integer userId
+    String userName
+    String password
+    String email
+    Integer reputation
+    Boolean admin
+    void setUserId()
+    void setUserName()
+    void setPassword()
+    void setEmail()
+    void setReputation()
+    void setAdmin()
+    Integer getUserId()
+    String getUserName()
+    String getPassword()
+    String getEmail()
+    Integer getReputation()
+    Boolean getAdmin()
 }
 Class GasStationDto{
- String ID
- String name
- String address
- doube latitude
- double longitude
- String brand
- List<String> carSharingCompany
- TimeStamp time_tag
+ Integer gasStationId
+ String gasStationName
+ String gasStationAddress
+ boolean hasDiesel
+ boolean hasSuper
+ boolean hasSuperPlus
+ boolean hasGas
+ boolean hasMethane
+ String carSharing
+ double lat
+ double lon
  double dieselPrice
- double gasolinePrice
- double premiumDieselPrice
- double premiumGasolinePrice
- double LPGPrice
- double methanePrice   
- boolean setName()
- boolean setAddress()
- boolean setBrand()
- boolean addCarSharingCompany()
- boolean setIsAdmin()
- String getID()
- String getName()
- String getAddress()
- String getBrand()
- List<String> getCarSharingCompany()
- boolean hasCarSharingCompany()
- boolean hasDiesel()
- boolean hasGasoline()
- boolean hasPremiumDiesel()
- boolean hasPremiumGasoline()
- boolean hasLPG()
- boolean hasMethane()
-
-}
-Class PriceListDto {
- double dieselPrice
- double gasolinePrice
- double premiumdieselPrice
- double premiumgasolinePrice
- double LPGPrice
+ double superPrice
+ double superPlusPrice
+ double gasPrice
  double methanePrice
-
+ Integer reportUser
+ UserDto userDto
+ String reportTimestamp
+ double reportDependability
+ 
+ void setReportDependability()
+ void setGasStationId()
+ void setGasStationName()
+ void setGasStationAddress()
+ void setHasDiesel()
  void setDieselPrice()
- void setGasolinePrice()
- void setPremiumDieselPrice()
- void setPremiumGasolinePrice()
- void setLPGPrice()
- void setMethanPrice()
- double getDieselPrice()
- double getGasolinePrice()
- double getPremiumDieselPrice()
- double getPremiumGasolinePrice()
- double getLPGPrice()
- double getMethanPrice()
- }
+ void setHasSuper()
+ void setSuperPrice()
+ void setHasSuperPlus()
+ void setSuperPlusPrice()
+ void setHasGas()
+ void setGasPrice()
+ void setHasMethane()
+ void setMethanePrice()
+ void setPriceReportDtos()
+ void setReportUser()
+ void setReportTimestamp()
+ void setLat()
+ void setLon()
+ void setUserDto()
+ void setCarSharing()
+ double getReportDependability()
+ Integer getGasStationId()
+ String getGasStationName()
+ String getGasStationAddress()
+ boolean getHasDiesel()
+  double getDieselPrice()
+ boolean getHasSuper() 
+  double getSuperPrice()
+ Boolean getHasSuperPlus()
+  double getSuperPlusPrice()
+ Boolean getHasGas()
+ double getGasPrice()
+ boolean getHasMethane()
+ double getMethanePrice()
+ Integer getReportUser()
+ String getReportTimestamp()
+ UserDto getUserDto()
+ double getLat()
+ double getLon() 
+ String getCarSharing()
+}
+
 }
 
 Package it.polito.ezgas.service{
@@ -553,19 +547,17 @@ UserServiceImp -- Login
 UserServiceImp -- UserConverter
 UserServiceImp -- LoginConverter
 UserServiceImp -- Login
-UserServiceImp --IdPw
+
 
 LoginConverter -- Login
 UserConverter -- User
-IdPwConverter -- IdPw
 GasStationConverter-- GasStation
 
-IdPwConverter --IdPwDto
+
 LoginConverter -- LoginDto
 UserConverter -- UserDto
 GasStationConverter-- GasStationDto
 
-IdPwRepository --"*" IdPw
 LoginRepository --"*" Login
 GasStationRepository --"*" GasStation
 UserRepository --"*" User
@@ -591,24 +583,24 @@ GasStationController -- GasStationService
 # Verification traceability matrix
 
 
-|   | UserController | GasStationController | PriceList | IdPw | User | Login | GasStation | UserRepository | GasStationRepository | PriceListRepository | LoginRepository | IdPwRepository | UserConverter | GasStationConverter | LoginConverter | IdPwConverter | PriceListConverter | IdPwDto | LoginDto | UserDto | GasStationDto | PriceListDto | GasStationServiceImp | UserServiceImp |
-|------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| FR1.1  | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |  
-| FR1.2  | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
-| FR1.3  | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
-| FR1.4  | X |   |   | X | X | X |   | X |   |   | X | X | X |   | X | X |   | X | X | X |   |   |   | X |
-| FR2    | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
-| FR3.1  |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
-| FR3.2  |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
-| FR3.3  |   | X |   |   |   |   | X |   | X |   |   |   |   | X |   |   |   |   |   |   | X |   | X |   |
-| FR4.1  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR4.2  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR4.3  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR4.4  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR4.5  |   | X | X |   |   |   | X |   | X | X |   |   |   | X |   |   | X |   |   |   | X | X | X |   |
-| FR5.1  | X |   |   |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
-| FR5.2  | X |   |   |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
-| FR5.3  | X |   |   |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
+|   | UserController | GasStationController | User | Login | GasStation | UserRepository | GasStationRepository | LoginRepository | UserConverter | GasStationConverter | LoginConverter | IdPw | LoginDto | UserDto | GasStationDto | GasStationServiceImp | UserServiceImp |
+|------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| FR1.1  | X |   | X | X |   | X |   | X | X |   | X | X | X | X |   |   | X |  
+| FR1.2  | X |   | X | X |   | X |   | X | X |   | X | X | X | X |   |   | X |
+| FR1.3  | X |   | X | X |   | X |   | X | X |   | X | X | X | X |   |   | X |
+| FR1.4  | X |   | X | X |   | X |   | X | X |   | X | X | X | X |   |   | X |
+| FR2    | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
+| FR3.1  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
+| FR3.2  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
+| FR3.3  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
+| FR4.1  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
+| FR4.2  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
+| FR4.3  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
+| FR4.4  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
+| FR4.5  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
+| FR5.1  | X |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   | X |
+| FR5.2  | X |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   | X |
+| FR5.3  | X |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   | X |
 
 # Verification sequence diagrams 
 
@@ -658,7 +650,7 @@ GasStationController -- GasStationService
 ```plantuml
 @startuml
      @startuml
-        FrontEnd --> GasStationController : createGasStation(gasStationDto)
+        FrontEnd --> GasStationController : saveGasStation(gasStationDto)
         GasStationController -> GasStationService : saveGasStation(gasStationDto)
         GasStationService -> GasStationConverter : toGasStation(gasStationDto)
         GasStationConverter -> GasStation: new(...)
@@ -699,14 +691,11 @@ GasStationController -- GasStationService
 ## UC7 - Report fuel price for a gas station
 ```plantuml
 @startuml
-    FrontEnd -> GasStationController : insertReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
+    FrontEnd -> GasStationController : setGasStationReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
     GasStationController -> GasStationService: setReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
-    GasStationService -> PriceList: new(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
-    PriceList -> GasStationService :priceList
-    GasStationService -> PriceListRepository: save(priceList)
     GasStationService -> GasStationRepository: find(gasStationId)
     GasStationRepository -> GasStationService: gasStation
-    GasStationService -> GasStation: gasStation.setPriceList(priceList)
+    GasStationService -> GasStation: gasStation.setPriceList(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
     GasStationService -> GasStationRepository: update(GasStation)
     GasStationController -> FrontEnd: booleanResult
 @enduml
@@ -714,7 +703,7 @@ GasStationController -- GasStationService
 ## UC8 - Obtain price of fuel for gas stations in a certain geographic area
 ```plantuml
 @startuml
-    FrontEnd -> GasStationController : listGasStations(lat,lon,gasolinetype,carsharing)
+    FrontEnd -> GasStationController : getGasStationswithCoordinates(lat,lon,gasolinetype,carsharing)
     GasStationController -> GasStationService: getGasStationsWithCoordinates(lat,lon,gasolinetype,carsharing)
     GasStationService -> GasStationRepository : findAll(lat,lon,gasolinetype,carsharing)
     GasStationRepository -> GasStationService: List<GasStation>
@@ -731,7 +720,7 @@ GasStationController -- GasStationService
 
 ```plantuml
 @startuml
-    FrontEnd -> UserController : evaluatePrice()
+    FrontEnd -> UserController : IncreaseUserReputation(userId)
     UserController -> UserService: IncreaseUserReputation(userId)
     UserService -> UserRepository: increaseReputation(userId)
     UserController -> FrontEnd: booleanResult
@@ -742,7 +731,7 @@ GasStationController -- GasStationService
 
 ```plantuml
 @startuml
-    FrontEnd -> UserController : evaluatePrice()
+    FrontEnd -> UserController : DecreaseUserReputation(userId)
     UserController -> UserService: DecreaseUserReputation(userId)
     UserService -> UserRepository: DecreaseReputation(userId)
     UserController -> FrontEnd: booleanResult
