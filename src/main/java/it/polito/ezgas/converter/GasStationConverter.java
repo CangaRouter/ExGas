@@ -2,24 +2,83 @@ package it.polito.ezgas.converter;
 
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.dto.GasStationDto;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class GasStationConverter {
 
-	private GasStationDto toGasStationDto(GasStation gasStation){
-		return null;
+	public GasStationDto toGasStationDto(GasStation gasStation){
+		
+		GasStationDto gsDto = new GasStationDto(
+												gasStation.getGasStationId(),
+												gasStation.getGasStationName(),
+												gasStation.getGasStationAddress(),
+												gasStation.getHasDiesel(),
+												gasStation.getHasSuper(),
+												gasStation.getHasSuperPlus(),
+												gasStation.getHasGas(),
+												gasStation.getHasMethane(),
+												gasStation.getCarSharing(),
+												gasStation.getLat(),
+												gasStation.getLon(),
+												gasStation.getDieselPrice(),
+												gasStation.getSuperPrice(),
+												gasStation.getSuperPlusPrice(),
+												gasStation.getGasPrice(),
+												gasStation.getMethanePrice(),
+												gasStation.getReportUser(),
+												gasStation.getReportTimestamp(),
+												gasStation.getReportDependability()
+												);
+		
+		return gsDto;
 	}
 	
-	private GasStation toGasStation(GasStationDto gasStationdto){
-		return null;
+	public GasStation toGasStation(GasStationDto gasStationdto){
+		
+		GasStation gs = new GasStation(
+										gasStationdto.getGasStationName(),
+										gasStationdto.getGasStationAddress(),
+										gasStationdto.getHasDiesel(),
+										gasStationdto.getHasSuper(),
+										gasStationdto.getHasSuperPlus(),
+										gasStationdto.getHasGas(),
+										gasStationdto.getHasMethane(),
+										gasStationdto.getCarSharing(),
+										gasStationdto.getLat(),
+										gasStationdto.getLon(),
+										gasStationdto.getDieselPrice(),
+										gasStationdto.getSuperPrice(),
+										gasStationdto.getSuperPlusPrice(),
+										gasStationdto.getGasPrice(),
+										gasStationdto.getMethanePrice(),
+										gasStationdto.getReportUser(),
+										gasStationdto.getReportTimestamp(),
+										gasStationdto.getReportDependability()
+										);
+		
+		return gs;
 	}
 	
-	private List<GasStation> toGasStationDtoList(List<GasStationDto> gasStationdtolist){
-		return null;
+	public List<GasStation> toGasStationList(List<GasStationDto> gasStationdtolist){
+		
+		List<GasStation> gasStationlist = new ArrayList<>();
+		
+		for (GasStationDto gsDto : gasStationdtolist)
+			gasStationlist.add(this.toGasStation(gsDto));
+		
+		return gasStationlist;
 	}
 	
-	private List<GasStationDto> toGasStationList(List<GasStation> gasStationlist){
-		return null;
+	public List<GasStationDto> toGasStationDtoList(List<GasStation> gasStationlist){
+		
+		List<GasStationDto> gasStationdtolist = new ArrayList<>();
+		
+		for (GasStation gs : gasStationlist)
+			gasStationdtolist.add(this.toGasStationDto(gs));
+		
+		return gasStationdtolist;
 	}
 	
 }

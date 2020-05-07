@@ -2,24 +2,57 @@ package it.polito.ezgas.converter;
 
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.dto.UserDto;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserConverter {
 	
-	private UserDto toUserDto(User user){
-		return null;
+	public UserDto toUserDto(User user){
+		
+		UserDto udto = new UserDto(
+									user.getUserId(),
+									user.getUserName(),
+									user.getPassword(),
+									user.getEmail(),
+									user.getReputation(),
+									user.getAdmin()
+									);
+		
+		return udto;
 	}
     
-	private User toUser(UserDto userdto){
-		return null;
+	public User toUser(UserDto userdto){
+		
+		User us = new User(
+							userdto.getUserName(),
+							userdto.getPassword(),
+							userdto.getEmail(),
+							userdto.getReputation()
+							);
+		us.setAdmin(userdto.getAdmin());
+		
+		return us;
 	}
     
-	private List<User> toUserList(List<UserDto> userDtolist){
-    	return null;
+	public List<User> toUserList(List<UserDto> userDtolist){
+		
+		List<User> userlist = new ArrayList<>();
+		
+		for(UserDto usdto : userDtolist)
+			userlist.add(this.toUser(usdto));
+		
+    	return userlist;
     }
     
-	private List<UserDto> toUserDtoList(List<User> userlist){
-		return null;
+	public List<UserDto> toUserDtoList(List<User> userlist){
+		
+		List<UserDto> userDtolist = new ArrayList<>();
+		
+		for(User us : userlist)
+			userDtolist.add(this.toUserDto(us));
+		
+		return userDtolist;
 	}
 	
 }
