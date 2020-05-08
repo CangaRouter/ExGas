@@ -8,77 +8,52 @@ import java.util.List;
 
 public class GasStationConverter {
 
-	public GasStationDto toGasStationDto(GasStation gasStation){
-		
-		GasStationDto gsDto = new GasStationDto(
-												gasStation.getGasStationId(),
-												gasStation.getGasStationName(),
-												gasStation.getGasStationAddress(),
-												gasStation.getHasDiesel(),
-												gasStation.getHasSuper(),
-												gasStation.getHasSuperPlus(),
-												gasStation.getHasGas(),
-												gasStation.getHasMethane(),
-												gasStation.getCarSharing(),
-												gasStation.getLat(),
-												gasStation.getLon(),
-												gasStation.getDieselPrice(),
-												gasStation.getSuperPrice(),
-												gasStation.getSuperPlusPrice(),
-												gasStation.getGasPrice(),
-												gasStation.getMethanePrice(),
-												gasStation.getReportUser(),
-												gasStation.getReportTimestamp(),
-												gasStation.getReportDependability()
-												);
-		
+	public GasStationDto toGasStationDto(GasStation gasStation) {
+
+		GasStationDto gsDto = new GasStationDto(gasStation.getGasStationId(), gasStation.getGasStationName(),
+				gasStation.getGasStationAddress(), gasStation.getHasDiesel(), gasStation.getHasSuper(),
+				gasStation.getHasSuperPlus(), gasStation.getHasGas(), gasStation.getHasMethane(),
+				gasStation.getCarSharing(), gasStation.getLat(), gasStation.getLon(), gasStation.getDieselPrice(),
+				gasStation.getSuperPrice(), gasStation.getSuperPlusPrice(), gasStation.getGasPrice(),
+				gasStation.getMethanePrice(), gasStation.getReportUser(), gasStation.getReportTimestamp(),
+				gasStation.getReportDependability());
+
 		return gsDto;
 	}
-	
-	public GasStation toGasStation(GasStationDto gasStationdto){
-		
-		GasStation gs = new GasStation(
-										gasStationdto.getGasStationName(),
-										gasStationdto.getGasStationAddress(),
-										gasStationdto.getHasDiesel(),
-										gasStationdto.getHasSuper(),
-										gasStationdto.getHasSuperPlus(),
-										gasStationdto.getHasGas(),
-										gasStationdto.getHasMethane(),
-										gasStationdto.getCarSharing(),
-										gasStationdto.getLat(),
-										gasStationdto.getLon(),
-										gasStationdto.getDieselPrice(),
-										gasStationdto.getSuperPrice(),
-										gasStationdto.getSuperPlusPrice(),
-										gasStationdto.getGasPrice(),
-										gasStationdto.getMethanePrice(),
-										gasStationdto.getReportUser(),
-										gasStationdto.getReportTimestamp(),
-										gasStationdto.getReportDependability()
-										);
-		
+
+	public GasStation toGasStation(GasStationDto gasStationdto) {
+
+		GasStation gs = new GasStation(gasStationdto.getGasStationName(), gasStationdto.getGasStationAddress(),
+				gasStationdto.getHasDiesel(), gasStationdto.getHasSuper(), gasStationdto.getHasSuperPlus(),
+				gasStationdto.getHasGas(), gasStationdto.getHasMethane(), gasStationdto.getCarSharing(),
+				gasStationdto.getLat(), gasStationdto.getLon(), gasStationdto.getDieselPrice(),
+				gasStationdto.getSuperPrice(), gasStationdto.getSuperPlusPrice(), gasStationdto.getGasPrice(),
+				gasStationdto.getMethanePrice(), gasStationdto.getReportUser(), gasStationdto.getReportTimestamp(),
+				gasStationdto.getReportDependability());
+
+		gs.setGasStationId(gasStationdto.getGasStationId());
+
 		return gs;
 	}
-	
-	public List<GasStation> toGasStationList(List<GasStationDto> gasStationdtolist){
-		
+
+	public List<GasStation> toGasStationList(List<GasStationDto> gasStationdtolist) {
+
 		List<GasStation> gasStationlist = new ArrayList<>();
-		
+
 		for (GasStationDto gsDto : gasStationdtolist)
 			gasStationlist.add(this.toGasStation(gsDto));
-		
+
 		return gasStationlist;
 	}
-	
-	public List<GasStationDto> toGasStationDtoList(List<GasStation> gasStationlist){
-		
+
+	public List<GasStationDto> toGasStationDtoList(List<GasStation> gasStationlist) {
+
 		List<GasStationDto> gasStationdtolist = new ArrayList<>();
-		
+
 		for (GasStation gs : gasStationlist)
 			gasStationdtolist.add(this.toGasStationDto(gs));
-		
+
 		return gasStationdtolist;
 	}
-	
+
 }
