@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 import it.polito.ezgas.entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
-	
-	
-
+public interface UserRepository extends JpaRepository<User, Integer> {
 
 }

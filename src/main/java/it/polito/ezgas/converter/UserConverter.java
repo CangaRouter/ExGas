@@ -6,6 +6,9 @@ import it.polito.ezgas.dto.UserDto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserConverter {
 
 	public UserDto toUserDto(User user) {

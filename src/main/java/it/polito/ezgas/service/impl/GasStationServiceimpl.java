@@ -10,6 +10,7 @@ import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
 import exception.InvalidUserException;
 import exception.PriceException;
+import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.service.GasStationService;
@@ -21,6 +22,8 @@ import it.polito.ezgas.service.GasStationService;
 public class GasStationServiceimpl implements GasStationService {
 	@Autowired
 	GasStationRepository gasStationRepository;
+	@Autowired
+	GasStationConverter gasStationConverter;
 
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
@@ -77,7 +80,7 @@ public class GasStationServiceimpl implements GasStationService {
 			double gasPrice, double methanePrice, Integer userId)
 			throws InvalidGasStationException, PriceException, InvalidUserException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -85,10 +88,5 @@ public class GasStationServiceimpl implements GasStationService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-	
-	
-	
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
+import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
@@ -19,7 +20,9 @@ import it.polito.ezgas.service.UserService;
 @Service
 public class UserServiceimpl implements UserService {
 	@Autowired
-	UserRepository	userRepository;
+	UserRepository userRepository;
+	@Autowired
+	UserConverter userConverter;
 
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
@@ -62,5 +65,5 @@ public class UserServiceimpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
