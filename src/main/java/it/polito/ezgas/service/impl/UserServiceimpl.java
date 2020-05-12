@@ -1,5 +1,6 @@
 package it.polito.ezgas.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
+import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.UserService;
 
@@ -27,6 +29,12 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
 		// TODO Auto-generated method stub
+		if (userId < 0)
+			throw new InvalidUserException("Invalid user ID");
+		if (userRepository.exists(userId)) {
+			User user = userRepository.getOne(userId);
+			return userConverter.toUserDto(user);
+		}
 		return null;
 	}
 
@@ -39,13 +47,23 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public List<UserDto> getAllUsers() {
 		// TODO Auto-generated method stub
-		return null;
+		List<UserDto> userDtolist = new ArrayList<>();
+		userDtolist = userConverter.toUserDtoList(userRepository.findAll());
+		if (userDtolist.isEmpty())
+			return null;
+		return userDtolist;
 	}
 
 	@Override
 	public Boolean deleteUser(Integer userId) throws InvalidUserException {
 		// TODO Auto-generated method stub
-		return null;
+		if (userId < 0)
+			throw new InvalidUserException("Invalid user ID");
+		if (userRepository.exists(userId)) {
+			userRepository.delete(userId);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -57,13 +75,23 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
 		// TODO Auto-generated method stub
-		return null;
+		if (userId < 0)
+			throw new InvalidUserException("Invalid user ID");
+		User user = userRepository.getOne(userId);
+		if (user.getReputation() < 5)
+			user.setReputation(user.getReputation() + 1);
+		return user.getReputation();
 	}
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
 		// TODO Auto-generated method stub
-		return null;
+		if (userId < 0)
+			throw new InvalidUserException("Invalid user ID");
+		User user = userRepository.getOne(userId);
+		if (user.getReputation() > -5)
+			user.setReputation(user.getReputation() - 1);
+		return user.getReputation();
 	}
 
 }
