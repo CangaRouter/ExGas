@@ -41,7 +41,9 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public UserDto saveUser(UserDto userDto) {
 		// TODO Auto-generated method stub
-		return null;
+		User user = userConverter.toUser(userDto);
+		userRepository.saveAndFlush(user);
+		return userDto;
 	}
 
 	@Override
@@ -49,8 +51,6 @@ public class UserServiceimpl implements UserService {
 		// TODO Auto-generated method stub
 		List<UserDto> userDtolist = new ArrayList<>();
 		userDtolist = userConverter.toUserDtoList(userRepository.findAll());
-		if (userDtolist.isEmpty())
-			return null;
 		return userDtolist;
 	}
 
@@ -69,7 +69,18 @@ public class UserServiceimpl implements UserService {
 	@Override
 	public LoginDto login(IdPw credentials) throws InvalidLoginDataException {
 		// TODO Auto-generated method stub
-		return null;
+		// token considered as null, will be used later
+		if (credentials.getPw() == null || credentials.getUser() == null)
+			throw new InvalidLoginDataException("Invalid user and/or password");
+		User user = userRepository.findByUserName(credentials.getUser());
+		if (user == null)
+			throw new InvalidLoginDataException("Invalid username");
+		if (user.getPassword() != credentials.getPw())
+			throw new InvalidLoginDataException("Invalid password for user: " + user.getUserName());
+		LoginDto loginDto = new LoginDto(user.getUserId(), user.getUserName(), null, user.getEmail(),
+				user.getReputation());
+		loginDto.setAdmin(user.getAdmin());
+		return loginDto;
 	}
 
 	@Override
@@ -78,8 +89,10 @@ public class UserServiceimpl implements UserService {
 		if (userId < 0)
 			throw new InvalidUserException("Invalid user ID");
 		User user = userRepository.getOne(userId);
-		if (user.getReputation() < 5)
+		if (user.getReputation() < 5) {
 			user.setReputation(user.getReputation() + 1);
+			userRepository.saveAndFlush(user);
+		}
 		return user.getReputation();
 	}
 
@@ -89,8 +102,10 @@ public class UserServiceimpl implements UserService {
 		if (userId < 0)
 			throw new InvalidUserException("Invalid user ID");
 		User user = userRepository.getOne(userId);
-		if (user.getReputation() > -5)
+		if (user.getReputation() > -5) {
 			user.setReputation(user.getReputation() - 1);
+			userRepository.saveAndFlush(user);
+		}
 		return user.getReputation();
 	}
 
