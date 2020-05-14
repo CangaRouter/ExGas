@@ -38,12 +38,15 @@ public class EZGasApplicationTests {
 				+ gasStation.getGasStationId(), "Gas Station not found");
 
 		gasStationRepository.deleteAllInBatch();
-		GasStation gasStation2 = new GasStation("pompa", "corso duca 24", true, true, false, false, false, "enjoy", 1,
+		GasStation gasStation2 = new GasStation("pompa", "corso duca 24", true, true, false, false, false, null, 1,
 				3, 1.5, 1.8, 1, 3, 0, 2, "01/06/2020", 10);
 		gasStation2 = gasStationRepository.saveAndFlush(gasStation2);
 
 		Assert.hasText(gasStationRepository.findBygasStationName(gasStation2.getGasStationName()).getGasStationName()
 				+ " #" + gasStation2.getGasStationId(), "Gas Station2 non found");
+		
+		Assert.hasText(gasStationRepository.findByhasDiesel(true).get(0).getGasStationName());
+		
 
 	}
 }
