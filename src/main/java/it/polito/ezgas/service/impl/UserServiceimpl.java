@@ -72,11 +72,11 @@ public class UserServiceimpl implements UserService {
 		// token considered as null, will be used later
 		if (credentials.getPw() == null || credentials.getUser() == null)
 			throw new InvalidLoginDataException("Invalid user and/or password");
-		User user = userRepository.findByUserName(credentials.getUser());
+		User user = userRepository.findByEmail(credentials.getUser());
 		if (user == null)
-			throw new InvalidLoginDataException("Invalid username");
+			throw new InvalidLoginDataException("Invalid email");
 		if (user.getPassword() != credentials.getPw())
-			throw new InvalidLoginDataException("Invalid password for user: " + user.getUserName());
+			throw new InvalidLoginDataException("Invalid password for user: " + user.getEmail());
 		LoginDto loginDto = new LoginDto(user.getUserId(), user.getUserName(), null, user.getEmail(),
 				user.getReputation());
 		loginDto.setAdmin(user.getAdmin());
