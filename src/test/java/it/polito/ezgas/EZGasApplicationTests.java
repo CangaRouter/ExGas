@@ -24,29 +24,4 @@ public class EZGasApplicationTests {
 	public void contextLoads() {
 	}
 
-	@Test
-	public void testRepository() {
-		User user = new User("gino", "password", "email@finta.fake", 0);
-		GasStation gasStation = new GasStation("pompa", "corso duca 24", true, true, false, false, false, "enjoy",
-				345335, 43523, 1.5, 1.8, 0, 0, 0, 1, "01/06/2020", 10);
-		user = userRepository.saveAndFlush(user);
-		gasStation = gasStationRepository.saveAndFlush(gasStation);
-
-		Assert.hasText(userRepository.findOne(user.getUserId()).getUserName() + "  #" + user.getUserId(),
-				"User not found");
-		Assert.hasText(gasStationRepository.findOne(gasStation.getGasStationId()).getGasStationName() + " #"
-				+ gasStation.getGasStationId(), "Gas Station not found");
-
-		gasStationRepository.deleteAllInBatch();
-		GasStation gasStation2 = new GasStation("pompa", "corso duca 24", true, true, false, false, false, null, 1,
-				3, 1.5, 1.8, 1, 3, 0, 2, "01/06/2020", 10);
-		gasStation2 = gasStationRepository.saveAndFlush(gasStation2);
-
-		Assert.hasText(gasStationRepository.findBygasStationName(gasStation2.getGasStationName()).getGasStationName()
-				+ " #" + gasStation2.getGasStationId(), "Gas Station2 non found");
-		
-		Assert.hasText(gasStationRepository.findByhasDiesel(true).get(0).getGasStationName());
-		
-
-	}
 }
