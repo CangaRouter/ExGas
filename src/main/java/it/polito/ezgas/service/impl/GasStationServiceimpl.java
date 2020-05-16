@@ -1,7 +1,9 @@
 package it.polito.ezgas.service.impl;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ import it.polito.ezgas.service.GasStationService;
  */
 @Service
 public class GasStationServiceimpl implements GasStationService {
+	private static final double LON_DIFF = 0.012733784;
+	private static final double LAT_DIFF = 0.0089977776;
 	@Autowired
 	GasStationRepository gasStationRepository;
 	@Autowired
@@ -35,13 +39,19 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
-		checkId(gasStationId);
-		return gasStationConverter.toGasStationDto(gasStationRepository.findOne(gasStationId));
+		this.checkId(gasStationId);
+		GasStation gasStation = gasStationRepository.findOne(gasStationId);
+		if (gasStation == null) {
+			return null;
+		}
+		return gasStationConverter.toGasStationDto(gasStation);
 	}
 
 	@Override
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
-		List<Double> prices= new ArrayList<Double>();
+		if(gasStationDto.getGasStationId()==null) {
+		this.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon());
+		List<Double> prices = new ArrayList<Double>();
 		if (gasStationDto.getHasDiesel()) {
 			prices.add(gasStationDto.getDieselPrice());
 		}
@@ -57,11 +67,14 @@ public class GasStationServiceimpl implements GasStationService {
 		if (gasStationDto.getHasSuperPlus()) {
 			prices.add(gasStationDto.getSuperPlusPrice());
 		}
-		checkPriceList(prices);
-		System.out.println(gasStationDto.getLat() + " " + gasStationDto.getLon());
-
+		this.checkPriceList(prices);
 		return gasStationConverter
 				.toGasStationDto(gasStationRepository.saveAndFlush(gasStationConverter.toGasStation(gasStationDto)));
+		}
+		else {
+			gasStationRepository.saveAndFlush(gasStationConverter.toGasStation(gasStationDto));
+			return gasStationDto;
+		}
 	}
 
 	@Override
@@ -86,57 +99,115 @@ public class GasStationServiceimpl implements GasStationService {
 		gasolinetype = gasolinetype.toLowerCase().trim();
 		switch (gasolinetype) {
 		case "diesel":
-			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasDiesel(true));
-		case "gasoline":
+			System.out.println("qua" + gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasDiesel("true")));
+			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasDiesel("true"));
+		case "super":
 			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasSuper(true));
 		case "methane":
 			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasMethane(true));
-		case "lpg":
+		case "gas":
 			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasGas(true));
-		case "premiumgasoline":
+		case "superplus":
 			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasSuperPlus(true));
 		default:
-			throw new InvalidGasTypeException("invalid gas type");
+			throw new InvalidGasTypeException("invalid fuel type "+ gasolinetype);
 		}
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsByProximity(double lat, double lon) throws GPSDataException {
-		// System.out.println("\n\n\n" + lat + " " + lon + "\n\n\n\n");
-		// TODO
-		return new ArrayList<GasStationDto>();
+		this.checkCoordinates(lat, lon);
+		return gasStationConverter.toGasStationDtoList(gasStationRepository
+				.findBylatBetweenAndLonBetween(lat - LAT_DIFF, lat + LAT_DIFF, lon - LON_DIFF, lon + LON_DIFF));
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithCoordinates(double lat, double lon, String gasolinetype,
 			String carsharing) throws InvalidGasTypeException, GPSDataException {
-		// TODO Auto-generated method stub
-		return null;
+		this.checkCoordinates(lat, lon);
+		List<GasStation> gasStationList = gasStationRepository.findBylatBetweenAndLonBetween(lat - LAT_DIFF,
+				lat + LAT_DIFF, lon - LON_DIFF, lon + LON_DIFF);
+		if (!carsharing.equals("null")) {
+			for (GasStation gs : gasStationList) {
+				if (!gs.getCarSharing().equals(carsharing)) {
+					gasStationList.remove(gs);
+				}
+			}
+		}
+		if (!gasolinetype.contentEquals("null")) {
+			gasolinetype = gasolinetype.toLowerCase().trim();
+			switch (gasolinetype) {
+			case "diesel":
+				for (GasStation gs : gasStationList) {
+					if (!gs.getHasDiesel()) {
+						gasStationList.remove(gs);
+					}
+				}
+				break;
+			case "super":
+				for (GasStation gs : gasStationList) {
+					if (!gs.getHasSuper()) {
+						gasStationList.remove(gs);
+					}
+				}
+				break;
+			case "methane":
+				for (GasStation gs : gasStationList) {
+					if (!gs.getHasMethane()) {
+						gasStationList.remove(gs);
+					}
+				}
+				break;
+			case "gas":
+				for (GasStation gs : gasStationList) {
+					if (!gs.getHasGas()) {
+						gasStationList.remove(gs);
+					}
+				}
+				break;
+			case "superplus":
+				for (GasStation gs : gasStationList) {
+					if (!gs.getHasSuperPlus()) {
+						gasStationList.remove(gs);
+					}
+				}
+				break;
+			default:
+				throw new InvalidGasTypeException("invalid gas type "+ gasolinetype);
+			}
+		}
+
+		return gasStationConverter.toGasStationDtoList(gasStationList);
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationsWithoutCoordinates(String gasolinetype, String carsharing)
 			throws InvalidGasTypeException {
-		if(carsharing==null && gasolinetype!=null) {
+		if (carsharing.equals("null") && !gasolinetype.contentEquals("null")) {
 			return getGasStationsByGasolineType(gasolinetype);
 		}
-		if(carsharing!=null && gasolinetype==null) {
+		if (!carsharing.contentEquals("null") && gasolinetype.contentEquals("null")) {
 			return getGasStationByCarSharing(carsharing);
 		}
 		gasolinetype = gasolinetype.toLowerCase().trim();
 		switch (gasolinetype) {
 		case "diesel":
-			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasDieselAndCarSharing(true, carsharing));
-		case "gasoline":
-			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasSuperAndCarSharing(true, carsharing));
+			return gasStationConverter
+					.toGasStationDtoList(gasStationRepository.findByhasDieselAndCarSharing(true, carsharing));
+		case "super":
+			return gasStationConverter
+					.toGasStationDtoList(gasStationRepository.findByhasSuperAndCarSharing(true, carsharing));
 		case "methane":
-			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasMethaneAndCarSharing(true, carsharing));
-		case "lpg":
-			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasGasAndCarSharing(true, carsharing));
-		case "premiumgasoline":
-			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasSuperPlusAndCarSharing(true, carsharing));
+			return gasStationConverter
+					.toGasStationDtoList(gasStationRepository.findByhasMethaneAndCarSharing(true, carsharing));
+		case "gas":
+			return gasStationConverter
+					.toGasStationDtoList(gasStationRepository.findByhasGasAndCarSharing(true, carsharing));
+		case "superplus":
+			return gasStationConverter
+					.toGasStationDtoList(gasStationRepository.findByhasSuperPlusAndCarSharing(true, carsharing));
 		default:
-			throw new InvalidGasTypeException("invalid gas type");
+			throw new InvalidGasTypeException("invalid gas type "+ gasolinetype);
 		}
 	}
 
@@ -144,54 +215,95 @@ public class GasStationServiceimpl implements GasStationService {
 	public void setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,
 			double gasPrice, double methanePrice, Integer userId)
 			throws InvalidGasStationException, PriceException, InvalidUserException {
-		checkId(gasStationId);
-		GasStation gasStation= gasStationRepository.findOne(gasStationId);
-		List<Double> prices= new ArrayList<Double>();
-		if (gasStation.getHasDiesel()) {
-			prices.add(gasStation.getDieselPrice());
-			gasStation.setDieselPrice(dieselPrice);
+		this.checkId(gasStationId);
+		GasStation gasStation = gasStationRepository.findOne(gasStationId);
+		if (gasStation != null) {
+
+			List<Double> prices = new ArrayList<Double>();
+			if (gasStation.getHasDiesel()) {
+				prices.add(gasStation.getDieselPrice());
+				gasStation.setDieselPrice(dieselPrice);
+			}
+			if (gasStation.getHasMethane()) {
+				prices.add(gasStation.getMethanePrice());
+				gasStation.setMethanePrice(methanePrice);
+			}
+			if (gasStation.getHasGas()) {
+				prices.add(gasStation.getGasPrice());
+				gasStation.setGasPrice(superPrice);
+			}
+			if (gasStation.getHasSuper()) {
+				prices.add(gasStation.getSuperPrice());
+				gasStation.setSuperPrice(superPrice);
+			}
+			if (gasStation.getHasSuperPlus()) {
+				prices.add(gasStation.getSuperPlusPrice());
+				gasStation.setSuperPlusPrice(superPlusPrice);
+			}
+			this.checkPriceList(prices);
+			User user = userRepository.findOne(userId);
+			if (user == null) {
+				throw new InvalidUserException("User id non valid "+ userId);
+			}
+			gasStation.setUser(user);
+			gasStation.setReportDependability(
+					calculateDependability(gasStation.getReportTimestamp(), user.getReputation()));
+			gasStation.setReportTimestamp(LocalDate.now().toString());
+			gasStation.setReportUser(user.getUserId());
+			gasStationRepository.saveAndFlush(gasStation);
 		}
-		if (gasStation.getHasMethane()) {
-			prices.add(gasStation.getMethanePrice());
-			gasStation.setMethanePrice(methanePrice);
-		}
-		if (gasStation.getHasGas()) {
-			prices.add(gasStation.getGasPrice());
-			gasStation.setGasPrice(superPrice);
-		}
-		if (gasStation.getHasSuper()) {
-			prices.add(gasStation.getSuperPrice());
-			gasStation.setSuperPrice(superPrice);
-		}
-		if (gasStation.getHasSuperPlus()) {
-			prices.add(gasStation.getSuperPlusPrice());
-			gasStation.setSuperPlusPrice(superPlusPrice);
-		}
-		checkPriceList(prices);
-		User user = userRepository.findOne(userId);
-		if(user==null) {
-			throw new InvalidUserException("User id non valid");
-		}
-		gasStation.setUser(user);
-		gasStationRepository.saveAndFlush(gasStation);
 	}
 
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
-		
+
 		return gasStationConverter.toGasStationDtoList(gasStationRepository.findByCarSharing(carSharing));
 	}
 
 	private void checkId(Integer gasStationId) throws InvalidGasStationException {
 		if (gasStationId <= 0) {
-			throw new InvalidGasStationException("No gas station with this ID");
+			throw new InvalidGasStationException("No gas station with this ID "+ gasStationId);
 		}
 	}
 
 	private void checkPriceList(List<Double> prices) throws PriceException {
 		for (double price : prices) {
-			if (price < 0) {
+			if (price < -1) {
 				throw new PriceException("Negative price is not supported");
+			}
+		}
+	}
+
+	private void checkCoordinates(double lat, double lon) throws GPSDataException {
+		if (!String.valueOf(lat).matches("^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?)$")) {
+			throw new GPSDataException("Invalid latitude");
+		}
+		if (!String.valueOf(lon).matches("^[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$")) {
+			throw new GPSDataException("Invalid longitude");
+		}
+	}
+
+	private double calculateDependability(String reportTime, Integer userTrust) {
+		if (reportTime == null) {
+			return 50 * (userTrust + 5) / 10 + 50;
+		}
+		LocalDate oldDate = LocalDate.parse(reportTime);
+		LocalDate newDate = LocalDate.now();
+		if (oldDate.getYear() == newDate.getYear()) {
+			if (newDate.getDayOfYear() - oldDate.getDayOfYear() > 7) {
+				return 50 * (userTrust + 5) / 10;
+			} else {
+				return 50 * (userTrust + 5) / 10 + 50 * (1 - (newDate.getDayOfYear() - oldDate.getDayOfYear()) / 7);
+			}
+		} else {
+			if ((newDate.getDayOfYear() + 365 + (1 - (oldDate.getYear() % 4))) - oldDate.getDayOfYear() > 7) {
+
+				return 50 * (userTrust + 5) / 10;
+
+			} else {
+				return 50 * (userTrust + 5) / 10 + 50
+						* (1 - ((newDate.getDayOfYear() + 365 + (1 - (oldDate.getYear() % 4))) - oldDate.getDayOfYear())
+								/ 7);
 			}
 		}
 	}

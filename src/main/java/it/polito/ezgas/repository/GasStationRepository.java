@@ -14,8 +14,8 @@ public interface GasStationRepository extends JpaRepository<GasStation, Integer>
 
 	GasStation findBygasStationName(String name);
 
-	Iterable<GasStation> findBylatBetweenAndLonBetween(double lat1, double lat2, double lon1, double lon2);
-	List<GasStation> findByhasDiesel(boolean fuel);
+	List<GasStation> findBylatBetweenAndLonBetween(double lat1, double lat2, double lon1, double lon2);
+	List<GasStation> findByhasDiesel(String fuel);
 
 	List<GasStation> findByhasSuper(boolean fuel);
 
