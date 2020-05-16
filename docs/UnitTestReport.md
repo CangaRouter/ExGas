@@ -795,7 +795,6 @@ Version:
 **Criteria for method *setEmail*:**
 	
  - String validity
- - Number of "@"
 
 **Predicates for method *setPassword*:**
 
@@ -803,9 +802,6 @@ Version:
 | -------- | --------- |
 |   String validity     |     Yes      |
 |          |      No     |
-|   Number of "@"       | 0 |
-|  | 1 |
-|  | >1 |
 
 **Boundaries**:
 
@@ -815,15 +811,11 @@ Version:
 
 **Combination of predicates**:
 
-
-| Number of "@" | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|----------|-------|-------|
-| 0 | - | I |  setEmail("enrico.matteieni.it") -> error ||
-| >1 | - | I | setEmail("enrico.mattei@@eni.it") -> error ||
-| 1 | Yes| V | setEmail("enrico.mattei@eni.it");||
-|||| getEmail -> "enrico.mattei@eni.it"||
-|   | No | I | Not feasible ||
-
+| String validity  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|
+|Yes    | V |  setEmail("enrico.mattei@eni.it"); ||
+|||getEmail -> "enrico.mattei@eni.it" ||
+|No    | I | setPassword(null) -> error||
 
  ### **Class *User* - method *setReputation***
 
