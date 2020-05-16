@@ -1,20 +1,15 @@
-# Unit Testing Documentation
+Barco Luca, Petruzzi Rocco Luigi# Unit Testing Documentation
 
-Authors:
+Authors: Barco Luca, Petruzzi Rocco Luigi
 
-Date:
+Date: 15/05/2020
 
 Version:
 
 # Contents
 
 - [Black Box Unit Tests](#black-box-unit-tests)
-
-
-
-
 - [White Box Unit Tests](#white-box-unit-tests)
-
 
 # Black Box Unit Tests
 
@@ -26,20 +21,14 @@ Version:
     the set up of all Spring components
     >
 
- 
- ### **Class *GasStation* - method *setGasStationId***
 
+ ### **Class *GasStation* - method *setGasStationId***
 
 
 **Criteria for method *setGasStationId*:**
 	
-
  - Is an integer number
  - Range
-
-
-
-
 
 **Predicates for method *setGasStationId*:**
 
@@ -51,10 +40,6 @@ Version:
 |          |     < -2147483648      |
 |          |     > 2147483647      |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -62,10 +47,7 @@ Version:
 |     Range     |     -2147483648,  2147483647          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -77,18 +59,13 @@ Version:
 ||< -2147483648 | I | Not feasible||
 || > 2147483647| I | Not feasible||
 
- ### **Class *GasStation* - method *setGasStationName***
 
+ ### **Class *GasStation* - method *setGasStationName***
 
 
 **Criteria for method *setGasStationName*:**
 	
-
  - String validity
-
-
-
-
 
 **Predicates for method *setGasStationName*:**
 
@@ -97,22 +74,13 @@ Version:
 |  String validity        |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -120,18 +88,13 @@ Version:
 ||| getGasStationName() -> "ENI Station 23" ||
 |No    | I | setGasStationName(null) -> error||
 
+
  ### **Class *GasStation* - method *setGasStationAddress***
 
 
-
 **Criteria for method *setGasStationAddress*:**
-	
 
  - String validity
-
-
-
-
 
 **Predicates for method *setGasStationAddress*:**
 
@@ -140,22 +103,13 @@ Version:
 |  String validity        |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -163,19 +117,14 @@ Version:
 |||getGasStationAddress -> "Corso duca 23" ||
 |No    | I | setGasStationAddress(null) -> error||
 
+
 ### **Class *GasStation* - method *setReportDependability***
 
 
-
 **Criteria for method *setReportDependability*:**
-	
 
  - Is a double number
  - Range
-
-
-
-
 
 **Predicates for method *setReportDependability*:**
 
@@ -187,10 +136,6 @@ Version:
 |          |     <  Double.MIN_VALUE      |
 |          |     > Double.MAX_VALUE     |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -198,10 +143,7 @@ Version:
 |     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -213,19 +155,14 @@ Version:
 ||< Double.MIN_VALUE | I | Not feasible||
 || > Double.MAX_VALUE| I | Not feasible||
 
- ### **Class *GasStation* - method *setReportUser***
 
+ ### **Class *GasStation* - method *setReportUser***
 
 
 **Criteria for method *setReportUser*:**
 	
-
  - Is an integer number
  - Range
-
-
-
-
 
 **Predicates for method *setReportUser*:**
 
@@ -237,10 +174,6 @@ Version:
 |          |     < -2147483648      |
 |          |     > 2147483647      |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -248,10 +181,7 @@ Version:
 |     Range     |     -2147483648,  2147483647          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -263,18 +193,13 @@ Version:
 ||< -2147483648 | I | Not feasible||
 || > 2147483647| I | Not feasible||
 
- ### **Class *GasStation* - method *setReportTimestamp***
 
+ ### **Class *GasStation* - method *setReportTimestamp***
 
 
 **Criteria for method *setReportTimestamp*:**
 	
-
  - String validity
-
-
-
-
 
 **Predicates for method *setReportTimestamp*:**
 
@@ -283,22 +208,13 @@ Version:
 |  String validity        |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -306,17 +222,13 @@ Version:
 ||| getReportTimestamp() -> "20200503T10:20:31" ||:
 |No    | I | setReportTimestamp(null) -> error||
 
-### **Class *GasStation* - method *setHasDiesel***
 
+### **Class *GasStation* - method *setHasDiesel***
 
 
 **Criteria for method *setHasDiesel*:**
 	
-
  - Is a boolean
-
-
-
 
 **Predicates for method *setHasDiesel*:**
 
@@ -325,22 +237,13 @@ Version:
 |  Is a boolean       |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -348,17 +251,13 @@ Version:
 ||| getHasDiesel() -> true ||:
 |No    | I | setHasDiesel(52) -> error||
 
-### **Class *GasStation* - method *setHasSuper***
 
+### **Class *GasStation* - method *setHasSuper***
 
 
 **Criteria for method *setHasSuper*:**
 	
-
  - Is a boolean
-
-
-
 
 **Predicates for method *setHasSuper*:**
 
@@ -367,22 +266,13 @@ Version:
 |  Is a boolean       |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -390,17 +280,13 @@ Version:
 ||| getHasSuper() -> true ||:
 |No    | I | setHasSuper(52) -> error||
 
-### **Class *GasStation* - method *setHasSuperPlus***
 
+### **Class *GasStation* - method *setHasSuperPlus***
 
 
 **Criteria for method *setHasSuperPlus*:**
 	
-
  - Is a boolean
-
-
-
 
 **Predicates for method *setHasSuperPlus*:**
 
@@ -409,22 +295,13 @@ Version:
 |  Is a boolean       |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -432,17 +309,13 @@ Version:
 ||| getHasSuperPlus() -> true ||:
 |No    | I | setHasSuperPlus(52) -> error||
 
+
 ### **Class *GasStation* - method *setHasGas***
 
 
-
 **Criteria for method *setHasGas*:**
-	
 
  - Is a boolean
-
-
-
 
 **Predicates for method *setHasGas*:**
 
@@ -451,22 +324,13 @@ Version:
 |  Is a boolean       |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -474,17 +338,13 @@ Version:
 ||| getHasGas() -> true ||:
 |No    | I | setHasGas(52) -> error||
 
+
 ### **Class *GasStation* - method *setHasMethane***
 
 
-
 **Criteria for method *setHasMethane*:**
-	
 
  - Is a boolean
-
-
-
 
 **Predicates for method *setHasMethane*:**
 
@@ -493,22 +353,13 @@ Version:
 |  Is a boolean       |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -516,19 +367,14 @@ Version:
 ||| getHasMethane() -> true ||:
 |No    | I | setHasMethane(52) -> error||
 
-### **Class *GasStation* - method *setLat***
 
+### **Class *GasStation* - method *setLat***
 
 
 **Criteria for method *setLat*:**
 	
-
  - Is a double number
  - Range
-
-
-
-
 
 **Predicates for method *setLat*:**
 
@@ -540,10 +386,6 @@ Version:
 |          |     <  Double.MIN_VALUE      |
 |          |     > Double.MAX_VALUE     |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -551,10 +393,7 @@ Version:
 |     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -566,19 +405,14 @@ Version:
 ||< Double.MIN_VALUE | I | Not feasible||
 || > Double.MAX_VALUE| I | Not feasible||
 
+
 ### **Class *GasStation* - method *setLon***
 
 
-
 **Criteria for method *setLon*:**
-	
 
  - Is a double number
  - Range
-
-
-
-
 
 **Predicates for method *setLon*:**
 
@@ -590,10 +424,6 @@ Version:
 |          |     <  Double.MIN_VALUE      |
 |          |     > Double.MAX_VALUE     |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -601,10 +431,7 @@ Version:
 |     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -616,19 +443,14 @@ Version:
 ||< Double.MIN_VALUE | I | Not feasible||
 || > Double.MAX_VALUE| I | Not feasible||
 
-### **Class *GasStation* - method *setDieselPrice***
 
+### **Class *GasStation* - method *setDieselPrice***
 
 
 **Criteria for method *setDieselPrice*:**
 	
-
  - Is a double number
  - Range
-
-
-
-
 
 **Predicates for method *setDieselPrice*:**
 
@@ -640,10 +462,6 @@ Version:
 |          |     <  Double.MIN_VALUE      |
 |          |     > Double.MAX_VALUE     |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -651,10 +469,7 @@ Version:
 |     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -666,19 +481,14 @@ Version:
 ||< Double.MIN_VALUE | I | Not feasible||
 || > Double.MAX_VALUE| I | Not feasible||
 
-### **Class *GasStation* - method *setSuperPrice***
 
+### **Class *GasStation* - method *setSuperPrice***
 
 
 **Criteria for method *setSuperPrice*:**
 	
-
  - Is a double number
  - Range
-
-
-
-
 
 **Predicates for method *setSuperPrice*:**
 
@@ -690,10 +500,6 @@ Version:
 |          |     <  Double.MIN_VALUE      |
 |          |     > Double.MAX_VALUE     |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -701,10 +507,7 @@ Version:
 |     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -716,19 +519,14 @@ Version:
 ||< Double.MIN_VALUE | I | Not feasible||
 || > Double.MAX_VALUE| I | Not feasible||
 
-### **Class *GasStation* - method *setSuperPlusPrice***
 
+### **Class *GasStation* - method *setSuperPlusPrice***
 
 
 **Criteria for method *setSuperPlusPrice*:**
 	
-
  - Is a double number
  - Range
-
-
-
-
 
 **Predicates for method *setSuperPlusPrice*:**
 
@@ -740,10 +538,6 @@ Version:
 |          |     <  Double.MIN_VALUE      |
 |          |     > Double.MAX_VALUE     |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -751,10 +545,7 @@ Version:
 |     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -766,19 +557,14 @@ Version:
 ||< Double.MIN_VALUE | I | Not feasible||
 || > Double.MAX_VALUE| I | Not feasible||
 
-### **Class *GasStation* - method *setGasPrice***
 
+### **Class *GasStation* - method *setGasPrice***
 
 
 **Criteria for method *setGasPrice*:**
 	
-
  - Is a double number
  - Range
-
-
-
-
 
 **Predicates for method *setGasPrice*:**
 
@@ -790,10 +576,6 @@ Version:
 |          |     <  Double.MIN_VALUE      |
 |          |     > Double.MAX_VALUE     |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -801,10 +583,7 @@ Version:
 |     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -816,19 +595,14 @@ Version:
 ||< Double.MIN_VALUE | I | Not feasible||
 || > Double.MAX_VALUE| I | Not feasible||
 
+
 ### **Class *GasStation* - method *setMethanPrice***
 
 
-
 **Criteria for method *setMethanPrice*:**
-	
 
  - Is a double number
  - Range
-
-
-
-
 
 **Predicates for method *setMethanPrice*:**
 
@@ -840,10 +614,6 @@ Version:
 |          |     <  Double.MIN_VALUE      |
 |          |     > Double.MAX_VALUE     |
 
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -851,10 +621,7 @@ Version:
 |     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -866,18 +633,13 @@ Version:
 ||< Double.MIN_VALUE | I | Not feasible||
 || > Double.MAX_VALUE| I | Not feasible||
 
- ### **Class *GasStation* - method *setCarSharing***
 
+ ### **Class *GasStation* - method *setCarSharing***
 
 
 **Criteria for method *setCarSharing*:**
 	
-
  - String validity
-
-
-
-
 
 **Predicates for method *setCarSharing*:**
 
@@ -886,22 +648,13 @@ Version:
 |  String validity        |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
 |          |                 |
-|          |                 |
-
-
 
 **Combination of predicates**:
-
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -909,18 +662,13 @@ Version:
 ||| getCarSharing() -> "Enjoy" ||:
 |No    | I | setCarSharing(null) -> error||
 
+
  ### **Class *GasStation* - method *setUser***
 
 
-
 **Criteria for method *setUser*:**
-	
 
  - User validity
-
-
-
-
 
 **Predicates for method *setUser*:**
 
@@ -929,11 +677,6 @@ Version:
 |  User validity        |     Yes      |
 |          |      No     |
 
-
-
-
-
-
 **Boundaries**:
 
 | Criteria | Boundary values |
@@ -941,10 +684,7 @@ Version:
 |          |                 |
 |          |                 |
 
-
-
 **Combination of predicates**:
-
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
@@ -953,6 +693,203 @@ Version:
 |No    | I | setUser(null) -> error||
 
 
+ ### **Class *User* - method *setUserId***
+
+
+**Criteria for method *setUserId*:**
+	
+ - Is an integer number
+ - Range
+
+**Predicates for method *setUserId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is an integer number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -2147483648   and <= 2147483647   |
+|          |     < -2147483648      |
+|          |     > 2147483647      |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -2147483648,  2147483647          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= -2147483648   and <= 2147483647| V |  setUserId(8888);||
+||||getUserId()-> 8888 ||
+||< -2147483648 | I | setUserId(-2147483649) -> error||
+|| > 2147483647| I | setUserId(2147483648) -> error||
+|No    |>= -2147483648   and <= 2147483647| I | Not feasible||
+||< -2147483648 | I | Not feasible||
+|| > 2147483647| I | Not feasible||
+
+
+ ### **Class *User* - method *setUserName***
+
+
+**Criteria for method *setUserName*:**
+	
+ - String validity
+
+**Predicates for method *setUserName*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  String validity        |     Yes      |
+|          |      No     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+
+**Combination of predicates**:
+
+| String validity  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|
+|Yes    | V |  setUserName("Enrico Mattei");||
+||| getUserName() -> "Enrico Mattei" ||
+|No    | I | setUserName(null) -> error||
+
+
+ ### **Class *User* - method *setPassword***
+
+
+**Criteria for method *setPassword*:**
+
+ - String validity
+
+**Predicates for method *setPassword*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  String validity        |     Yes      |
+|          |      No     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+
+**Combination of predicates**:
+
+| String validity  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|
+|Yes    | V |  setPassword("Th1s@ppISc00l"); ||
+|||getPassword -> "Th1s@ppISc00l" ||
+|No    | I | setPassword(null) -> error||
+
+
+### **Class *User* - method *setEmail***
+
+
+**Criteria for method *setEmail*:**
+	
+ - String validity
+ - Number of "@"
+
+**Predicates for method *setPassword*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|   String validity     |     Yes      |
+|          |      No     |
+|   Number of "@"       | 0 |
+|  | 1 |
+|  | >1 |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+
+**Combination of predicates**:
+
+
+| Number of "@" | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|----------|-------|-------|
+| 0 | - | I |  setEmail("enrico.matteieni.it") -> error ||
+| >1 | - | I | setEmail("enrico.mattei@@eni.it") -> error ||
+| 1 | Yes| V | setEmail("enrico.mattei@eni.it");||
+|||| getEmail -> "enrico.mattei@eni.it"||
+|   | No | I | Not feasible ||
+
+
+ ### **Class *User* - method *setReputation***
+
+
+**Criteria for method *setReputation*:**
+	
+ - Is an integer number
+ - Range
+
+**Predicates for method *setReputation*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is an integer number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -2147483648   and <= 2147483647   |
+|          |     < -2147483648      |
+|          |     > 2147483647      |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -2147483648,  2147483647          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= -2147483648   and <= 2147483647| V |  setReputation(100);||
+||||getReputation() -> 100 ||
+||< -2147483648 | I | setReputation(-2147483649) -> error||
+|| > 2147483647| I | setReputation(2147483648) -> error||
+|No    |>= -2147483648   and <= 2147483647| I | Not feasible||
+||< -2147483648 | I | Not feasible||
+|| > 2147483647| I | Not feasible||
+
+
+### **Class *User* - method *setAdmin***
+
+
+**Criteria for method *setAdmin*:**
+
+ - Is a boolean
+
+**Predicates for method *setAdmin*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a boolean       |     Yes      |
+|          |      No     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|
+|Yes    | V |  setAdmin(true);||
+||| getAdmin() -> false ||:
+|No    | I | setAdmin("I'm an admin") -> error||
 
 
 # White Box Unit Tests
