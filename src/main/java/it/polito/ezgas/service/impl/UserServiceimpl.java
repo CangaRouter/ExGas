@@ -39,20 +39,22 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public UserDto saveUser(UserDto userDto) {
-		if(userDto.getUserId()==null) {
-		if(userRepository.findByEmail(userDto.getEmail())!=null) {
-			return null;
-		}
-		User user = userConverter.toUser(userDto);
-		user=userRepository.saveAndFlush(user);
-		return userConverter.toUserDto(user);
-	}
-		else {
+		if (userDto.getUserId() == null) {
+			if (userRepository.findByEmail(userDto.getEmail()) != null) {
+				return null;
+			}
+			User user = userConverter.toUser(userDto);
+			user = userRepository.saveAndFlush(user);
+			return userConverter.toUserDto(user);
+		} else {
+
+			if (userRepository.findByEmail(userDto.getEmail()).getUserId() != userDto.getUserId()) {
+				return userDto;
+			}
 			userRepository.saveAndFlush(userConverter.toUser(userDto));
 			return userDto;
 		}
 	}
-	
 
 	@Override
 	public List<UserDto> getAllUsers() {
