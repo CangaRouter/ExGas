@@ -228,27 +228,26 @@ skinparam nodesep 5
 skinparam ranksep 10
 Package it.polito.ezgas.controller{
 Class UserController{
-    boolean saveUser()
-    boolean authorizeUser()
     UserDto getUserById()
-    boolean modifyUser()
-    boolean deleteUser()
     List<UserDto> getAllUsers()
-    Integer increaseUserReputation()
+    UserDto saveUser()
+    Boolean deleteUser()
+    Integer increaseUserReputation() 
     Integer decreaseUserReputation()
     LoginDto login()
+
 }
 Class GasStationController{
-    boolean saveGasStation()
-    boolean modifyGasStation()
-    boolean deleteGasStation()
-    GasStationDto getGasStationById()
-    boolean setGasStationReport()
-    List<GasStationDto> getAllGasStations()
-    List<GasStationDto> getGasStationsByGasolineType()
-    List<GasStationDto> getGasStationsByProximity()
-    List<GasStationDto> getGasStationsWithCoordinates()
-    boolean evaluatePrice()
+   GasStationDto getGasStationById()
+   List<GasStationDto> getAllGasStations()
+   void saveGasStation()
+   void deleteGasStation()
+   List<GasStationDto> getGasStationsByGasolineType()
+   List<GasStationDto> getGasStationsByProximity()
+   List<GasStationDto> getGasStationsWithCoordinates()
+   void setGasStationReport()
+
+
 }
 }
 
@@ -347,29 +346,34 @@ User"0..1"--GasStation
 
 Package it.polito.ezgas.repository{
 class UserRepository{ 
-User find(userId)
-List<User> findAll(List<userId>)
-void save(user)
-void update(user)
-void delete(userId)
-void increaseReputationLevel(userId)
-void decreaseReputationLevel(userId)
+User findOne()
+User findByEmail()
+List<User> findAll()
+User saveAndFlush()
+User delete()
+
 }
 class GasStationRepository{
-GasStation find(gasStationId)
-List<GasStation> findAll(List<gasStationId>)
-void save(gasStation)
-void update(gasStation)
-void delete(gasStationId)
+GasStation findOne()
+List<GasStation> findAll()
+void delete()
+GasStation saveAndFLush()
+GasStation findBygasStationName()
+List<GasStation> findBylatBetweenAndLonBetween()
+List<GasStation> findByhasDiesel()
+List<GasStation> findByhasSuper()
+List<GasStation> findByhasGas()
+List<GasStation> findByhasSuperPlus()
+List<GasStation> findByhasMethane()
+List<GasStation> findByhasDieselAndCarSharing()
+List<GasStation> findByhasSuperAndCarSharing()
+List<GasStation> findByhasGasAndCarSharing()
+List<GasStation> findByhasSuperPlusAndCarSharing()
+List<GasStation> findByhasMethaneAndCarSharing()
+List<GasStation> findByCarSharing()
 }
 
-class LoginRepository{
-Login find(loginId)
-List<Login> findAll(List<loginId>)
-void save(login)
-void update(login)
-void delete(loginId)
-}
+
 
 }
 
@@ -556,22 +560,16 @@ UserService <|-- UserServiceImp
 GasStationService <|-- GasStationServiceImp
 
 UserServiceImp -- User
-UserServiceImp -- Login
 UserServiceImp -- UserConverter
-UserServiceImp -- LoginConverter
-UserServiceImp -- Login
 
 
-LoginConverter -- Login
 UserConverter -- User
 GasStationConverter-- GasStation
 
 
-LoginConverter -- LoginDto
 UserConverter -- UserDto
 GasStationConverter-- GasStationDto
 
-LoginRepository --"*" Login
 GasStationRepository --"*" GasStation
 UserRepository --"*" User
 
@@ -596,24 +594,24 @@ GasStationController -- GasStationService
 # Verification traceability matrix
 
 
-|   | UserController | GasStationController | User | Login | GasStation | UserRepository | GasStationRepository | LoginRepository | UserConverter | GasStationConverter | LoginConverter | IdPw | LoginDto | UserDto | GasStationDto | GasStationServiceImp | UserServiceImp |
-|------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| FR1.1  | X |   | X | X |   | X |   | X | X |   | X | X | X | X |   |   | X |  
-| FR1.2  | X |   | X | X |   | X |   | X | X |   | X | X | X | X |   |   | X |
-| FR1.3  | X |   | X | X |   | X |   | X | X |   | X | X | X | X |   |   | X |
-| FR1.4  | X |   | X | X |   | X |   | X | X |   | X | X | X | X |   |   | X |
-| FR2    | X |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   | X |
-| FR3.1  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR3.2  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR3.3  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR4.1  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR4.2  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR4.3  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR4.4  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR4.5  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR5.1  | X | X | X |   | X | X | X |   | X | X |   |   |   | X | X | X | X |
-| FR5.2  | X | X | X |   | X | X | X |   | X | X |   |   |   | X | X | X | X |
-| FR5.3  | X | X | X |   | X | X | X |   | X | X |   |   |   | X | X | X | X |
+|   | UserController | GasStationController | User  | GasStation | UserRepository | GasStationRepository | UserConverter | GasStationConverter | IdPw | LoginDto | UserDto | GasStationDto | GasStationServiceImp | UserServiceImp |
+|------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| FR1.1  |  X  |     |  X  |     |  X  |     |  X  |     |  X  |  X  |  X  |     |     |  X  |  
+| FR1.2  |  X  |     |  X  |     |  X  |     |  X  |     |  X  |  X  |  X  |     |     |  X  |
+| FR1.3  |  X  |     |  X  |     |  X  |     |  X  |     |  X  |  X  |  X  |     |     |  X  |
+| FR1.4  |  X  |     |  X  |     |  X  |     |  X  |     |  X  |  X  |  X  |     |     |  X  |
+| FR2    |  X  |     |     |     |     |     |     |     |  X  |  X  |  X  |     |     |  X  |
+| FR3.1  |     |  X  |     |  X  |     |  X  |     |  X  |     |     |     |  X  |  X  |     |
+| FR3.2  |     |  X  |     |  X  |     |  X  |     |  X  |     |     |     |  X  |  X  |     |
+| FR3.3  |     |  X  |     |  X  |     |  X  |     |  X  |     |     |     |  X  |  X  |     |
+| FR4.1  |     |  X  |     |  X  |     |  X  |     |  X  |     |     |     |  X  |  X  |     |
+| FR4.2  |     |  X  |     |  X  |     |  X  |     |  X  |     |     |     |  X  |  X  |     |
+| FR4.3  |     |  X  |     |  X  |     |  X  |     |  X  |     |     |     |  X  |  X  |     |
+| FR4.4  |     |  X  |     |  X  |     |  X  |     |  X  |     |     |     |  X  |  X  |     |
+| FR4.5  |     |  X  |     |  X  |     |  X  |     |  X  |     |     |     |  X  |  X  |     |
+| FR5.1  |  X  |  X  |  X  |  X  |  X  |  X  |  X  |  X  |     |     |  X  |  X  |  X  |  X  |
+| FR5.2  |  X  |  X  |  X  |  X  |  X  |  X  |  X  |  X  |     |     |  X  |  X  |  X  |  X  |
+| FR5.3  |  X  |  X  |  X  |  X  |  X  |  X  |  X  |  X  |     |     |  X  |  X  |  X  |  X  |
 
 # Verification sequence diagrams 
 
@@ -640,7 +638,7 @@ GasStationController -- GasStationService
     UserConverter -> User: new(...)
     User -> UserConverter: user
     UserConverter -> UserService : user
-    UserService -> UserRepository: update(user)
+    UserService -> UserRepository: save(user)
     UserService -> UserConverter: toDto(user)
     UserConverter -> UserDto: new(...)
     UserDto -> UserConverter: userDto
@@ -684,7 +682,7 @@ GasStationController -- GasStationService
     GasStationConverter -> GasStation: new(...)
     GasStation -> GasStationConverter: gasStation
     GasStationConverter -> GasStationService: gasStation
-    GasStationService -> GasStationRepository: update(gasStation)
+    GasStationService -> GasStationRepository: save(gasStation)
     GasStationService -> GasStationConverter: toDto(gasStation)
     GasStationConverter -> GasStationDto: new(...)
     GasStationDto -> GasStationConverter: gasStationDto
@@ -708,8 +706,8 @@ GasStationController -- GasStationService
     GasStationController -> GasStationService: setReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
     GasStationService -> GasStationRepository: find(gasStationId)
     GasStationRepository -> GasStationService: gasStation
-    GasStationService -> GasStation: gasStation.setPriceList(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
-    GasStationService -> GasStationRepository: update(GasStation)
+    GasStationService -> GasStation: gasStation.setPriceReport(gasStationId,dieselPrice,superPrice,superPlusPrice,gasPrice,methanePrice,userId)
+    GasStationService -> GasStationRepository: save(GasStation)
     GasStationController -> FrontEnd: booleanResult
 @enduml
 ```
@@ -718,7 +716,7 @@ GasStationController -- GasStationService
 @startuml
     FrontEnd -> GasStationController : getGasStationswithCoordinates(lat,lon,gasolinetype,carsharing)
     GasStationController -> GasStationService: getGasStationsWithCoordinates(lat,lon,gasolinetype,carsharing)
-    GasStationService -> GasStationRepository : findAll(lat,lon,gasolinetype,carsharing)
+    GasStationService -> GasStationRepository : findLatBetweenAndLonBetween(lat1,lat2,lon1,lon2)
     GasStationRepository -> GasStationService: List<GasStation>
     GasStationService -> GasStationConverter: toGasStationDtoList(List<GasStation>)
     GasStationConverter -> GasStationService: List<GasStatioDto>
