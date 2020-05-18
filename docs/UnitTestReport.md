@@ -400,7 +400,7 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE| V |  setLat(12.45);|it.polito.ezgas.GasStationTests.TC1_GasStationLat|
+|Yes    |>= (-Double.MAX_VALUE)  and <= Double.MAX_VALUE| V |  setLat(12.45);|it.polito.ezgas.GasStationTests.TC1_GasStationLat|
 ||||getLat() -> 12.45 ||
 ||< (-Double.MAX_VALUE) | I | setLat(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationLat|
 ||||getLat() -> -Double.MAX_VALUE ||
@@ -478,9 +478,9 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setDieselPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationDieselPrice|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setDieselPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationDieselPrice|
 ||||getDieselPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationDieselPrice|
+||< (-Double.MAX_VALUE) | I | setDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationDieselPrice|
 ||||getDieselPrice() -> -Double.MAX_VALUE||
 || > Double.MAX_VALUE| I | setDieselPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationDieselPrice|
 ||||getDieselPrice() -> Double.MAX_VALUE ||
@@ -517,9 +517,9 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setSuperPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationSuperPrice|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setSuperPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationSuperPrice|
 ||||getSuperPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setSuperPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationSuperPrice|
+||< (-Double.MAX_VALUE) | I | setSuperPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationSuperPrice|
 ||||getSuperPrice() -> -Double.MAX_VALUE ||
 || > Double.MAX_VALUE| I | setSuperPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationSuperPrice|
 ||||getSuperPrice() -> Double.MAX_VALUE ||
@@ -556,9 +556,9 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setSuperPlusPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationSuperPlusPrice|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setSuperPlusPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationSuperPlusPrice|
 ||||getSuperPlusPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setSuperPlusPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationSuperPlusPrice|
+||< (-Double.MAX_VALUE) | I | setSuperPlusPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationSuperPlusPrice|
 ||||getSuperPlusPrice() -> -Double.MAX_VALUE ||
 || > Double.MAX_VALUE| I | setSuperPlusPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationSuperPlusPrice|
 ||||getSuperPlusPrice() -> Double.MAX_VALUE ||
@@ -594,9 +594,9 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setGasPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationGasPrice|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setGasPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationGasPrice|
 ||||getGasPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setGasPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationGasPrice|
+||< (-Double.MAX_VALUE) | I | setGasPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationGasPrice|
 ||||getGasPrice() -> Double.MAX_VALUE ||
 || > Double.MAX_VALUE| I | setGasPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationGasPrice|
 ||||getGasPrice() -> Double.MAX_VALUE ||
@@ -633,9 +633,9 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationMethanePrice|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationMethanePrice|
 ||||getMethanPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setMethanPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationMethanePrice|
+||< (-Double.MAX_VALUE) | I | setMethanPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationMethanePrice|
 ||||getMethanPrice() -> -Double.MAX_VALUE ||
 || > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationMethanePrice|
 ||||getMethanPrice() -> Double.MAX_VALUE ||
