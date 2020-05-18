@@ -731,10 +731,17 @@ GasStationController -- GasStationService
 
 ```plantuml
 @startuml
-    FrontEnd -> UserController : IncreaseUserReputation(userId)
-    UserController -> UserService: IncreaseUserReputation(userId)
-    UserService -> UserRepository: increaseReputation(userId)
-    UserController -> FrontEnd: booleanResult
+    FrontEnd -> UserController : increaseUserReputation(userId)
+    UserController -> UserService: increaseUserReputation(userId)
+    UserService -> UserRepository: getOne(userId)
+    UserRepository -> UserService: user
+    UserService -> User: user.setReputation(user.getReputation()+1) 
+    note right
+            if user.getReputation()<5
+    end note
+    UserService -> UserRepository: save(user)
+    UserService -> UserController: getReputation()
+    UserController -> FrontEnd: getReputation()
 @enduml
 ```
 
@@ -742,10 +749,17 @@ GasStationController -- GasStationService
 
 ```plantuml
 @startuml
-    FrontEnd -> UserController : DecreaseUserReputation(userId)
-    UserController -> UserService: DecreaseUserReputation(userId)
-    UserService -> UserRepository: DecreaseReputation(userId)
-    UserController -> FrontEnd: booleanResult
+    FrontEnd -> UserController : decreaseUserReputation(userId)
+    UserController -> UserService: decreaseUserReputation(userId)
+    UserService -> UserRepository: getOne(userId)
+    UserRepository -> UserService: user
+    UserService -> User: user.setReputation(user.getReputation()-1) 
+    note right
+            if user.getReputation()>-5
+    end note
+    UserService -> UserRepository: save(user)
+    UserService -> UserController: getReputation()
+    UserController -> FrontEnd: getReputation()
 @enduml
 ```
 
