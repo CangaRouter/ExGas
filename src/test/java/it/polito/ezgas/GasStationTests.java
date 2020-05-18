@@ -32,14 +32,14 @@ public class GasStationTests {
 	@Test
 	public void TC1_GasStationName() {
 		gs.setGasStationName("ENI Station 23");
-		assert(gs.getGasStationName()=="ENI Station 23");
+		assert(gs.getGasStationName().equals("ENI Station 23"));
 	}
 	
 	
 	@Test
 	public void TC1_GasStationAddress() {
 		gs.setGasStationAddress("Corso Duca 23");
-		assert(gs.getGasStationAddress()=="Corso Duca 23");
+		assert(gs.getGasStationAddress().equals("Corso Duca 23"));
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ public class GasStationTests {
 	@Test
 	public void TC1_GasStationReportTimestamp() {
 		gs.setReportTimestamp("20200503T10:20:31");
-		assert(gs.getReportTimestamp()=="20200503T10:20:31");
+		assert(gs.getReportTimestamp().equals("20200503T10:20:31"));
 	}
 	
 	@Test
@@ -226,7 +226,7 @@ public class GasStationTests {
 	@Test
 	public void TC1_GasStationCarSharing() {
 		gs.setCarSharing("Enjoy");
-		assert(gs.getCarSharing()=="Enjoy");
+		assert(gs.getCarSharing().equals("Enjoy"));
 	}
 	@Test
 	public void TC1_GasStationUser() {

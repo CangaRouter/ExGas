@@ -42,14 +42,14 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
+		if (!updateDependability) {
+			this.calculateDependability();
+			this.updateDependability = true;
+		}
 		this.checkId(gasStationId);
 		GasStation gasStation = gasStationRepository.findOne(gasStationId);
 		if (gasStation == null) {
 			return null;
-		}
-		if (!updateDependability) {
-			this.calculateDependability();
-			this.updateDependability = true;
 		}
 		return gasStationConverter.toGasStationDto(gasStation);
 	}

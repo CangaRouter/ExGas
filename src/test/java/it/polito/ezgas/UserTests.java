@@ -31,17 +31,17 @@ public class UserTests {
 	@Test
 	public void TC1_UserName() {
 		us.setUserName("Enrico Mattei");
-		assert(us.getUserName()=="Enrico Mattei");
+		assert(us.getUserName().equals("Enrico Mattei"));
 	}
 	@Test
 	public void TC1_UserPassword() {
 		us.setPassword("Th1s@ppISc00l");
-		assert(us.getPassword()=="Th1s@ppISc00l");
+		assert(us.getPassword().equals("Th1s@ppISc00l"));
 	}
 	@Test
 	public void TC1_UserEmail() {
 		us.setEmail("enrico.mattei@eni.it");
-		assert(us.getEmail()=="enrico.mattei@eni.it");
+		assert(us.getEmail().equals("enrico.mattei@eni.it"));
 	}
 	@Test 
 	public void TC1_UserReputation() {
