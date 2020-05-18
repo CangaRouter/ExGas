@@ -277,30 +277,18 @@ Integer getReputation()
 Boolean getAdmin()
 }
 
-class Login{
-   String email
-   String name
-   boolean IsAdmin
-    
-    void setEmail()
-    void setIsAdmin()
-    void setName()
-    String getName()
-    String getEmail()
-    String getIsAdmin()
-}
-
 class GasStation {
  Integer gasStationId
  String gasStationName
  String gasStationAddress
  String carSharing
  boolean hasDiesel
- boolean hasGasoline
- boolean hasPremiumDiesel
- boolean hasPremiumGasoline
- boolean hasLPG
+ boolean hasSuper
+ boolean hasSuperPlus
+ boolean hasGas
  boolean hasMethane
+ double lat
+ double lon
  double dieselPrice
  double superPrice
  double superPlusPrice
@@ -309,16 +297,17 @@ class GasStation {
  double reportDependability
  String reportTimestamp
  Integer reportUser 
+ User user
 
  void setGasStationId()
  void setGasStationName()
  void setGasStationAddress()
  void setReportDependability()
- void setReportUser
- void setReportTimestamp
- void setHasDiesel
- void setHasSuper
- void setHasSuperPlus
+ void setReportUser()
+ void setReportTimestamp()
+ void setHasDiesel()
+ void setHasSuper()
+ void setHasSuperPlus()
  void setHasGas()
  void setLat()
  void setLon()
@@ -330,7 +319,6 @@ class GasStation {
  void setHasMethane() 
  void setMethanePrice()
  void setCarSharing()
- void setPriceList()
  String getGasStationId()
  String getGasStationName()
  String getGasStationAddress()
@@ -387,20 +375,16 @@ void delete(loginId)
 
 Package it.polito.ezgas.converter{
 class UserConverter{
-    UserDto toUserDto(user)
-    User toUser(userdto)
-    List<User> toUserList(List<UserDto>)
-    List<UserDto> toUserDtoList(List<User>)
+    UserDto toUserDto()
+    User toUser()
+    List<User> toUserList()
+    List<UserDto> toUserDtoList()
 }
 class GasStationConverter{
-   GasStationDto toGasStationDto(gasStation)
-   GasStation toGasStation(gasStationdto)
-   List<GasStation> toGasStationDtoList(List<GasStationDto>)
-   List<GasStationDto> toGasStationList(List<GasStation>)
-}
-class LoginConverter {
-    LoginDto toLoginDto(Login)
-    Login toLogin(LoginDto)
+   GasStationDto toGasStationDto()
+   GasStation toGasStation()
+   List<GasStation> toGasStationDtoList()
+   List<GasStationDto> toGasStationList()
 }
 
 }
@@ -495,7 +479,6 @@ Class GasStationDto{
  void setGasPrice()
  void setHasMethane()
  void setMethanePrice()
- void setPriceReportDtos()
  void setReportUser()
  void setReportTimestamp()
  void setLat()
@@ -507,11 +490,11 @@ Class GasStationDto{
  String getGasStationName()
  String getGasStationAddress()
  boolean getHasDiesel()
-  double getDieselPrice()
+ double getDieselPrice()
  boolean getHasSuper() 
-  double getSuperPrice()
+ double getSuperPrice()
  Boolean getHasSuperPlus()
-  double getSuperPlusPrice()
+ double getSuperPlusPrice()
  Boolean getHasGas()
  double getGasPrice()
  boolean getHasMethane()
@@ -534,8 +517,38 @@ Interface UserService{
 }
 
 Package it.polito.ezgas.serviceimpl {
- Class GasStationServiceImp{}
- Class UserServiceImp{}
+ Class GasStationServiceImp{
+    GasStationRepository gasStationRepository
+    GasStationConverter gasStationConverter
+    UserRepository UserRepository
+    boolean updateDependability 
+
+    GasStationDto getGasStationById()
+    List<GasStationDto> getAllGasStations()
+    List<GasStationDto> getGasStationsByGasolinType()
+    List<GasStationDto> getGasStationsByProximity()
+    List<GasStationDto> getGasStationsWithCoordinates()
+    List<GasStationDto> getGasStationsWithoutCoordinates()
+    List<GasStationDto> getGasStationByCarSharing()
+    GasStationDto saveGasStation()
+    boolean deleteGasStation()
+    void setReport()
+    void checkPriceList()
+    void checkCoordinates()
+    void calculateDependability()
+ }
+ Class UserServiceImp{
+    UserRepository userRepository
+    UserConverter userConverter
+
+    UserDto getUserById()
+    UserDto saveUser()
+    List<UserDto> getAllUsers()
+    Boolean deleteUser()
+    LogiDto login()
+    Integer increaseUserReputation()
+    Integer decreaseUserReputation()
+ }
 }
 
 
@@ -598,9 +611,9 @@ GasStationController -- GasStationService
 | FR4.3  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
 | FR4.4  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
 | FR4.5  |   | X |   |   | X |   | X |   |   | X |   |   |   |   | X | X |   |
-| FR5.1  | X |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   | X |
-| FR5.2  | X |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   | X |
-| FR5.3  | X |   | X |   |   | X |   |   |   |   |   |   |   |   |   |   | X |
+| FR5.1  | X | X | X |   | X | X | X |   | X | X |   |   |   | X | X | X | X |
+| FR5.2  | X | X | X |   | X | X | X |   | X | X |   |   |   | X | X | X | X |
+| FR5.3  | X | X | X |   | X | X | X |   | X | X |   |   |   | X | X | X | X |
 
 # Verification sequence diagrams 
 
