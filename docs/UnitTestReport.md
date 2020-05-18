@@ -51,11 +51,11 @@ Version:
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setGasStationId(1250);||
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setGasStationId(1250);|it.polito.ezgas.GasStationTests.TC1_GasStationId|
 ||||getgasStationId()-> 1250 ||
-||< Integer.MIN_VALUE | I | setGasStationId(Integer.MIN_VALUE-1)||
+||< Integer.MIN_VALUE | I | setGasStationId(Integer.MIN_VALUE-1)|it.polito.ezgas.GasStationTests.TC2_GasStationId|
 ||||getgasStationId()-> Integer.MAX_VALUE ||
-|| > Integer.MAX_VALUE| I | setGasStationId(Integer.MAX_VALUE+1)||
+|| > Integer.MAX_VALUE| I | setGasStationId(Integer.MAX_VALUE+1)|it.polito.ezgas.GasStationTests.TC3_GasStationId|
 ||||getgasStationId()-> Integer.MIN_VALUE ||
 |No    || I | Not feasible||
 
@@ -84,8 +84,8 @@ Version:
 **Combination of predicates**:
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setGasStationName("ENI Station 23");||
+|-------|-------|-------|-------|
+|Yes    | V |  setGasStationName("ENI Station 23");|it.polito.ezgas.GasStationTests.TC1_GasStationName|
 ||| getGasStationName() -> "ENI Station 23" ||
 |No    | I | Not feasible||
 
@@ -113,8 +113,8 @@ Version:
 **Combination of predicates**:
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setGasStationAddress("Corso Duca 23"); ||
+|-------|-------|-------|-------|
+|Yes    | V |  setGasStationAddress("Corso Duca 23"); |it.polito.ezgas.GasStationTests.TC1_GasStationAddress|
 |||getGasStationAddress -> "Corso duca 23" ||
 |No    | I | Not feasible||
 
@@ -148,11 +148,11 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setReportDependability(12.45);||
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setReportDependability(12.45);|it.polito.ezgas.GasStationTests.TC1_GasStationReportDependability|
 ||||getReportDependability() -> 12.45 ||
-||< (-Double.MAX_VALUE) | I | setReportDependability(-Double.MAX_VALUE-1)||
+||< (-Double.MAX_VALUE) | I | setReportDependability(-Double.MAX_VALUE-1)|it.polito.ezgas.GasStationTests.TC2_GasStationReportDependability|
 ||||getReportDependability() -> - Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setReportDependability(Double.MAX_VALUE+1)||
+|| > Double.MAX_VALUE| I | setReportDependability(Double.MAX_VALUE+1)|it.polito.ezgas.GasStationTests.TC3_GasStationReportDependability|
 ||||getReportDependability() -> Double.MAX_VAL ||
 |No   | | I | Not feasible||
 
@@ -187,11 +187,11 @@ Version:
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setReportUser(1250);||
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setReportUser(1250);|it.polito.ezgas.GasStationTests.TC1_GasStationReportUser|
 ||||getReportUser() -> 1250 ||
-||< Integer.MIN_VALUE | I | setReportUser(Integer.MIN_VALUE-1) ||
+||< Integer.MIN_VALUE | I | setReportUser(Integer.MIN_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationReportUser|
 ||||getReportUser() -> Integer.MAX_VALUE ||
-|| > Integer.MAX_VALUE| I | setReportUser(Integer.MAX_VALUE+1)||
+|| > Integer.MAX_VALUE| I | setReportUser(Integer.MAX_VALUE+1)|it.polito.ezgas.GasStationTests.TC3_GasStationReportUser|
 ||||getReportUser() -> Integer.MIN_VALUE ||
 |No    || I | Not feasible||
 
@@ -220,8 +220,8 @@ Version:
 **Combination of predicates**:
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setReportTimestamp("20200503T10:20:31");||
+|-------|-------|-------|-------|
+|Yes    | V |  setReportTimestamp("20200503T10:20:31");|it.polito.ezgas.GasStationTests.TC1_GasStationReportTimestamp|
 ||| getReportTimestamp() -> "20200503T10:20:31" ||:
 |No    | I |Not feasible||
 
@@ -249,8 +249,8 @@ Version:
 **Combination of predicates**:
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setHasDiesel(true);||
+|-------|-------|-------|-------|
+|Yes    | V |  setHasDiesel(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasDiesel|
 ||| getHasDiesel() -> true ||:
 |No    | I | Not feasible||
 
@@ -278,8 +278,8 @@ Version:
 **Combination of predicates**:
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setHasSuper(true);||
+|-------|-------|-------|-------|
+|Yes    | V |  setHasSuper(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasSuper|
 ||| getHasSuper() -> true ||:
 |No    | I | Not feasible||
 
@@ -307,8 +307,8 @@ Version:
 **Combination of predicates**:
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setHasSuperPlus(true);||
+|-------|-------|-------|-------|
+|Yes    | V |  setHasSuperPlus(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasSuperPlus|
 ||| getHasSuperPlus() -> true ||:
 |No    | I |Not feasible||
 
@@ -336,8 +336,8 @@ Version:
 **Combination of predicates**:
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setHasGas(true);||
+|-------|-------|-------|-------|
+|Yes    | V |  setHasGas(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasGas|
 ||| getHasGas() -> true ||:
 |No    | I |Not feasible||
 
@@ -365,8 +365,8 @@ Version:
 **Combination of predicates**:
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setHasMethane(true);||
+|-------|-------|-------|-------|
+|Yes    | V |  setHasMethane(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasMethane|
 ||| getHasMethane() -> true ||:
 |No    | I | Not feasible||
 
@@ -400,11 +400,11 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE| V |  setLat(12.45);||
+|Yes    |>= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE| V |  setLat(12.45);|it.polito.ezgas.GasStationTests.TC1_GasStationLat|
 ||||getLat() -> 12.45 ||
-||< (-Double.MAX_VALUE) | I | setLat(-Double.MAX_VALUE-1) ||
+||< (-Double.MAX_VALUE) | I | setLat(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationLat|
 ||||getLat() -> -Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setLat(Double.MAX_VALUE+1) ||
+|| > Double.MAX_VALUE| I | setLat(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationLat|
 ||||getLat() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
@@ -439,11 +439,11 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setLon(12.45);||
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setLon(12.45);|it.polito.ezgas.GasStationTests.TC1_GasStationLon|
 ||||getLon() -> 12.45 ||
-||< (-Double.MAX_VALUE) | I | setLon(-Double.MAX_VALUE-1)||
+||< (-Double.MAX_VALUE) | I | setLon(-Double.MAX_VALUE-1)|it.polito.ezgas.GasStationTests.TC2_GasStationLon|
 ||||getLon() -> - Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setLon(Double.MAX_VALUE+1)||
+|| > Double.MAX_VALUE| I | setLon(Double.MAX_VALUE+1)|it.polito.ezgas.GasStationTests.TC3_GasStationLon|
 ||||getLon() -> Double.MAX_VALUE||
 |No   | | I | Not feasible||
 
@@ -478,11 +478,11 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setDieselPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setDieselPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationDieselPrice|
 ||||getDieselPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setDieselPrice(-Double.MAX_VALUE-1) ||
+||< -Double.MAX_VALUE | I | setDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationDieselPrice|
 ||||getDieselPrice() -> -Double.MAX_VALUE||
-|| > Double.MAX_VALUE| I | setDieselPrice(Double.MAX_VALUE+1) ||
+|| > Double.MAX_VALUE| I | setDieselPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationDieselPrice|
 ||||getDieselPrice() -> Double.MAX_VALUE ||
 |No   | | I | Not feasible||
 
@@ -517,11 +517,11 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setSuperPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setSuperPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationSuperPrice|
 ||||getSuperPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setSuperPrice(-Double.MAX_VALUE-1) ||
+||< -Double.MAX_VALUE | I | setSuperPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationSuperPrice|
 ||||getSuperPrice() -> -Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setSuperPrice(Double.MAX_VALUE+1) ||
+|| > Double.MAX_VALUE| I | setSuperPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationSuperPrice|
 ||||getSuperPrice() -> Double.MAX_VALUE ||
 |No   | | I | Not feasible||
 
@@ -556,11 +556,11 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setSuperPlusPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setSuperPlusPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationSuperPlusPrice|
 ||||getSuperPlusPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setSuperPlusPrice(-Double.MAX_VALUE-1) ||
+||< -Double.MAX_VALUE | I | setSuperPlusPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationSuperPlusPrice|
 ||||getSuperPlusPrice() -> -Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setSuperPlusPrice(Double.MAX_VALUE+1) ||
+|| > Double.MAX_VALUE| I | setSuperPlusPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationSuperPlusPrice|
 ||||getSuperPlusPrice() -> Double.MAX_VALUE ||
 |No   | | I | Not feasible||
 
@@ -594,11 +594,11 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setGasPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setGasPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationGasPrice|
 ||||getGasPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setGasPrice(-Double.MAX_VALUE-1) ||
+||< -Double.MAX_VALUE | I | setGasPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationGasPrice|
 ||||getGasPrice() -> Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setGasPrice(Double.MAX_VALUE+1) ||
+|| > Double.MAX_VALUE| I | setGasPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationGasPrice|
 ||||getGasPrice() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
@@ -633,11 +633,11 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationMethanePrice|
 ||||getMethanPrice() -> 1.45 ||
-||< -Double.MAX_VALUE | I | setMethanPrice(-Double.MAX_VALUE-1) ||
+||< -Double.MAX_VALUE | I | setMethanPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationMethanePrice|
 ||||getMethanPrice() -> -Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) ||
+|| > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationMethanePrice|
 ||||getMethanPrice() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
@@ -665,8 +665,8 @@ Version:
 **Combination of predicates**:
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setCarSharing("Enjoy");||
+|-------|-------|-------|-------|
+|Yes    | V |  setCarSharing("Enjoy");|it.polito.ezgas.GasStationTests.TC1_GasStationCarSharing|
 ||| getCarSharing() -> "Enjoy" ||:
 |No    | I | Not feasible||
 
@@ -695,8 +695,8 @@ Version:
 **Combination of predicates**:
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
-|-------|-------|-------|-------|-------|
-|Yes    | V |  setUser(user1);||
+|-------|-------|-------|-------|
+|Yes    | V |  setUser(user1);|it.polito.ezgas.GasStationTests.TC1_GasStationUser|
 ||| getUser() -> user1 ||:
 |No    | I | Not feasible||
 
@@ -730,11 +730,11 @@ Version:
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setUserId(8888);||
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setUserId(8888);|it.polito.ezgas.UserTests.TC1_UserID|
 ||||getUserId()-> 8888 ||
-||< Integer.MIN_VALUE | I | setUserId(Integer.MIN_VALUE-1) ||
+||< Integer.MIN_VALUE | I | setUserId(Integer.MIN_VALUE-1) |it.polito.ezgas.UserTests.TC2_UserID|
 ||||getUserId()-> Integer.MAX_VALUE ||
-|| > Integer.MAX_VALUE| I | setUserId(Integer.MAX_VALUE+1)||
+|| > Integer.MAX_VALUE| I | setUserId(Integer.MAX_VALUE+1)|it.polito.ezgas.UserTests.TC3_UserID|
 ||||getUserId()-> Integer.MIN_VALUE ||
 |No    || I | Not feasible||
 
@@ -764,7 +764,7 @@ Version:
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|
-|Yes    | V |  setUserName("Enrico Mattei");||
+|Yes    | V |  setUserName("Enrico Mattei");|it.polito.ezgas.UserTests.TC1_UserName|
 ||| getUserName() -> "Enrico Mattei" ||
 |No    | I | Not feasible||
 
@@ -793,7 +793,7 @@ Version:
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|
-|Yes    | V |  setPassword("Th1s@ppISc00l"); ||
+|Yes    | V |  setPassword("Th1s@ppISc00l"); |it.polito.ezgas.UserTests.TC1_UserPassword|
 |||getPassword -> "Th1s@ppISc00l" ||
 |No    | I | Not feasible||
 
@@ -805,7 +805,7 @@ Version:
 	
  - String validity
 
-**Predicates for method *setPassword*:**
+**Predicates for method *setEmail*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
@@ -822,7 +822,7 @@ Version:
 
 | String validity  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|
-|Yes    | V |  setEmail("enrico.mattei@eni.it"); ||
+|Yes    | V |  setEmail("enrico.mattei@eni.it"); |it.polito.ezgas.UserTests.TC1_UserEmail|
 |||getEmail -> "enrico.mattei@eni.it" ||
 |No    | I | Not feasible||
 
@@ -855,11 +855,11 @@ Version:
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setReputation(100);||
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setReputation(100);|it.polito.ezgas.UserTests.TC1_UserReputation|
 ||||getReputation() -> 100 ||
-||< Integer.MIN_VALUE | I | setReputation(Integer.MIN_VALUE-1)||
+||< Integer.MIN_VALUE | I | setReputation(Integer.MIN_VALUE-1)|it.polito.ezgas.UserTests.TC2_UserReputation|
 ||||getReputation() -> Integer.MAX_VALUE ||
-|| > Integer.MAX_VALUE| I | setReputation(Integer.MAX_VALUE+1)||
+|| > Integer.MAX_VALUE| I | setReputation(Integer.MAX_VALUE+1)|it.polito.ezgas.UserTests.TC3_UserReputation|
 ||||getReputation() -> Integer.MIN_VALUE ||
 |No    || I | Not feasible||
 
@@ -889,7 +889,7 @@ Version:
 
 | Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|
-|Yes    | V |  setAdmin(true);||
+|Yes    | V |  setAdmin(true);|it.polito.ezgas.UserTests.TC1_UserAdmin|
 ||| getAdmin() -> false ||:
 |No    | I | Not feasible||
 

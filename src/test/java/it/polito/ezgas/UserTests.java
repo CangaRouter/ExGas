@@ -49,7 +49,7 @@ public class UserTests {
 		assert(us.getReputation()==100);
 	}
 	@Test
-	public void TC2_Userreputation() {
+	public void TC2_UserReputation() {
 		us.setReputation(Integer.MAX_VALUE+1);
 		assert(us.getReputation()==Integer.MIN_VALUE);
 	}
