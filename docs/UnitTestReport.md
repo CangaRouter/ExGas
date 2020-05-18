@@ -1,4 +1,4 @@
-Barco Luca, Petruzzi Rocco Luigi# Unit Testing Documentation
+# Unit Testing Documentation
 
 Authors: Barco Luca, Petruzzi Rocco Luigi
 
@@ -36,28 +36,29 @@ Version:
 | -------- | --------- |
 |  Is an integer number        |     Yes      |
 |          |      No     |
-|  Range        |   >= -2147483648   and <= 2147483647   |
-|          |     < -2147483648      |
-|          |     > 2147483647      |
+|  Range        |   >= Integer.MAX_VALUE   and <= Integer.MIN_VALUE   |
+|          |     < Integer.MIN_VALUE      |
+|          |     > Integer.MAX_VALUE      |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     -2147483648,  2147483647          |
+|     Range     |     Integer.MIN_VALUE,Integer.MAX_VALUE        |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -2147483648   and <= 2147483647| V |  setGasStationId(1250);||
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setGasStationId(1250);||
 ||||getgasStationId()-> 1250 ||
-||< -2147483648 | I | setGasStationId(-22000000000) -> error||
-|| > 2147483647| I | setGasStationId(22000000000) -> error||
-|No    |>= -2147483648   and <= 2147483647| I | Not feasible||
-||< -2147483648 | I | Not feasible||
-|| > 2147483647| I | Not feasible||
+||< Integer.MIN_VALUE | I | setGasStationId(Integer.MIN_VALUE-1)||
+||||getgasStationId()-> Integer.MAX_VALUE ||
+|| > Integer.MAX_VALUE| I | setGasStationId(Integer.MAX_VALUE+1)||
+||||getgasStationId()-> Integer.MIN_VALUE ||
+|No    || I | Not feasible||
+
 
 
  ### **Class *GasStation* - method *setGasStationName***
@@ -86,7 +87,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setGasStationName("ENI Station 23");||
 ||| getGasStationName() -> "ENI Station 23" ||
-|No    | I | setGasStationName(null) -> error||
+|No    | I | Not feasible||
 
 
  ### **Class *GasStation* - method *setGasStationAddress***
@@ -115,7 +116,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setGasStationAddress("Corso Duca 23"); ||
 |||getGasStationAddress -> "Corso duca 23" ||
-|No    | I | setGasStationAddress(null) -> error||
+|No    | I | Not feasible||
 
 
 ### **Class *GasStation* - method *setReportDependability***
@@ -132,28 +133,29 @@ Version:
 | -------- | --------- |
 |  Is a double number        |     Yes      |
 |          |      No     |
-|  Range        |   >=  Double.MIN_VALUE   and <= Double.MAX_VALUE   |
-|          |     <  Double.MIN_VALUE      |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
 |          |     > Double.MAX_VALUE     |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Double.MIN_VALUE   and <= Double.MAX_VALUE| V |  setReportDependability(12.45);||
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setReportDependability(12.45);||
 ||||getReportDependability() -> 12.45 ||
-||< Double.MIN_VALUE | I | setReportDependability(Double.MIN_VALUE-1) -> error||
-|| > Double.MAX_VALUE| I | setReportDependability(Double.MAX_VALUE+1) -> error||
-|No   | >= Double.MIN_VALUE   and <= Double.MAX_VALUE| I | Not feasible||
-||< Double.MIN_VALUE | I | Not feasible||
-|| > Double.MAX_VALUE| I | Not feasible||
+||< (-Double.MAX_VALUE) | I | setReportDependability(-Double.MAX_VALUE-1)||
+||||getReportDependability() -> - Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setReportDependability(Double.MAX_VALUE+1)||
+||||getReportDependability() -> Double.MAX_VAL ||
+|No   | | I | Not feasible||
+
 
 
  ### **Class *GasStation* - method *setReportUser***
@@ -170,28 +172,29 @@ Version:
 | -------- | --------- |
 |  Is an integer number        |     Yes      |
 |          |      No     |
-|  Range        |   >= -2147483648   and <= 2147483647   |
-|          |     < -2147483648      |
-|          |     > 2147483647      |
+|  Range        |   >= Integer.MAX_VALUE   and <= Integer.MIN_VALUE   |
+|          |     < Integer.MIN_VALUE      |
+|          |     > Integer.MAX_VALUE      |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     -2147483648,  2147483647          |
+|     Range     |     Integer.MIN_VALUE, Integer.MAX_VALUE       |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -2147483648   and <= 2147483647| V |  setReportUser(1250);||
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setReportUser(1250);||
 ||||getReportUser() -> 1250 ||
-||< -2147483648 | I | setReportUser(-22000000000) -> error||
-|| > 2147483647| I | setReportUser(22000000000) -> error||
-|No    |>= -2147483648   and <= 2147483647| I | Not feasible||
-||< -2147483648 | I | Not feasible||
-|| > 2147483647| I | Not feasible||
+||< Integer.MIN_VALUE | I | setReportUser(Integer.MIN_VALUE-1) ||
+||||getReportUser() -> Integer.MAX_VALUE ||
+|| > Integer.MAX_VALUE| I | setReportUser(Integer.MAX_VALUE+1)||
+||||getReportUser() -> Integer.MIN_VALUE ||
+|No    || I | Not feasible||
+
 
 
  ### **Class *GasStation* - method *setReportTimestamp***
@@ -220,7 +223,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setReportTimestamp("20200503T10:20:31");||
 ||| getReportTimestamp() -> "20200503T10:20:31" ||:
-|No    | I | setReportTimestamp(null) -> error||
+|No    | I |Not feasible||
 
 
 ### **Class *GasStation* - method *setHasDiesel***
@@ -249,7 +252,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setHasDiesel(true);||
 ||| getHasDiesel() -> true ||:
-|No    | I | setHasDiesel(52) -> error||
+|No    | I | Not feasible||
 
 
 ### **Class *GasStation* - method *setHasSuper***
@@ -278,7 +281,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setHasSuper(true);||
 ||| getHasSuper() -> true ||:
-|No    | I | setHasSuper(52) -> error||
+|No    | I | Not feasible||
 
 
 ### **Class *GasStation* - method *setHasSuperPlus***
@@ -307,7 +310,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setHasSuperPlus(true);||
 ||| getHasSuperPlus() -> true ||:
-|No    | I | setHasSuperPlus(52) -> error||
+|No    | I |Not feasible||
 
 
 ### **Class *GasStation* - method *setHasGas***
@@ -336,7 +339,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setHasGas(true);||
 ||| getHasGas() -> true ||:
-|No    | I | setHasGas(52) -> error||
+|No    | I |Not feasible||
 
 
 ### **Class *GasStation* - method *setHasMethane***
@@ -365,7 +368,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setHasMethane(true);||
 ||| getHasMethane() -> true ||:
-|No    | I | setHasMethane(52) -> error||
+|No    | I | Not feasible||
 
 
 ### **Class *GasStation* - method *setLat***
@@ -382,28 +385,29 @@ Version:
 | -------- | --------- |
 |  Is a double number        |     Yes      |
 |          |      No     |
-|  Range        |   >=  Double.MIN_VALUE   and <= Double.MAX_VALUE   |
-|          |     <  Double.MIN_VALUE      |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
 |          |     > Double.MAX_VALUE     |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Double.MIN_VALUE   and <= Double.MAX_VALUE| V |  setLat(12.45);||
+|Yes    |>= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE| V |  setLat(12.45);||
 ||||getLat() -> 12.45 ||
-||< Double.MIN_VALUE | I | setLat(Double.MIN_VALUE-1) -> error||
-|| > Double.MAX_VALUE| I | setLat(Double.MAX_VALUE+1) -> error||
-|No   | >= Double.MIN_VALUE   and <= Double.MAX_VALUE| I | Not feasible||
-||< Double.MIN_VALUE | I | Not feasible||
-|| > Double.MAX_VALUE| I | Not feasible||
+||< (-Double.MAX_VALUE) | I | setLat(-Double.MAX_VALUE-1) ||
+||||getLat() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setLat(Double.MAX_VALUE+1) ||
+||||getLat() -> Double.MAX_VALUE ||
+|No   || I | Not feasible||
+
 
 
 ### **Class *GasStation* - method *setLon***
@@ -420,28 +424,29 @@ Version:
 | -------- | --------- |
 |  Is a double number        |     Yes      |
 |          |      No     |
-|  Range        |   >=  Double.MIN_VALUE   and <= Double.MAX_VALUE   |
-|          |     <  Double.MIN_VALUE      |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
 |          |     > Double.MAX_VALUE     |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Double.MIN_VALUE   and <= Double.MAX_VALUE| V |  setLon(12.45);||
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setLon(12.45);||
 ||||getLon() -> 12.45 ||
-||< Double.MIN_VALUE | I | setLon(Double.MIN_VALUE-1) -> error||
-|| > Double.MAX_VALUE| I | setLon(Double.MAX_VALUE+1) -> error||
-|No   | >= Double.MIN_VALUE   and <= Double.MAX_VALUE| I | Not feasible||
-||< Double.MIN_VALUE | I | Not feasible||
-|| > Double.MAX_VALUE| I | Not feasible||
+||< (-Double.MAX_VALUE) | I | setLon(-Double.MAX_VALUE-1)||
+||||getLon() -> - Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setLon(Double.MAX_VALUE+1)||
+||||getLon() -> Double.MAX_VALUE||
+|No   | | I | Not feasible||
+
 
 
 ### **Class *GasStation* - method *setDieselPrice***
@@ -458,28 +463,29 @@ Version:
 | -------- | --------- |
 |  Is a double number        |     Yes      |
 |          |      No     |
-|  Range        |   >=  Double.MIN_VALUE   and <= Double.MAX_VALUE   |
-|          |     <  Double.MIN_VALUE      |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
 |          |     > Double.MAX_VALUE     |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Double.MIN_VALUE   and <= Double.MAX_VALUE| V |  setDieselPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setDieselPrice(1.45);||
 ||||getDieselPrice() -> 1.45 ||
-||< Double.MIN_VALUE | I | setDieselPrice(Double.MIN_VALUE-1) -> error||
-|| > Double.MAX_VALUE| I | setDieselPrice(Double.MAX_VALUE+1) -> error||
-|No   | >= Double.MIN_VALUE   and <= Double.MAX_VALUE| I | Not feasible||
-||< Double.MIN_VALUE | I | Not feasible||
-|| > Double.MAX_VALUE| I | Not feasible||
+||< -Double.MAX_VALUE | I | setDieselPrice(-Double.MAX_VALUE-1) ||
+||||getDieselPrice() -> -Double.MAX_VALUE||
+|| > Double.MAX_VALUE| I | setDieselPrice(Double.MAX_VALUE+1) ||
+||||getDieselPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
+
 
 
 ### **Class *GasStation* - method *setSuperPrice***
@@ -496,28 +502,29 @@ Version:
 | -------- | --------- |
 |  Is a double number        |     Yes      |
 |          |      No     |
-|  Range        |   >=  Double.MIN_VALUE   and <= Double.MAX_VALUE   |
-|          |     <  Double.MIN_VALUE      |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
 |          |     > Double.MAX_VALUE     |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Double.MIN_VALUE   and <= Double.MAX_VALUE| V |  setSuperPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setSuperPrice(1.45);||
 ||||getSuperPrice() -> 1.45 ||
-||< Double.MIN_VALUE | I | setSuperPrice(Double.MIN_VALUE-1) -> error||
-|| > Double.MAX_VALUE| I | setSuperPrice(Double.MAX_VALUE+1) -> error||
-|No   | >= Double.MIN_VALUE   and <= Double.MAX_VALUE| I | Not feasible||
-||< Double.MIN_VALUE | I | Not feasible||
-|| > Double.MAX_VALUE| I | Not feasible||
+||< -Double.MAX_VALUE | I | setSuperPrice(-Double.MAX_VALUE-1) ||
+||||getSuperPrice() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setSuperPrice(Double.MAX_VALUE+1) ||
+||||getSuperPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
+
 
 
 ### **Class *GasStation* - method *setSuperPlusPrice***
@@ -534,28 +541,28 @@ Version:
 | -------- | --------- |
 |  Is a double number        |     Yes      |
 |          |      No     |
-|  Range        |   >=  Double.MIN_VALUE   and <= Double.MAX_VALUE   |
-|          |     <  Double.MIN_VALUE      |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
 |          |     > Double.MAX_VALUE     |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Double.MIN_VALUE   and <= Double.MAX_VALUE| V |  setSuperPlusPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setSuperPlusPrice(1.45);||
 ||||getSuperPlusPrice() -> 1.45 ||
-||< Double.MIN_VALUE | I | setSuperPlusPrice(Double.MIN_VALUE-1) -> error||
-|| > Double.MAX_VALUE| I | setSuperPlusPrice(Double.MAX_VALUE+1) -> error||
-|No   | >= Double.MIN_VALUE   and <= Double.MAX_VALUE| I | Not feasible||
-||< Double.MIN_VALUE | I | Not feasible||
-|| > Double.MAX_VALUE| I | Not feasible||
+||< -Double.MAX_VALUE | I | setSuperPlusPrice(-Double.MAX_VALUE-1) ||
+||||getSuperPlusPrice() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setSuperPlusPrice(Double.MAX_VALUE+1) ||
+||||getSuperPlusPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
 
 
 ### **Class *GasStation* - method *setGasPrice***
@@ -572,28 +579,29 @@ Version:
 | -------- | --------- |
 |  Is a double number        |     Yes      |
 |          |      No     |
-|  Range        |   >=  Double.MIN_VALUE   and <= Double.MAX_VALUE   |
-|          |     <  Double.MIN_VALUE      |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
 |          |     > Double.MAX_VALUE     |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Double.MIN_VALUE   and <= Double.MAX_VALUE| V |  setGasPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setGasPrice(1.45);||
 ||||getGasPrice() -> 1.45 ||
-||< Double.MIN_VALUE | I | setGasPrice(Double.MIN_VALUE-1) -> error||
-|| > Double.MAX_VALUE| I | setGasPrice(Double.MAX_VALUE+1) -> error||
-|No   | >= Double.MIN_VALUE   and <= Double.MAX_VALUE| I | Not feasible||
-||< Double.MIN_VALUE | I | Not feasible||
-|| > Double.MAX_VALUE| I | Not feasible||
+||< -Double.MAX_VALUE | I | setGasPrice(-Double.MAX_VALUE-1) ||
+||||getGasPrice() -> Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setGasPrice(Double.MAX_VALUE+1) ||
+||||getGasPrice() -> Double.MAX_VALUE ||
+|No   || I | Not feasible||
+
 
 
 ### **Class *GasStation* - method *setMethanPrice***
@@ -610,28 +618,28 @@ Version:
 | -------- | --------- |
 |  Is a double number        |     Yes      |
 |          |      No     |
-|  Range        |   >=  Double.MIN_VALUE   and <= Double.MAX_VALUE   |
-|          |     <  Double.MIN_VALUE      |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
 |          |     > Double.MAX_VALUE     |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     Double.MIN_VALUE,  Double.MAX_VALUE          |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= Double.MIN_VALUE   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);||
+|Yes    |>= -Double.MAX_VALUE   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);||
 ||||getMethanPrice() -> 1.45 ||
-||< Double.MIN_VALUE | I | setMethanPrice(Double.MIN_VALUE-1) -> error||
-|| > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) -> error||
-|No   | >= Double.MIN_VALUE   and <= Double.MAX_VALUE| I | Not feasible||
-||< Double.MIN_VALUE | I | Not feasible||
-|| > Double.MAX_VALUE| I | Not feasible||
+||< -Double.MAX_VALUE | I | setMethanPrice(-Double.MAX_VALUE-1) ||
+||||getMethanPrice() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) ||
+||||getMethanPrice() -> Double.MAX_VALUE ||
+|No   || I | Not feasible||
 
 
  ### **Class *GasStation* - method *setCarSharing***
@@ -660,7 +668,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setCarSharing("Enjoy");||
 ||| getCarSharing() -> "Enjoy" ||:
-|No    | I | setCarSharing(null) -> error||
+|No    | I | Not feasible||
 
 
  ### **Class *GasStation* - method *setUser***
@@ -690,7 +698,7 @@ Version:
 |-------|-------|-------|-------|-------|
 |Yes    | V |  setUser(user1);||
 ||| getUser() -> user1 ||:
-|No    | I | setUser(null) -> error||
+|No    | I | Not feasible||
 
 
  ### **Class *User* - method *setUserId***
@@ -707,28 +715,29 @@ Version:
 | -------- | --------- |
 |  Is an integer number        |     Yes      |
 |          |      No     |
-|  Range        |   >= -2147483648   and <= 2147483647   |
-|          |     < -2147483648      |
-|          |     > 2147483647      |
+|  Range        |   >= Integer.MAX_VALUE   and <= Integer.MIN_VALUE   |
+|          |     < Integer.MIN_VALUE      |
+|          |     > Integer.MAX_VALUE      |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     -2147483648,  2147483647          |
+|     Range     |     Integer.MIN_VALUE, Integer.MAX_VALUE       |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -2147483648   and <= 2147483647| V |  setUserId(8888);||
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setUserId(8888);||
 ||||getUserId()-> 8888 ||
-||< -2147483648 | I | setUserId(-2147483649) -> error||
-|| > 2147483647| I | setUserId(2147483648) -> error||
-|No    |>= -2147483648   and <= 2147483647| I | Not feasible||
-||< -2147483648 | I | Not feasible||
-|| > 2147483647| I | Not feasible||
+||< Integer.MIN_VALUE | I | setUserId(Integer.MIN_VALUE-1) ||
+||||getUserId()-> Integer.MAX_VALUE ||
+|| > Integer.MAX_VALUE| I | setUserId(Integer.MAX_VALUE+1)||
+||||getUserId()-> Integer.MIN_VALUE ||
+|No    || I | Not feasible||
+
 
 
  ### **Class *User* - method *setUserName***
@@ -757,7 +766,7 @@ Version:
 |-------|-------|-------|-------|
 |Yes    | V |  setUserName("Enrico Mattei");||
 ||| getUserName() -> "Enrico Mattei" ||
-|No    | I | setUserName(null) -> error||
+|No    | I | Not feasible||
 
 
  ### **Class *User* - method *setPassword***
@@ -786,7 +795,7 @@ Version:
 |-------|-------|-------|-------|
 |Yes    | V |  setPassword("Th1s@ppISc00l"); ||
 |||getPassword -> "Th1s@ppISc00l" ||
-|No    | I | setPassword(null) -> error||
+|No    | I | Not feasible||
 
 
 ### **Class *User* - method *setEmail***
@@ -815,7 +824,7 @@ Version:
 |-------|-------|-------|-------|
 |Yes    | V |  setEmail("enrico.mattei@eni.it"); ||
 |||getEmail -> "enrico.mattei@eni.it" ||
-|No    | I | setPassword(null) -> error||
+|No    | I | Not feasible||
 
  ### **Class *User* - method *setReputation***
 
@@ -831,28 +840,29 @@ Version:
 | -------- | --------- |
 |  Is an integer number        |     Yes      |
 |          |      No     |
-|  Range        |   >= -2147483648   and <= 2147483647   |
-|          |     < -2147483648      |
-|          |     > 2147483647      |
+|  Range        |   >= Integer.MAX_VALUE   and <= Integer.MIN_VALUE   |
+|          |     < Integer.MIN_VALUE      |
+|          |     > Integer.MAX_VALUE      |
 
 **Boundaries**:
 
 | Criteria | Boundary values |
 | -------- | --------------- |
-|     Range     |     -2147483648,  2147483647          |
+|     Range     |     Integer.MIN_VALUE, Integer.MAX_VALUE       |
 |          |                 |
 
 **Combination of predicates**:
 
 | Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= -2147483648   and <= 2147483647| V |  setReputation(100);||
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setReputation(100);||
 ||||getReputation() -> 100 ||
-||< -2147483648 | I | setReputation(-2147483649) -> error||
-|| > 2147483647| I | setReputation(2147483648) -> error||
-|No    |>= -2147483648   and <= 2147483647| I | Not feasible||
-||< -2147483648 | I | Not feasible||
-|| > 2147483647| I | Not feasible||
+||< Integer.MIN_VALUE | I | setReputation(Integer.MIN_VALUE-1)||
+||||getReputation() -> Integer.MAX_VALUE ||
+|| > Integer.MAX_VALUE| I | setReputation(Integer.MAX_VALUE+1)||
+||||getReputation() -> Integer.MIN_VALUE ||
+|No    || I | Not feasible||
+
 
 
 ### **Class *User* - method *setAdmin***
@@ -881,7 +891,7 @@ Version:
 |-------|-------|-------|-------|
 |Yes    | V |  setAdmin(true);||
 ||| getAdmin() -> false ||:
-|No    | I | setAdmin("I'm an admin") -> error||
+|No    | I | Not feasible||
 
 
 # White Box Unit Tests
