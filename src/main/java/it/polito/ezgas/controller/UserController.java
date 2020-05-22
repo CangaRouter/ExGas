@@ -41,13 +41,13 @@ public class UserController {
 	public List<UserDto> getAllUsers() {
 		return userService.getAllUsers();
 	}
-	
-	@RequestMapping(value= Constants.SAVE_USER, method= RequestMethod.POST)
+
+	@RequestMapping(value = Constants.SAVE_USER, method = RequestMethod.POST)
 	public UserDto saveUser(@RequestBody UserDto userDto) {
 		return userService.saveUser(userDto);
 	}
-	
-	@RequestMapping(value= Constants.DELETE_USER, method= RequestMethod.DELETE)
+
+	@RequestMapping(value = Constants.DELETE_USER, method = RequestMethod.DELETE)
 	public Boolean deleteUser(@PathVariable Integer userId) {
 		try {
 			return userService.deleteUser(userId);
@@ -56,11 +56,10 @@ public class UserController {
 			System.out.println(e.getMessage());
 			return false;
 		}
-		
+
 	}
-	
-	
-	@RequestMapping(value= Constants.INCREASE_REPUTATION, method= RequestMethod.POST)
+
+	@RequestMapping(value = Constants.INCREASE_REPUTATION, method = RequestMethod.POST)
 	public Integer increaseUserReputation(@PathVariable Integer userId) {
 		try {
 			return userService.increaseUserReputation(userId);
@@ -70,9 +69,8 @@ public class UserController {
 			return 0;
 		}
 	}
-	
-	
-	@RequestMapping(value= Constants.DECREASE_REPUTATION, method= RequestMethod.POST)
+
+	@RequestMapping(value = Constants.DECREASE_REPUTATION, method = RequestMethod.POST)
 	public Integer decreaseUserReputation(@PathVariable Integer userId) {
 		try {
 			return userService.decreaseUserReputation(userId);
@@ -82,7 +80,8 @@ public class UserController {
 			return 0;
 		}
 	}
-	@RequestMapping(value= Constants.LOGIN, method= RequestMethod.POST)
+
+	@RequestMapping(value = Constants.LOGIN, method = RequestMethod.POST)
 	public LoginDto login(@RequestBody IdPw credentials) {
 		try {
 			return userService.login(credentials);
@@ -92,5 +91,5 @@ public class UserController {
 			return null;
 		}
 	}
-	
+
 }
