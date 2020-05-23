@@ -10,7 +10,19 @@ Version:
 
 - [Dependency graph](#dependency graph)
 
-- [Integration approach](#integration)
+- [Integration and API Test Documentation](#integration-and-api-test-documentation)
+- [Contents](#contents)
+- [Dependency graph](#dependency-graph)
+- [Integration approach](#integration-approach)
+- [Tests](#tests)
+  - [Step 1](#step-1)
+  - [Step 2](#step-2)
+  - [Step n API Tests](#step-n-api-tests)
+- [Scenarios](#scenarios)
+  - [Scenario UCx.y](#scenario-ucxy)
+- [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
+- [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
+    - [](#)
 
 - [Tests](#tests)
 
@@ -24,6 +36,54 @@ Version:
 # Dependency graph 
 
      <report the here the dependency graph of the classes in it/polito/Ezgas, using plantuml>
+
+```plantuml
+@startuml
+
+Class UserController 
+Interface UserService
+Class UserServiceImpl
+Class UserRepository
+Class UserConverter
+Class UserDto
+Class UserEntity
+
+Class LoginDto
+
+Class IdPw
+
+Class GasStationController
+Interface GasStationService
+Class GasStationServiceImpl
+Class GasStationRepository
+Class GasStationConverter
+Class GasStationDto
+Class GasStationEntity
+
+UserController --> UserService
+UserService --> UserServiceImpl
+UserServiceImpl --> UserRepository
+UserServiceImpl --> UserConverter
+UserServiceImpl --> LoginDto
+UserServiceImpl --> IdPw
+UserConverter --> UserEntity
+UserConverter --> UserDto
+UserRepository --> UserEntity
+
+LoginDto -[hidden] UserEntity
+IdPw -[hidden] UserDto
+
+GasStationController --> GasStationService
+GasStationService --> GasStationServiceImpl
+GasStationServiceImpl --> GasStationRepository
+GasStationServiceImpl --> UserRepository
+GasStationServiceImpl --> GasStationConverter
+GasStationConverter --> GasStationEntity
+GasStationConverter --> GasStationDto
+GasStationRepository --> GasStationEntity
+
+@enduml
+```
      
 # Integration approach
 
