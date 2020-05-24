@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.PriceReportDto;
 import it.polito.ezgas.dto.UserDto;

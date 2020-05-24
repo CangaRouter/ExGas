@@ -1,15 +1,12 @@
 package it.polito.ezgas;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+
 public class UserTests {
 	private User us=new User("lukeb","psw","luke@ezgas.com",1);
 	private User emptyUs=new User();

@@ -1,16 +1,13 @@
 package it.polito.ezgas;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.entity.User;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+
 public class GasStationTests {
 	private GasStation gs=new GasStation("Eni - Station 24", "Corso Palermo, 12 Torino", 
 			true, true, true, true, true, "Enjoy", 

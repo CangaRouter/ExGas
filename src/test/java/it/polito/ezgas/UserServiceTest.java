@@ -2,29 +2,18 @@ package it.polito.ezgas;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import exception.InvalidLoginDataException;
 import exception.InvalidUserException;
-
 import org.mockito.Mock;
-
 import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.IdPw;
-import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.*;
 import it.polito.ezgas.service.impl.UserServiceimpl;
-
 import static org.mockito.Mockito.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,12 +86,7 @@ public class UserServiceTest {
 		assert(userService.saveUser(userDtoMock)!=null);
 	}
 	
-	/*
-	 * Queries the database and returns the UserDto corresponding to the userId passed as parameter.
-	 * Throws an exception in case of invalid (negative) userId
-	 * Returns null if no user is found with the given Id
-	 
-    UserDto getUserById(Integer userId) throws InvalidUserException;*/
+	
 	@Test
 	public void TC1_getUserById() {
 		//Test: try to get a user with negative id
@@ -140,11 +124,7 @@ public class UserServiceTest {
 		}
 		assert(thrown==false);
 	}
-	/*
-     * Returns an ArrayList with all the Users in the database.
-     * Returns an empty ArrayList if no user is registered in the database
-     
-    List<UserDto> getAllUsers();*/
+	
 	@Test
 	public void TC1_getAllUsers() {
 		//Test: try to retrieve an empty list
@@ -165,12 +145,7 @@ public class UserServiceTest {
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		assert(!userService.getAllUsers().isEmpty());
 	}
-	/*
-     * Deletes the user with the given Id from the database.
-     * Throws an exception in case of invalid (negative) userId
-   	 * Returns true if the user is deleted
-     
-    Boolean deleteUser(Integer userId) throws InvalidUserException;*/
+	
 	@Test
 	public void TC1_deleteUser() {
 		//Test: try to delete a user with a negtive id
@@ -211,10 +186,7 @@ public class UserServiceTest {
 		}
 		assert(thrown==false);
 	}
-	/*
-     * Performs a login in the application
-     
-    LoginDto login(IdPw credentials) throws InvalidLoginDataException;*/
+	
 	@Test
 	public void TC1_login() {
 		//Test: try to login with null psw
@@ -298,13 +270,7 @@ public class UserServiceTest {
 		}
 		assert(thrown==false);
 	}
-	/*
-     * Increases by 1 the user Reputation (until maximum value equal to 5)
-     * Throws an exception in case of invalid (negative) userId
-     * Returns the current value of user reputation
-     
-    Integer increaseUserReputation(Integer userId) throws InvalidUserException;
-    */
+	
 	@Test
 	public void TC1_increaseUserReputation() {
 		Boolean thrown=false;
@@ -347,13 +313,7 @@ public class UserServiceTest {
 		}
 		assert(thrown==false);
 	}
-	/*
-     * Decreases by 1 the user Reputation (until minimum value equal to -5)
-     * Throws an exception in case of invalid (negative) userId
-     * Returns the current value of user reputation
-      
-    Integer decreaseUserReputation(Integer userId) throws InvalidUserException;
-*/
+	
 	@Test
 	public void TC1_decreaseUserReputation() {
 		Boolean thrown=false;
