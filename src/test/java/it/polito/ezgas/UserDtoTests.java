@@ -1,5 +1,6 @@
 package it.polito.ezgas;
 import org.junit.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -9,11 +10,10 @@ import it.polito.ezgas.entity.User;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class UserTests {
-	private User us=new User("lukeb","psw","luke@ezgas.com",1);
-	private User emptyUs=new User();
-	
+
+public class UserDtoTests {
+private UserDto us=new UserDto(1,"lukeb","psw","luke@ezgas.com",1);
+private UserDto usAdmin=new UserDto(1,"lukeb","psw","luke@ezgas.com",1,true);	
 	@Test 
 	public void TC1_UserID() {
 		us.setUserId(8888);
@@ -63,7 +63,7 @@ public class UserTests {
 	}
 	@Test
 	public void TC1_UserAdmin() {
-		us.setAdmin(true);
-		assert(us.getAdmin()==true);
+		usAdmin.setAdmin(true);
+		assert(usAdmin.getAdmin()==true);
 	}
 }
