@@ -19,7 +19,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 
-public class UserServiceTest {
+public class UserServiceTests {
 	
 	
 	@Mock
