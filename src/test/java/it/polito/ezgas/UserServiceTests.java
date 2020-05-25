@@ -148,7 +148,7 @@ public class UserServiceTests {
 	
 	@Test
 	public void TC1_deleteUser() {
-		//Test: try to delete a user with a negtive id
+		//Test: try to delete a user with a negative id
 		Boolean thrown=false;
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try {
@@ -161,6 +161,7 @@ public class UserServiceTests {
 	}
 	@Test
 	public void TC2_deleteUser() {
+		//Test: try to correctly delete a user 
 		Boolean thrown=false;
 		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(true);
 		
@@ -175,6 +176,7 @@ public class UserServiceTests {
 	}
 	@Test
 	public void TC3_deleteUser() {
+		//Test: try to delete a user with a non existing id
 		Boolean thrown=false;
 		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(false);
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
@@ -236,7 +238,7 @@ public class UserServiceTests {
 	}
 	@Test
 	public void TC4_login() {
-		//Test: user does not exists
+		//Test: passwords do not correspond
 		Boolean thrown=false;
 		credentialsMock=mock(IdPw.class);
 		when(credentialsMock.getUser()).thenReturn("user");
@@ -273,6 +275,8 @@ public class UserServiceTests {
 	
 	@Test
 	public void TC1_increaseUserReputation() {
+		//Test: try to update a user with negative id
+		
 		Boolean thrown=false;
 		
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
@@ -286,6 +290,8 @@ public class UserServiceTests {
 	}
 	@Test
 	public void TC2_increaseUserReputation() {
+		//Test: try to increase reputation for a user that already has the max value (5)
+		
 		Boolean thrown=false;
 		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(userMock);
 		when(userMock.getReputation()).thenReturn(5);
@@ -300,6 +306,8 @@ public class UserServiceTests {
 	}
 	@Test
 	public void TC3_increaseUserReputation() {
+		//Test: try to increase reputation for a user
+		
 		User u=new User();
 		Boolean thrown=false;
 		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(u);
@@ -316,6 +324,8 @@ public class UserServiceTests {
 	
 	@Test
 	public void TC1_decreaseUserReputation() {
+		//Test: try to decrease reputation of a user with a negative id
+		
 		Boolean thrown=false;
 		
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
@@ -329,6 +339,8 @@ public class UserServiceTests {
 	}
 	@Test
 	public void TC2_decreaseUserReputation() {
+		//Test: try to decrease reputation of a user that already has the minimum value (-5)
+		
 		Boolean thrown=false;
 		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(userMock);
 		when(userMock.getReputation()).thenReturn(-5);
@@ -343,6 +355,7 @@ public class UserServiceTests {
 	}
 	@Test
 	public void TC3_decreaseUserReputation() {
+		//Test: try to decrease reputation of a user
 		User u=new User();
 		Boolean thrown=false;
 		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(u);
