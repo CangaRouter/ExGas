@@ -2055,9 +2055,12 @@ Version:
 
 | Unit name | JUnit test case |
 |--|--|
-|||
-|||
-||||
+|it.polito.ezgas.entity.GasStation|it.polito.ezgas.GasStationTests|
+|it.polito.ezgas.entity.User|it.polito.ezgas.UserTests|
+|it.polito.ezgas.dto.GasStationDto|it.polito.ezgas.GasStationDtoTests|
+|it.polito.ezgas.dto.UserDtoit.polito.ezgas.UserDtoTests||
+|it.polito.ezgas.dto.LoginDto|it.polito.ezgas.LoginDtoTests|
+|it.polito.ezgas.dto.IdPw|it.polito.ezgas.IdPwTests|
 
 ### Code coverage report
 
