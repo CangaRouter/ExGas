@@ -2083,6 +2083,7 @@ Version:
     <Add here the screenshot report of the statement and branch coverage obtained using
     the Eclemma tool. >
 
+![Coverage](./Coverage_Screenshots/units_coverage.png)
 
 ### Loop coverage analysis
 
