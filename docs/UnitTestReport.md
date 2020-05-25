@@ -1,6 +1,7 @@
 # Unit Testing Documentation
 
-Authors: Barco Luca, Petruzzi Rocco Luigi
+Authors:<br />
+Barco Luca<br />Di Vincenzo Alessandro<br />Pappalardo Marco Giulio Lorenzo<br />Petruzzi Rocco Luigi<br />
 
 Date: 15/05/2020
 
@@ -9,6 +10,13 @@ Version:
 # Contents
 
 - [Black Box Unit Tests](#black-box-unit-tests)
+    + [Class GasStation](#class-gasstation)
+    + [Class User](#class-user)
+    + [Class GasStationDto](#class-gasstationdto)
+    + [Class UserDto](#class-userdto)
+    + [Class LoginDto](#class-logindto)
+    + [Class IdPw](#class-idpw)
+
 - [White Box Unit Tests](#white-box-unit-tests)
 
 # Black Box Unit Tests
@@ -21,6 +29,7 @@ Version:
     the set up of all Spring components
     >
 
+ ## **Class *GasStation***
 
  ### **Class *GasStation* - method *setGasStationId***
 
@@ -700,6 +709,7 @@ Version:
 ||| getUser() -> user1 ||:
 |No    | I | Not feasible||
 
+ ## **Class *User***
 
  ### **Class *User* - method *setUserId***
 
@@ -893,6 +903,7 @@ Version:
 ||| getAdmin() -> false ||:
 |No    | I | Not feasible||
 
+ ## **Class *GasStationDto***
 
  ### **Class *GasStationDto* - method *setGasStationId***
 
@@ -1602,6 +1613,8 @@ Version:
 ||| getPriceReportDtos() -> list ||:
 |No    | I | Not feasible||
 
+ ## **Class *UserDto***
+
  ### **Class *UserDto* - method *setUserId***
 
 
@@ -1794,6 +1807,8 @@ Version:
 ||| getAdmin() -> false ||:
 |No    | I | Not feasible||
 
+ ## **Class *LoginDto***
+
  ### **Class *LoginDto* - method *setUserId***
 
 
@@ -1984,6 +1999,7 @@ Version:
 ||| getAdmin() -> false ||:
 |No    | I | Not feasible||
 
+ ## **Class *IdPw***
 
  ### **Class *IdPw* - method *setUser***
 
@@ -2058,7 +2074,7 @@ Version:
 |it.polito.ezgas.entity.GasStation|it.polito.ezgas.GasStationTests|
 |it.polito.ezgas.entity.User|it.polito.ezgas.UserTests|
 |it.polito.ezgas.dto.GasStationDto|it.polito.ezgas.GasStationDtoTests|
-|it.polito.ezgas.dto.UserDtoit.polito.ezgas.UserDtoTests||
+|it.polito.ezgas.dto.UserDto| it.polito.ezgas.UserDtoTests||
 |it.polito.ezgas.dto.LoginDto|it.polito.ezgas.LoginDtoTests|
 |it.polito.ezgas.dto.IdPw|it.polito.ezgas.IdPwTests|
 
