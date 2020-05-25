@@ -31,15 +31,25 @@ import it.polito.ezgas.service.GasStationService;
 public class GasStationServiceimpl implements GasStationService {
 	private static final double LON_DIFF = 0.012733784;
 	private static final double LAT_DIFF = 0.0089977776;
-	@Autowired
-	GasStationRepository gasStationRepository;
-	@Autowired
-	GasStationConverter gasStationConverter;
-	@Autowired
-	UserRepository userRepository;
+//	@Autowired
+//	GasStationRepository gasStationRepository;
+//	@Autowired
+//	GasStationConverter gasStationConverter;
+//	@Autowired
+//	UserRepository userRepository;
 
 	private boolean updateDependability = false;
-
+	
+	private GasStationRepository gasStationRepository;
+	private GasStationConverter gasStationConverter;
+	private UserRepository userRepository;
+	
+	public GasStationServiceimpl (GasStationRepository gasStationRepository, GasStationConverter gasStationConverter, UserRepository userRepository) {
+		this.gasStationRepository = gasStationRepository;
+		this.gasStationConverter = gasStationConverter;
+		this.userRepository = userRepository;
+	}
+	
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
 		if (!updateDependability) {

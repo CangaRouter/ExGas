@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import exception.GPSDataException;
 import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
+import exception.InvalidUserException;
 import exception.PriceException;
 
 import org.mockito.Mock;
@@ -16,6 +17,7 @@ import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.IdPw;
 import it.polito.ezgas.entity.GasStation;
+import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.*;
@@ -43,6 +45,8 @@ public class GasStationServiceTests {
 	private IdPw credentialsMock;
 	@Mock
 	private UserRepository userRepositoryMock;
+	@Mock
+	private User userMock;
 	
 	private GasStationService gasStationService;
 	
@@ -636,6 +640,283 @@ public class GasStationServiceTests {
 			thrown=true;
 		}
 		assert(thrown==false);
+	}
+	
+	@Test
+	public void TC1_getGasStationsWithoutCoordinates() {
+		//null fuel type and null car sharing
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gasStationMock);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gasStationDtoMock);
+		Boolean thrown=false;
+		try {
+			assert(gasStationService.getGasStationsWithoutCoordinates("null", "null").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown=true;
+		}
+		assert(thrown==true);
+	}
+	@Test
+	public void TC2_getGasStationsWithoutCoordinates() {
+		//null fuel type and SET car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gsDto);
+		Boolean thrown=false;
+		try {
+			assert(!gasStationService.getGasStationsWithoutCoordinates("null", "Enjoy").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown=true;
+		}
+		assert(thrown==false);
+	}
+	@Test
+	public void TC3_getGasStationsWithoutCoordinates() {
+		//SET fuel type and SET car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gsDto);
+		Boolean thrown=false;
+		try {
+			assert(gasStationService.getGasStationsWithoutCoordinates("diesel", "Enjoy").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown=true;
+		}
+		assert(thrown==false);
+	}
+	@Test
+	public void TC4_getGasStationsWithoutCoordinates() {
+		//SET fuel type and null car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gsDto);
+		Boolean thrown=false;
+		try {
+			assert(gasStationService.getGasStationsWithoutCoordinates("super", "Enjoy").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown=true;
+		}
+		assert(thrown==false);
+	}
+	@Test
+	public void TC5_getGasStationsWithoutCoordinates() {
+		//SET fuel type and null car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gsDto);
+		Boolean thrown=false;
+		try {
+			assert(gasStationService.getGasStationsWithoutCoordinates("methane", "Enjoy").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown=true;
+		}
+		assert(thrown==false);
+	}
+	@Test
+	public void TC6_getGasStationsWithoutCoordinates() {
+		//SET fuel type and null car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gsDto);
+		Boolean thrown=false;
+		try {
+			assert(gasStationService.getGasStationsWithoutCoordinates("gas", "Enjoy").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown=true;
+		}
+		assert(thrown==false);
+	}
+	@Test
+	public void TC7_getGasStationsWithoutCoordinates() {
+		//SET fuel type and null car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gsDto);
+		Boolean thrown=false;
+		try {
+			assert(gasStationService.getGasStationsWithoutCoordinates("superplus", "Enjoy").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown=true;
+		}
+		assert(thrown==false);
+	}
+	@Test
+	public void TC8_getGasStationsWithoutCoordinates() {
+		//SET fuel type and SET car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gsDto);
+		Boolean thrown=false;
+		try {
+			assert(!gasStationService.getGasStationsWithoutCoordinates("diesel", "null").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown=true;
+		}
+		assert(thrown==false);
+	}
+	
+	@Test
+	public void TC1_getGasStationByCarSharing() {
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gasStationMock);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gasStationDtoMock);
+		when(gasStationRepositoryMock.findByCarSharing(any(String.class))).thenReturn(list);
+		when(gasStationConverterMock.toGasStationDtoList(any(List.class))).thenReturn(listDto);
+		assert(gasStationService.getGasStationByCarSharing("Enjoy")==listDto);
+	}
+	
+	@Test
+	public void TC1_setReport() {
+		//existing user sets all prices
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gasStationMock);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gasStationDtoMock);
+		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(gasStationMock);
+		when(gasStationMock.getHasDiesel()).thenReturn(true);
+		when(gasStationMock.getHasGas()).thenReturn(true);
+		when(gasStationMock.getHasMethane()).thenReturn(true);
+		when(gasStationMock.getHasSuper()).thenReturn(true);
+		when(gasStationMock.getHasSuperPlus()).thenReturn(true);
+		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(userMock);
+		Boolean thrown=false;
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+		} catch (InvalidGasStationException e) {
+			thrown=true;
+		} catch (PriceException e) {
+			thrown=true;
+		} catch (InvalidUserException e) {
+			thrown=true;
+		}
+		assert(thrown=false);
+	}
+	@Test
+	public void TC2_setReport() {
+		//invalid user
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gasStationMock);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gasStationDtoMock);
+		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(gasStationMock);
+		when(gasStationMock.getHasDiesel()).thenReturn(true);
+		when(gasStationMock.getHasGas()).thenReturn(true);
+		when(gasStationMock.getHasMethane()).thenReturn(true);
+		when(gasStationMock.getHasSuper()).thenReturn(true);
+		when(gasStationMock.getHasSuperPlus()).thenReturn(true);
+		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(userMock);
+		Boolean thrown=false;
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, -1);
+		} catch (InvalidGasStationException e) {
+			thrown=true;
+		} catch (PriceException e) {
+			thrown=true;
+		} catch (InvalidUserException e) {
+			thrown=true;
+		}
+		assert(thrown=true);
+	}
+	@Test
+	public void TC4_setReport() {
+		//non existing user
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gasStationMock);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gasStationDtoMock);
+		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(gasStationMock);
+		when(gasStationMock.getHasDiesel()).thenReturn(true);
+		when(gasStationMock.getHasGas()).thenReturn(true);
+		when(gasStationMock.getHasMethane()).thenReturn(true);
+		when(gasStationMock.getHasSuper()).thenReturn(true);
+		when(gasStationMock.getHasSuperPlus()).thenReturn(true);
+		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(null);
+		Boolean thrown=false;
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+		} catch (InvalidGasStationException e) {
+			thrown=true;
+		} catch (PriceException e) {
+			thrown=true;
+		} catch (InvalidUserException e) {
+			thrown=true;
+		}
+		assert(thrown=false);
+	}
+	@Test
+	public void TC5_setReport() {
+		//non-esisting gas station
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gasStationMock);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gasStationDtoMock);
+		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(null);
+		when(gasStationMock.getHasDiesel()).thenReturn(true);
+		when(gasStationMock.getHasGas()).thenReturn(true);
+		when(gasStationMock.getHasMethane()).thenReturn(true);
+		when(gasStationMock.getHasSuper()).thenReturn(true);
+		when(gasStationMock.getHasSuperPlus()).thenReturn(true);
+		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(userMock);
+		Boolean thrown=false;
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+		} catch (InvalidGasStationException e) {
+			thrown=true;
+		} catch (PriceException e) {
+			thrown=true;
+		} catch (InvalidUserException e) {
+			thrown=true;
+		}
+		assert(thrown=false);
+	}
+	@Test
+	public void TC6_setReport() {
+		//gas station with no fuels
+		List<GasStation> list=new ArrayList<GasStation>();
+		list.add(gasStationMock);
+		List<GasStationDto> listDto=new ArrayList<GasStationDto>();
+		listDto.add(gasStationDtoMock);
+		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(gasStationMock);
+		when(gasStationMock.getHasDiesel()).thenReturn(false);
+		when(gasStationMock.getHasGas()).thenReturn(false);
+		when(gasStationMock.getHasMethane()).thenReturn(false);
+		when(gasStationMock.getHasSuper()).thenReturn(false);
+		when(gasStationMock.getHasSuperPlus()).thenReturn(false);
+		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(userMock);
+		Boolean thrown=false;
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+		} catch (InvalidGasStationException e) {
+			thrown=true;
+		} catch (PriceException e) {
+			thrown=true;
+		} catch (InvalidUserException e) {
+			thrown=true;
+		}
+		assert(thrown=false);
 	}
 	
 }
