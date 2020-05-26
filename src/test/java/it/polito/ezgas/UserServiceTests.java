@@ -26,28 +26,27 @@ public class UserServiceTests {
 	private UserRepository userRepositoryMock;
 	@Mock
 	private UserConverter userConverterMock;
-	@Mock
-	private UserDto userDtoMock;
-	@Mock
-	private User userMock;
-	@Mock
-	private IdPw credentialsMock;
 	
+	private UserDto userDto; 
+	
+	private User user;
+	
+	private IdPw credentials; 
 	@Before
 	public void setUp() {
 		userRepositoryMock=mock(UserRepository.class);
 		userConverterMock=mock(UserConverter.class);
-		userDtoMock=mock(UserDto.class);
-		userMock=mock(User.class);
-		
+		user = new User("lukeb", "password", "prova@email.com", 5); 
+		userDto = new UserDto(2, "lukeb", "password", "prova@email.com", 5); 
+		credentials = new IdPw("user", "psw"); //
 	}
 	
 	@Test
 	public void TC1_saveUserTest() {
 		//Test: saving without errors
-		when(userRepositoryMock.saveAndFlush(any(User.class))).thenReturn(new User("lukeb", "password", "prova@email.com", 5));
-		when(userConverterMock.toUser(any(UserDto.class))).thenReturn(new User( "lukeb", "password", "prova@email.com", 5) );
-		when(userConverterMock.toUserDto(any(User.class))).thenReturn(new UserDto(2, "lukeb", "password", "prova@email.com", 5) );
+		when(userRepositoryMock.saveAndFlush(any(User.class))).thenReturn(user); 
+		when(userConverterMock.toUser(any(UserDto.class))).thenReturn(user); 
+		when(userConverterMock.toUserDto(any(User.class))).thenReturn(userDto); 
 		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(null);
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		UserDto u=new UserDto(null, "lukeb", "password", "prova@email.com", 5);
@@ -57,10 +56,10 @@ public class UserServiceTests {
 	@Test
 	public void TC2_saveUserTest() {
 		//Test: try to save an already existing user
-		when(userRepositoryMock.saveAndFlush(any(User.class))).thenReturn(new User("lukeb", "password", "prova@email.com", 5));
-		when(userConverterMock.toUser(any(UserDto.class))).thenReturn(new User( "lukeb", "password", "prova@email.com", 5) );
-		when(userConverterMock.toUserDto(any(User.class))).thenReturn(new UserDto(2, "lukeb", "password", "prova@email.com", 5) );
-		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(new User( "lukeb", "password", "prova@email.com", 5));
+		when(userRepositoryMock.saveAndFlush(any(User.class))).thenReturn(user); 
+		when(userConverterMock.toUser(any(UserDto.class))).thenReturn(user); 
+		when(userConverterMock.toUserDto(any(User.class))).thenReturn(userDto); 
+		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(user); 
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		UserDto u=new UserDto(null, "lukeb", "password", "prova@email.com", 5);
 		assert(userService.saveUser(u)==null);
@@ -69,21 +68,19 @@ public class UserServiceTests {
 	@Test
 	public void TC3_saveUserTest() {
 		//Test: update a user
-		when(userDtoMock.getUserId()).thenReturn(2);
-		when(userMock.getUserId()).thenReturn(2);
-		when(userRepositoryMock.saveAndFlush(any(User.class))).thenReturn(userMock);
-		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(userMock);
+		user.setUserId(2);
+		when(userRepositoryMock.saveAndFlush(any(User.class))).thenReturn(user); 
+		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(user); 
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
-		assert(userService.saveUser(userDtoMock)!=null);
+		assert(userService.saveUser(userDto)!=null); 
 	}
 	@Test
 	public void TC4_saveUserTest() {
 		//Test: try to update a non existing or a different user (different UserIds)
-		when(userDtoMock.getUserId()).thenReturn(2);
-		when(userMock.getUserId()).thenReturn(1);
-		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(userMock);
+		user.setUserId(1);
+		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(user); 
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
-		assert(userService.saveUser(userDtoMock)!=null);
+		assert(userService.saveUser(userDto)!=null); 
 	}
 	
 	
@@ -115,8 +112,8 @@ public class UserServiceTests {
 		//Test: try to retrieve an user with an existing id
 		Boolean thrown=false;
 		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(true);
-		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(userMock);
-		when(userConverterMock.toUserDto(any(User.class))).thenReturn(userDtoMock);
+		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(user); 
+		when(userConverterMock.toUserDto(any(User.class))).thenReturn(userDto); 
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try{assert(userService.getUserById(1)!=null);}
 		catch(InvalidUserException e) {
@@ -137,9 +134,9 @@ public class UserServiceTests {
 	public void TC2_getAllUsers() {
 		//Test: try to retrieve a list not empty
 		List<User> list=new ArrayList<User>();
-		list.add(userMock);
+		list.add(user); 
 		List<UserDto> listDto=new ArrayList<UserDto>();
-		listDto.add(userDtoMock);
+		listDto.add(userDto); //
 		when(userRepositoryMock.findAll()).thenReturn(list);
 		when(userConverterMock.toUserDtoList(any(List.class))).thenReturn(listDto);
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
@@ -193,11 +190,10 @@ public class UserServiceTests {
 	public void TC1_login() {
 		//Test: try to login with null psw
 		Boolean thrown=false;
-		credentialsMock=mock(IdPw.class);
-		when(credentialsMock.getPw()).thenReturn(null);
+		credentials.setPw(null);
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try {
-			userService.login(credentialsMock);
+			userService.login(credentials); 
 		}
 		catch(InvalidLoginDataException e) {
 			thrown=true;
@@ -208,11 +204,10 @@ public class UserServiceTests {
 	public void TC2_login() {
 		//Test: try to login with null username
 		Boolean thrown=false;
-		credentialsMock=mock(IdPw.class);
-		when(credentialsMock.getUser()).thenReturn(null);
+		credentials.setUser(null); 
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try {
-			userService.login(credentialsMock);
+			userService.login(credentials); 
 		}
 		catch(InvalidLoginDataException e) {
 			thrown=true;
@@ -223,13 +218,10 @@ public class UserServiceTests {
 	public void TC3_login() {
 		//Test: user does not exists
 		Boolean thrown=false;
-		credentialsMock=mock(IdPw.class);
-		when(credentialsMock.getUser()).thenReturn("user");
-		when(credentialsMock.getPw()).thenReturn("psw");
 		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(null);
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try {
-			userService.login(credentialsMock);
+			userService.login(credentials);
 		}
 		catch(InvalidLoginDataException e) {
 			thrown=true;
@@ -240,14 +232,12 @@ public class UserServiceTests {
 	public void TC4_login() {
 		//Test: passwords do not correspond
 		Boolean thrown=false;
-		credentialsMock=mock(IdPw.class);
-		when(credentialsMock.getUser()).thenReturn("user");
-		when(credentialsMock.getPw()).thenReturn("psw");
-		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(userMock);
-		when(userMock.getPassword()).thenReturn("psw2");
+		User u = user; //
+		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(u); 
+		u.setPassword("psw2"); 
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try {
-			userService.login(credentialsMock);
+			userService.login(credentials); 
 		}
 		catch(InvalidLoginDataException e) {
 			thrown=true;
@@ -258,14 +248,13 @@ public class UserServiceTests {
 	public void TC5_login() {
 		//Test: correct login
 		Boolean thrown=false;
-		credentialsMock=mock(IdPw.class);
-		when(credentialsMock.getUser()).thenReturn("user");
-		when(credentialsMock.getPw()).thenReturn("psw");
-		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(userMock);
-		when(userMock.getPassword()).thenReturn("psw");
+		User u = new User();
+		when(userRepositoryMock.findByEmail(any(String.class))).thenReturn(u); 
+		u.setEmail("user");
+		u.setPassword("psw");
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try {
-			assert(userService.login(credentialsMock)!=null);
+			assert(userService.login(credentials)!=null); 
 		}
 		catch(InvalidLoginDataException e) {
 			thrown=true;
@@ -293,8 +282,7 @@ public class UserServiceTests {
 		//Test: try to increase reputation for a user that already has the max value (5)
 		
 		Boolean thrown=false;
-		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(userMock);
-		when(userMock.getReputation()).thenReturn(5);
+		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(user);
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try {
 			assert(userService.increaseUserReputation(1)==5);
@@ -342,8 +330,8 @@ public class UserServiceTests {
 		//Test: try to decrease reputation of a user that already has the minimum value (-5)
 		
 		Boolean thrown=false;
-		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(userMock);
-		when(userMock.getReputation()).thenReturn(-5);
+		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(user); 
+		user.setReputation(-5); 
 		UserService userService=new UserServiceimpl(userRepositoryMock,userConverterMock);
 		try {
 			assert(userService.decreaseUserReputation(1)==-5);
