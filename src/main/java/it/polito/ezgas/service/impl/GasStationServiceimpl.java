@@ -103,6 +103,34 @@ public class GasStationServiceimpl implements GasStationService {
 		return gasStationConverter.toGasStationDtoList(gasStationRepository.findAll());
 	}
 
+	public boolean isUpdateDependability() {
+		return updateDependability;
+	}
+
+	public void setUpdateDependability(boolean updateDependability) {
+		this.updateDependability = updateDependability;
+	}
+
+	public static double getLonDiff() {
+		return LON_DIFF;
+	}
+
+	public static double getLatDiff() {
+		return LAT_DIFF;
+	}
+
+	public GasStationRepository getGasStationRepository() {
+		return gasStationRepository;
+	}
+
+	public GasStationConverter getGasStationConverter() {
+		return gasStationConverter;
+	}
+
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
+
 	@Override
 	public Boolean deleteGasStation(Integer gasStationId) throws InvalidGasStationException {
 		this.checkId(gasStationId);
@@ -165,7 +193,7 @@ public class GasStationServiceimpl implements GasStationService {
 				}
 			}
 		}
-		if (!gasolinetype.contentEquals("null")) {
+		if (!gasolinetype.equals("null")) {
 			gasolinetype = gasolinetype.toLowerCase().trim();
 			switch (gasolinetype) {
 			case "diesel":
@@ -218,10 +246,10 @@ public class GasStationServiceimpl implements GasStationService {
 			this.calculateDependability();
 			this.updateDependability = true;
 		}
-		if (carsharing.equals("null") && !gasolinetype.contentEquals("null")) {
+		if (carsharing.equals("null") && !gasolinetype.equals("null")) {
 			return getGasStationsByGasolineType(gasolinetype);
 		}
-		if (!carsharing.contentEquals("null") && gasolinetype.contentEquals("null")) {
+		if (!carsharing.equals("null") && gasolinetype.equals("null")) {
 			return getGasStationByCarSharing(carsharing);
 		}
 		gasolinetype = gasolinetype.toLowerCase().trim();

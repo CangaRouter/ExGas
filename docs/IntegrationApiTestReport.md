@@ -36,9 +36,6 @@ Version:
 
 
 # Dependency graph 
-
-     <report the here the dependency graph of the classes in it/polito/Ezgas, using plantuml>
-
 ```plantuml
 @startuml
 
@@ -98,28 +95,33 @@ GasStationRepository --> GasStationEntity
 
 #  Tests
 
-   <define below a table for each integration step. For each integration step report the group of classes under test, and the names of
-     JUnit test cases applied to them>
+## Step 0
+| Classes  | JUnit test cases |
+|--|--|
+|User , UserDto| unit tests|
+|GasStation, GasStationDto| unit tests|
 
 ## Step 1
 | Classes  | JUnit test cases |
 |--|--|
-|||
+|UserConverter ,GasStationConverter| it.polito.ezgas.UserConverterTest, it.polito.ezgas.GasStationConverterTest|
+|UserRepository, GasStationRepository| it.polito.ezgas.UserRepositoryTest, it.polito.ezgas.GasStationRepositoryTest|
 
 
 ## Step 2
 | Classes  | JUnit test cases |
 |--|--|
-|||
+|UserService | it.polito.ezgas.UserServiceTest|
+|GasStationService| it.polito.ezgas.GasStationServiceTest|
 
 
-## Step n API Tests
+## Step 3 API Tests
 
-   <The last integration step  should correspond to API testing, or tests applied to all classes implementing the APIs defined in the Service package>
 
 | Classes  | JUnit test cases |
 |--|--|
-|||
+|UserService | it.polito.ezgas.UserServiceAPITest|
+|GasStationService| it.polito.ezgas.GasStationServiceAPITest|
 
 
 
@@ -176,12 +178,14 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  ..         | FRx                             |             |             
-|  ..         | FRy                             |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+|  ..         | FR1.1                            |             |             
+|  ..         | FR1.2                             |             |             
+| ...         | FR1.3                               |             |             
+| ...         | FR1.4                               |             |             
+| ...         | FR3.1                               |             |             
+| ...         | FR3.2                               |             |
+|             | FR3.3                               |    |  
+|             |           
 
 
 
