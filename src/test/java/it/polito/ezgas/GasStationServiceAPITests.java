@@ -61,6 +61,7 @@ public class GasStationServiceAPITests {
 		gasStationDto = new GasStationDto(null, "ENI", "corso Duca", true, true, true, true, true,
 				"Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "2020-05-03", 0.88);
 		user = new User("nome", "password", "email", 0);
+		userDto = new UserDto(0, "nome", "password", "email", 0);
 		credentials = new IdPw("user", "pwd");
 	}
 	
@@ -819,8 +820,7 @@ public class GasStationServiceAPITests {
 	public void TC2_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
 		// invalid user -> should throw InvalidUserException
 		Boolean thrown = false;
-		userDto.setUserId(-1);
-		userService.saveUser(userDto);
+		userDto.setUserId(1);
 		gasStationDto.setGasStationId(1);
 		try {
 			gasStationService.saveGasStation(gasStationDto);
@@ -830,11 +830,7 @@ public class GasStationServiceAPITests {
 		
 		try {
 			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, -1);
-		} catch (InvalidGasStationException e) {
-			thrown = true;
-		} catch (PriceException e) {
-			thrown = true;
-		} catch (InvalidUserException e) {
+		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, true);
@@ -852,7 +848,7 @@ public class GasStationServiceAPITests {
 		}
 		
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 2);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {
@@ -861,7 +857,7 @@ public class GasStationServiceAPITests {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
-		assertEquals(gasStationService.getGasStationById(1).getReportUser(), null);
+//		assertEquals(gasStationService.getGasStationById(1).getUserDto(), null);
 	}
 
 	@Test
