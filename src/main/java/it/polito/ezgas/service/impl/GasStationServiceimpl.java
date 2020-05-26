@@ -193,7 +193,7 @@ public class GasStationServiceimpl implements GasStationService {
 				}
 			}
 		}
-		if (!gasolinetype.contentEquals("null")) {
+		if (!gasolinetype.equals("null")) {
 			gasolinetype = gasolinetype.toLowerCase().trim();
 			switch (gasolinetype) {
 			case "diesel":
@@ -246,10 +246,10 @@ public class GasStationServiceimpl implements GasStationService {
 			this.calculateDependability();
 			this.updateDependability = true;
 		}
-		if (carsharing.equals("null") && !gasolinetype.contentEquals("null")) {
+		if (carsharing.equals("null") && !gasolinetype.equals("null")) {
 			return getGasStationsByGasolineType(gasolinetype);
 		}
-		if (!carsharing.contentEquals("null") && gasolinetype.contentEquals("null")) {
+		if (!carsharing.equals("null") && gasolinetype.equals("null")) {
 			return getGasStationByCarSharing(carsharing);
 		}
 		gasolinetype = gasolinetype.toLowerCase().trim();
