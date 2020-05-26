@@ -26,9 +26,6 @@ import it.polito.ezgas.service.GasStationService;
 import it.polito.ezgas.service.impl.GasStationServiceimpl;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +54,9 @@ public class GasStationServiceAPITests {
 		gasStationConverter = new GasStationConverter();
 		gasStationService = new GasStationServiceimpl(gasStationRepository, gasStationConverter, userRepository);
 		gasStation = new GasStation("ENI", "corso Duca", true, true, true, true, true, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "2020-05-03", 0.88);
 		gasStationDto = new GasStationDto(null, "ENI", "corso Duca", true, true, true, true, true,
-				"Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+				"Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "2020-05-03", 0.88);
 		user = new User("nome", "password", "email", 0);
 		credentials = new IdPw("user", "pwd");
 	}
@@ -176,6 +173,43 @@ public class GasStationServiceAPITests {
 		gasStationService.setUpdateDependability(true);
 		assert(gasStationService.saveGasStation(gasStationDto)!=null);
 		assertEquals(gasStationService.getAllGasStations().isEmpty(), false);
+	}
+
+	@Test
+	public void TC1_deleteGasStation() {
+		// try to delete a gas station with a negtive id (exception)
+		Boolean thrown = false;
+		try {
+			gasStationService.deleteGasStation(-1);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
+	}
+
+	@Test
+	public void TC2_deleteGasStation() throws PriceException, GPSDataException {
+		// try to delete an existing gas station
+		Boolean thrown = false;
+		GasStationDto res = gasStationService.saveGasStation(gasStationDto);
+		try {
+			assertEquals(gasStationService.deleteGasStation(res.getGasStationId()), true);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	}
+
+	@Test
+	public void TC3_deleteGasStation() {
+		// try to delete a non existing gas station
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.deleteGasStation(1), null);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		} 
+		assertEquals(thrown, false);
 	}
 
 	@Test
