@@ -333,9 +333,9 @@ A mixed approach has been used for the integration testing
 
 
 it.polito.ezgas package assumed for all classes
+
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-
 | UC1.1       |   FR1.1, FR1.4                   | UserServiceAPITests.TC1_saveUser, UserServiceTests.TC1_saveUser,UserRepositoryTests.TestfindByEmail ,UserConverterTest.testToUserDto, UserConverterTest.testToUser |
 | UC1.2       |   FR1.1, FR1.4                   | UserServiceAPITests.TC2_saveUser, UserServiceTests.TC2_saveUser,UserRepositoryTests.TestfindByEmail, UserConverterTest.testToUserDto, UserConverterTest.testToUser |
 | UC1.3       |   FR1.1, FR1.4           | UserServiceAPITests.TC1_saveUser, UserServiceTests.TC1_saveUser,UserRepositoryTests.TestfindByEmail UserConverterTest.testToUserDto, UserConverterTest.testToUser|
