@@ -16,13 +16,16 @@ import exception.InvalidUserException;
 import exception.PriceException;
 
 import it.polito.ezgas.converter.GasStationConverter;
+import it.polito.ezgas.converter.UserConverter;
 import it.polito.ezgas.dto.GasStationDto;
 import it.polito.ezgas.dto.IdPw;
+import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.impl.GasStationServiceimpl;
+import it.polito.ezgas.service.impl.UserServiceimpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -38,16 +41,16 @@ public class GasStationServiceAPITests {
 
 	@Autowired
 	private GasStationRepository gasStationRepository;
-	
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	private GasStationServiceimpl gasStationService;
-	
 	private GasStationConverter gasStationConverter;
-	
 	private GasStation gasStation;
 	private GasStationDto gasStationDto;
+	private UserServiceimpl userService;
+	private UserConverter userConverter;
+	private UserDto userDto;
 	private User user;
 	private IdPw credentials;
 	
@@ -660,27 +663,87 @@ public class GasStationServiceAPITests {
 	}
 
 	@Test
-	public void TC1_setReport() {
-		// existing user sets all prices
+	public void TC1_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
+		// existing user sets all prices -> no errors
+		Boolean thrown = false;
+		gasStationDto.setGasStationId(1);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC2_setReport() {
-		// invalid user
+	public void TC2_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
+		// invalid user -> should throw InvalidUserException
+		Boolean thrown = false;
+		userDto.setUserId(-1);
+		userService.saveUser(userDto);
+		gasStationDto.setGasStationId(1);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, -1);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
 	}
 
 	@Test
-	public void TC4_setReport() {
-		// non existing user
+	public void TC4_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
+		// non existing user -> the reportUser attribute of the gasStation with the given ID should be empty
+		Boolean thrown = false;
+		gasStationDto.setGasStationId(1);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+		assertEquals(gasStationService.getGasStationById(1).getReportUser(), null);
 	}
 
 	@Test
-	public void TC5_setReport() {
-		// non-esisting gas station
-		
+	public void TC5_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
+		// non-existing gas station
+		Boolean thrown = false;
+		try {
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 }
