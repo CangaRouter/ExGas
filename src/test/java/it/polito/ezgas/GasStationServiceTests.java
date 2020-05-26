@@ -48,7 +48,7 @@ public class GasStationServiceTests {
 	@Mock
 	private User userMock;
 	
-	private GasStationService gasStationService;
+	private GasStationServiceimpl gasStationService;
 	
 	@Before
 	public void setUp() {
@@ -59,6 +59,7 @@ public class GasStationServiceTests {
 		gasStationMock=mock(GasStation.class);
 		
 		gasStationService=new GasStationServiceimpl(gasStationRepositoryMock, gasStationConverterMock, userRepositoryMock);
+		gasStationService.setUpdateDependability(true);
 	}
 	
 	@Test
@@ -214,13 +215,16 @@ public class GasStationServiceTests {
 	public void TC3_deleteGasStation() {
 		//try to delete a non existing gas station
 		Boolean thrown=false;
-		when(gasStationRepositoryMock.exists(any(Integer.class))).thenReturn(false);
-//		when(gasStationRepositoryMock.delete(any(Integer.class))).thenThrow(new EmptyResultDataAccessException(0));
+//		when(gasStationRepositoryMock.exists(any(Integer.class))).thenReturn(false);
+		doThrow(new EmptyResultDataAccessException(0)).when(gasStationRepositoryMock.delete(any(Integer.class)));
 		try {
 			assert(gasStationService.deleteGasStation(1)==null);
 		}
 		catch(InvalidGasStationException e) {
 			thrown=true;
+		}
+		catch(EmptyResultDataAccessException e) {
+			thrown = true;
 		}
 		assert(thrown==false);
 	}
@@ -660,8 +664,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC2_getGasStationsWithoutCoordinates() {
 		//null fuel type and SET car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
 		List<GasStation> list=new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto=new ArrayList<GasStationDto>();

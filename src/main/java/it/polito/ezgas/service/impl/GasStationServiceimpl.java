@@ -103,6 +103,34 @@ public class GasStationServiceimpl implements GasStationService {
 		return gasStationConverter.toGasStationDtoList(gasStationRepository.findAll());
 	}
 
+	public boolean isUpdateDependability() {
+		return updateDependability;
+	}
+
+	public void setUpdateDependability(boolean updateDependability) {
+		this.updateDependability = updateDependability;
+	}
+
+	public static double getLonDiff() {
+		return LON_DIFF;
+	}
+
+	public static double getLatDiff() {
+		return LAT_DIFF;
+	}
+
+	public GasStationRepository getGasStationRepository() {
+		return gasStationRepository;
+	}
+
+	public GasStationConverter getGasStationConverter() {
+		return gasStationConverter;
+	}
+
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
+
 	@Override
 	public Boolean deleteGasStation(Integer gasStationId) throws InvalidGasStationException {
 		this.checkId(gasStationId);
