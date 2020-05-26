@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -21,15 +22,19 @@ import it.polito.ezgas.entity.GasStation;
 import it.polito.ezgas.entity.User;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.repository.UserRepository;
+import it.polito.ezgas.service.GasStationService;
 import it.polito.ezgas.service.impl.GasStationServiceimpl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-
+@DataJpaTest
 public class GasStationServiceAPITests {
 
 	@Autowired
@@ -68,254 +73,690 @@ public class GasStationServiceAPITests {
 	@Test
 	public void TC1_getGasStationById() {
 		// try to get a gas station with invalid id
-		
+		Boolean thrown = false;
+		try {
+			gasStationService.getGasStationById(-1);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
 	}
 
 	@Test
 	public void TC2_getGasStationById() {
 		// try to retrieve a gas station with a non existing id
-		
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationById(65), null);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC3_getGasStationById() {
+	public void TC3_getGasStationById() throws PriceException, GPSDataException {
 		// try to retrieve a gas station with an existing id
-		
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		GasStationDto res=gasStationService.saveGasStation(gasStationDto);
+		assert(res!=null);
+		try {
+			assertNotNull(gasStationService.getGasStationById(res.getGasStationId()));
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
 	public void TC1_saveGasStation() {
 		// try to save a gas station which has no fuels -> ERROR?
-		
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		Boolean thrown = false;
+		try {
+			assertNotNull(gasStationService.saveGasStation(gsDto));
+			// Nota: Posso salvare la gas station anche se ho false su tutti i fuel type, ma
+			// ho i prezzi?
+			// Nota: Posso salvare una gas station con ID nullo o negativo? La lista
+			// dovrebbe essere vuota?
+//			assertEquals(gasStationService.getAllGasStations().isEmpty());
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
 	public void TC2_saveGasStation() throws PriceException, GPSDataException {
 		// saving without errors (all prices and no ID)
-
+		Boolean thrown = false;
+		gasStationDto.setGasStationId(1);
+		try{
+			assertEquals(gasStationDto, gasStationService.saveGasStation(gasStationDto));
+		}catch(GPSDataException | PriceException e){
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC5_saveGasStation() {
+	public void TC5_saveGasStation() throws PriceException, GPSDataException {
 		// try to update an already existing gas station
-		
+		GasStationDto myDto = new GasStationDto(1, gasStationDto.getGasStationName(),
+				gasStationDto.getGasStationAddress(), gasStationDto.getHasDiesel(), gasStationDto.getHasSuper(),
+				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),
+				gasStationDto.getCarSharing(), gasStationDto.getLat(), gasStationDto.getLon(),
+				gasStationDto.getDieselPrice(), gasStationDto.getSuperPrice(), gasStationDto.getSuperPlusPrice(),
+				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getReportUser(),
+				gasStationDto.getReportTimestamp(), gasStationDto.getReportDependability());
+		Boolean thrown = false;
+		try {
+			assertNotNull(gasStationService.saveGasStation(myDto));
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
 	public void TC1_getAllGasStations() {
 		// try to retrieve an empty list
-		
+		assertEquals(gasStationService.getAllGasStations().isEmpty(), true);
 	}
 
 	@Test
-	public void TC2_getAllGasStations() {
+	public void TC2_getAllGasStations() throws PriceException, GPSDataException {
 		// try to retrieve a list not empty
-		
+		gasStationService.setUpdateDependability(true);
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		assertEquals(gasStationService.getAllGasStations().isEmpty(), false);
 	}
 
 	@Test
-	public void TC1_deleteGasStation() {
-		// try to delete a gas station with a negtive id (exception)
-		
-	}
-
-	@Test
-	public void TC2_deleteGasStation() {
-		// try to delete an existing gas station
-		
-	}
-
-	@Test
-	public void TC3_deleteGasStation() {
-		// try to delete a non existing gas station
-		
-	}
-
-	@Test
-	public void TC1_getGasStationsByGasolineType() {
+	public void TC1_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with invalid fuel type
-		
+		Boolean thrown = false;
+		try {
+			assert(gasStationService.getGasStationsByGasolineType("water").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
 	}
-
+	
 	@Test
-	public void TC2_getGasStationsByGasolineType() {
+	public void TC2_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (Diesel)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("diesel").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
-
+	
 	@Test
-	public void TC3_getGasStationsByGasolineType() {
+	public void TC3_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (Super)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("super").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
-
+	
 	@Test
-	public void TC4_getGasStationsByGasolineType() {
+	public void TC4_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (Methane)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("methane").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
-
+	
 	@Test
-	public void TC5_getGasStationsByGasolineType() {
+	public void TC5_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (Gas)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("gas").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
-
+	
 	@Test
-	public void TC6_getGasStationsByGasolineType() {
+	public void TC6_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (SuperPlus)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("superplus").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC1_getGasStationsByProximity() {
+	public void TC1_getGasStationsByProximity() throws GPSDataException {
 		// valid coordinates
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByProximity(40.0005, 25.0010).isEmpty());
+		} catch (GPSDataException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC2_getGasStationsByProximity() {
+	public void TC2_getGasStationsByProximity() throws GPSDataException {
 		// invalid coordinates
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(gasStationService.getGasStationsByProximity(999.9999, -999.9999).isEmpty());
+		} catch (GPSDataException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
 	}
 
 	// one test for each fuel type;
 	@Test
-	public void TC1_getGasStationsWithCoordinates() {
-		// null fuel type and null car sharing -> all gas stations
-		
+	public void TC1_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
+		// null fuel type and null car sharing -> the returned list contains gasStationDto and gasStationDto2
+		gasStationService.setUpdateDependability(true);
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		GasStationDto gasStationDto2 = new GasStationDto(null, "Agip", "corso Vittorio", false, true, true, true, true,
+				"Car2go", 40.0005, 25.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+		assert(gasStationService.saveGasStation(gasStationDto2)!=null);
+		GasStationDto gasStationDto3 = new GasStationDto(null, "Shell", "via Risorgimento", false, true, true, true, true,
+				"Car2go", 20.0005, 35.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+		assert(gasStationService.saveGasStation(gasStationDto3)!=null);
+		Boolean thrown = false;
+		try {
+			List<GasStationDto> list=gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "null", "null");
+			assertEquals(list.isEmpty(),false);
+			for(GasStationDto gs:list) {
+				assert(gs.getGasStationName().equals(gasStationDto.getGasStationName())||gs.getGasStationName().equals(gasStationDto2.getGasStationName()));
+				assert(!gs.getGasStationName().equals(gasStationDto3.getGasStationName()));
+			}
+			
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	
 	}
 
 	@Test
-	public void TC2_getGasStationsWithCoordinates() {
-		// Select ANY fuel type and car sharing (Enjoy) -> one gas station matches (just
-		// inserted)
-		
+	public void TC2_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
+		// Select ANY fuel type and car sharing (Enjoy) -> one gas station matches (gasStationDto)
+		gasStationService.setUpdateDependability(true);
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		GasStationDto gasStationDto2 = new GasStationDto(null, "Agip", "corso Vittorio", false, true, true, true, true,
+				"Car2go", 40.0005, 25.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+		assert(gasStationService.saveGasStation(gasStationDto2)!=null);
+		GasStationDto gasStationDto3 = new GasStationDto(null, "Shell", "via Risorgimento", false, true, true, true, true,
+				"Car2go", 20.0005, 35.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+		assert(gasStationService.saveGasStation(gasStationDto3)!=null);
+		Boolean thrown = false;
+		try {
+			List<GasStationDto> list=gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "null", "Enjoy");
+			assertEquals(list.isEmpty(),false);
+			for(GasStationDto gs:list) {
+				System.out.println(gs);
+			}
+			assert(list.size()==1);
+			for(GasStationDto gs:list) {
+				assert(gs.getGasStationName().equals(gasStationDto.getGasStationName()));
+			}
+			
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC3_getGasStationsWithCoordinates() {
+	public void TC3_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// ANY fuel type and car sharing (Car2GO) -> no gas station matches
-		
+		gasStationService.setUpdateDependability(true);
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		Boolean thrown = false;
+		try {
+			List<GasStationDto> list=gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "null", "Car2Go");
+			assertEquals(list.isEmpty(),true);
+			//assert(list.contains(gasStationDto));
+			for(GasStationDto gs:list) {
+				System.out.println(gs);
+			}
+			assert(list.isEmpty());
+			
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC4_getGasStationsWithCoordinates() {
+	public void TC4_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// INVALID fuel type and ANY car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		Boolean thrown = false;
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		try {
+			gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "d1esel!!!!", "null");
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
 	}
 
 	@Test
-	public void TC5_getGasStationsWithCoordinates() {
+	public void TC5_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->diesel YES) and ANY car sharing
+		//The repository has only gasStationDto and gasStationDto2  -> only gasStationDto is present in the returned list
 		
+		gasStationService.setUpdateDependability(true);
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		GasStationDto gasStationDto2 = new GasStationDto(null, "Agip", "corso Vittorio", false, false, false, false, false,
+				"Car2go", 40.0005, 25.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+		assert(gasStationService.saveGasStation(gasStationDto2)!=null);
+		
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "diesel", "null").isEmpty(),
+					false);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC6_getGasStationsWithCoordinates() {
+	public void TC6_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->diesel NO) and ANY car sharing
+		//The repository has only gasStationDto2 ->the returned list is empty
 		
+		gasStationService.setUpdateDependability(true);
+		Boolean thrown = false;
+		GasStationDto gasStationDto2 = new GasStationDto(null, "Agip", "corso Vittorio", false, false, false, false, false,
+				"Car2go", 40.0005, 25.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+		assert(gasStationService.saveGasStation(gasStationDto2)!=null);
+		try {
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "diesel", "null").isEmpty(),
+					true);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC7_getGasStationsWithCoordinates() {
+	public void TC7_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->super YES) and ANY car sharing
-		
+		//The repository has only gasStationDto and gasStationDto2 -> only gasStationDto is present in the returned list
+		gasStationService.setUpdateDependability(true);
+		Boolean thrown = false;
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		try {
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "super", "null").size(),
+					1);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC8_getGasStationsWithCoordinates() {
+	public void TC8_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->super NO) and ANY car sharing
+		//The repository has only gasStationDto2 ->the returned list is empty
 		
+				gasStationService.setUpdateDependability(true);
+				Boolean thrown = false;
+				
+				GasStationDto gasStationDto2 = new GasStationDto(null, "Agip", "corso Vittorio", false, false, false, false, false,
+						"Car2go", 40.0005, 25.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+				assert(gasStationService.saveGasStation(gasStationDto2)!=null);
+				try {
+					assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "super", "null").isEmpty(),
+							true);
+				} catch (GPSDataException e) {
+					thrown = true;
+				} catch (InvalidGasTypeException e) {
+					thrown = true;
+				}
+				assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC9_getGasStationsWithCoordinates() {
+	public void TC9_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->methane YES) and ANY car sharing
-		
+		//The repository has only gasStationDto and gasStationDto2 -> only gasStationDto is present in the returned list
+				gasStationService.setUpdateDependability(true);
+				Boolean thrown = false;
+				assert(gasStationService.saveGasStation(gasStationDto)!=null);
+				try {
+					assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "methane", "null").size(),
+							1);
+				} catch (GPSDataException e) {
+					thrown = true;
+				} catch (InvalidGasTypeException e) {
+					thrown = true;
+				}
+				assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC10_getGasStationsWithCoordinates() {
+	public void TC10_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->methane NO) and ANY car sharing
+		//The repository has only gasStationDto2 ->the returned list is empty
+		gasStationService.setUpdateDependability(true);
+		Boolean thrown = false;
 		
+		GasStationDto gasStationDto2 = new GasStationDto(null, "Agip", "corso Vittorio", false, false, false, false, false,
+				"Car2go", 40.0005, 25.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+		assert(gasStationService.saveGasStation(gasStationDto2)!=null);
+		try {
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "methane", "null").isEmpty(),
+					true);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC11_getGasStationsWithCoordinates() {
+	public void TC11_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->gas YES) and ANY car sharing
-		
+		//The repository has only gasStationDto and gasStationDto2 -> only gasStationDto is present in the returned list
+		gasStationService.setUpdateDependability(true);
+		Boolean thrown = false;
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		try {
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "gas", "null").size(),
+					1);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+
 	}
 
 	@Test
-	public void TC12_getGasStationsWithCoordinates() {
-		// non-null fuel type (VALID->diesel NO) and ANY car sharing
-		
+	public void TC12_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
+		// non-null fuel type (VALID->gas NO) and ANY car sharing
+		//The repository has only gasStationDto2 ->the returned list is empty
+				gasStationService.setUpdateDependability(true);
+				Boolean thrown = false;
+				
+				GasStationDto gasStationDto2 = new GasStationDto(null, "Agip", "corso Vittorio", false, false, false, false, false,
+						"Car2go", 40.0005, 25.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+				assert(gasStationService.saveGasStation(gasStationDto2)!=null);
+				try {
+					assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "gas", "null").isEmpty(),
+							true);
+				} catch (GPSDataException e) {
+					thrown = true;
+				} catch (InvalidGasTypeException e) {
+					thrown = true;
+				}
+				assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC13_getGasStationsWithCoordinates() {
+	public void TC13_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->superplus YES) and ANY car sharing
-		
+		//The repository has only gasStationDto and gasStationDto2 -> only gasStationDto is present in the returned list
+				gasStationService.setUpdateDependability(true);
+				Boolean thrown = false;
+				assert(gasStationService.saveGasStation(gasStationDto)!=null);
+				try {
+					assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "superplus", "null").size(),
+							1);
+				} catch (GPSDataException e) {
+					thrown = true;
+				} catch (InvalidGasTypeException e) {
+					thrown = true;
+				}
+				assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC14_getGasStationsWithCoordinates() {
+	public void TC14_getGasStationsWithCoordinates() throws PriceException, GPSDataException {
 		// non-null fuel type (VALID->superplus NO) and ANY car sharing
-		
+		//The repository has only gasStationDto2 ->the returned list is empty
+		gasStationService.setUpdateDependability(true);
+		Boolean thrown = false;
+		GasStationDto gasStationDto2 = new GasStationDto(null, "Agip", "corso Vittorio", false, false, false, false, false,
+				"Car2go", 40.0005, 25.0010, 0.89, 0.89, 1.29, 0.99, 1.00, 1, "2020-05-03", 0.88);
+		assert(gasStationService.saveGasStation(gasStationDto2)!=null);
+		try {
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "superplus", "null").isEmpty(),
+					true);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC1_getGasStationsWithoutCoordinates() {
+	public void TC1_getGasStationsWithoutCoordinates() throws PriceException, GPSDataException {
 		// null fuel type and null car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		gasStationService.saveGasStation(gasStationDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("null", "null").isEmpty(), true);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
 	}
 
 	@Test
-	public void TC2_getGasStationsWithoutCoordinates() {
+	public void TC2_getGasStationsWithoutCoordinates() throws PriceException, GPSDataException {
 		// null fuel type and SET car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		gasStationService.saveGasStation(gsDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("null", "Enjoy").isEmpty(), false);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC3_getGasStationsWithoutCoordinates() {
+	public void TC3_getGasStationsWithoutCoordinates() throws PriceException, GPSDataException {
 		// SET fuel type and SET car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		gasStationService.saveGasStation(gsDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("diesel", "Enjoy").isEmpty(), true);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC4_getGasStationsWithoutCoordinates() {
+	public void TC4_getGasStationsWithoutCoordinates() throws PriceException, GPSDataException {
 		// SET fuel type and null car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		gasStationService.saveGasStation(gsDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("super", "Enjoy").isEmpty(), true);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC5_getGasStationsWithoutCoordinates() {
+	public void TC5_getGasStationsWithoutCoordinates() throws PriceException, GPSDataException {
 		// SET fuel type and null car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		gasStationService.saveGasStation(gsDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("methane", "Enjoy").isEmpty(), true);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC6_getGasStationsWithoutCoordinates() {
+	public void TC6_getGasStationsWithoutCoordinates() throws PriceException, GPSDataException {
 		// SET fuel type and null car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		gasStationService.saveGasStation(gsDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("gas", "Enjoy").isEmpty(), true);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC7_getGasStationsWithoutCoordinates() {
+	public void TC7_getGasStationsWithoutCoordinates() throws PriceException, GPSDataException {
 		// SET fuel type and null car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		gasStationService.saveGasStation(gsDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("   super plus", "Enjoy").isEmpty(), true);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+			System.out.println(e.getMessage());
+
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC8_getGasStationsWithoutCoordinates() {
+	public void TC8_getGasStationsWithoutCoordinates() throws PriceException, GPSDataException {
 		// SET fuel type and SET car sharing
-		
+		gasStationService.setUpdateDependability(true);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		gasStationService.saveGasStation(gsDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("diesel", "null").isEmpty(), false);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC1_getGasStationByCarSharing() {
-		
+	public void TC1_getGasStationByCarSharing() throws PriceException, GPSDataException {
+		gasStationService.setUpdateDependability(true);
+		assert(gasStationService.saveGasStation(gasStationDto)!=null);
+		assertEquals(gasStationService.getGasStationByCarSharing("Enjoy").size(),1);
 	}
 
 	@Test
