@@ -19,7 +19,9 @@ Version:
   - [Step 2](#step-2)
   - [Step n API Tests](#step-n-api-tests)
 - [Scenarios](#scenarios)
-  - [Scenario UCx.y](#scenario-ucxy)
+  - [Scenario UC4.1](#scenario-uc41)
+  - [Scenario UC5.1](#scenario-uc51)
+  - [Scenario UC6.1](#scenario-uc61)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
     - [](#)
@@ -60,8 +62,8 @@ Class GasStationConverter
 Class GasStationDto
 Class GasStationEntity
 
-UserController --> UserService
-UserService --> UserServiceImpl
+UserController --> UserService 
+UserService <|-- UserServiceImpl
 UserServiceImpl --> UserRepository
 UserServiceImpl --> UserConverter
 UserServiceImpl --> LoginDto
@@ -74,7 +76,7 @@ LoginDto -[hidden] UserEntity
 IdPw -[hidden] UserDto
 
 GasStationController --> GasStationService
-GasStationService --> GasStationServiceImpl
+GasStationService <|-- GasStationServiceImpl 
 GasStationServiceImpl --> GasStationRepository
 GasStationServiceImpl --> UserRepository
 GasStationServiceImpl --> GasStationConverter
@@ -128,17 +130,40 @@ GasStationRepository --> GasStationEntity
 <If needed, define here additional scenarios for the application. Scenarios should be named
  referring the UC they detail>
 
-## Scenario UCx.y
+## Scenario UC4.1
 
 | Scenario |  name |
 | ------------- |:-------------:| 
-|  Precondition     |  |
-|  Post condition     |   |
+|  Precondition     | Gas Station GS does not exist |
+|  Post condition     |  Gas Station GS created |
 | Step#        | Description  |
-|  1     |  ... |  
-|  2     |  ... |
+|  1     |  The administrator tells the system he wants to create a new GS |  
+|  2     |  All fields of GS are compiled |
+|  3     |  The GS received a unique ID   |
+|  4     |  GS created and available      |
 
+## Scenario UC5.1
 
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas Station GS exists |
+|  Post condition     |  Gas Station GS modified |
+| Step#        | Description  |
+|  1     |  The administrator selects a GS |
+|  2     |  The administrator tells the system he wants to modify the GS  |  
+|  3     |  All fields of GS are re-compiled |
+|  4     |  GS updated         |
+
+## Scenario UC6.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas Station GS exists |
+|  Post condition     |  Gas Station GS deleted |
+| Step#        | Description  |
+|  1     |  The administrator selects a GS |
+|  2     |  The administrator tells the system he wants to delete the GS  |   
+|  3     |  GS deleted         |
 
 # Coverage of Scenarios and FR
 
