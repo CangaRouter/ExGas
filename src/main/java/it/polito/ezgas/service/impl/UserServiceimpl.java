@@ -21,19 +21,22 @@ import it.polito.ezgas.service.UserService;
  */
 @Service
 public class UserServiceimpl implements UserService {
-	
-	/*@Autowired
-	UserRepository userRepository;*/
-	
+
+	/*
+	 * @Autowired UserRepository userRepository;
+	 */
+
 	private UserRepository userRepository;
-	/*@Autowired
-	UserConverter userConverter;*/
+	/*
+	 * @Autowired UserConverter userConverter;
+	 */
 	private UserConverter userConverter;
-	public UserServiceimpl(UserRepository userRepository,UserConverter userConverter) {
-		this.userRepository=userRepository;
-		this.userConverter=userConverter;
+
+	public UserServiceimpl(UserRepository userRepository, UserConverter userConverter) {
+		this.userRepository = userRepository;
+		this.userConverter = userConverter;
 	}
-	
+
 	@Override
 	public UserDto getUserById(Integer userId) throws InvalidUserException {
 		if (userId < 0)

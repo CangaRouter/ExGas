@@ -288,7 +288,7 @@ public class GasStationServiceimpl implements GasStationService {
 			}
 			this.checkPriceList(prices, true);
 			User user = userRepository.findOne(userId);
-			if (user == null) {
+			if (user == null || userId<0) {
 				throw new InvalidUserException("User id non valid " + userId);
 			}
 			gasStation.setUser(user);

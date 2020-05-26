@@ -45,8 +45,8 @@ public class GasStationServiceTests {
 
 	private GasStationServiceimpl gasStationService;
 
-	private GasStation gasStation = new GasStation("ENI", "corso Duca", true, true, true, true, true, "Enjoy",
-			40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+	private GasStation gasStation = new GasStation("ENI", "corso Duca", true, true, true, true, true, "Enjoy", 40.0005,
+			25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
 	private GasStationDto gasStationDto = new GasStationDto(null, "ENI", "corso Duca", true, true, true, true, true,
 			"Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
 	private User user = new User("nome", "password", "email", 0);
@@ -222,14 +222,12 @@ public class GasStationServiceTests {
 	public void TC3_deleteGasStation() {
 		// try to delete a non existing gas station
 		Boolean thrown = false;
-		doThrow(EmptyResultDataAccessException.class)
-	      .when(gasStationRepositoryMock)
-	      .delete(1);
+		doThrow(EmptyResultDataAccessException.class).when(gasStationRepositoryMock).delete(1);
 		try {
 			assertEquals(gasStationService.deleteGasStation(1), null);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
-		} 
+		}
 		assertEquals(thrown, false);
 	}
 
