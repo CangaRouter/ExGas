@@ -335,6 +335,7 @@ A mixed approach has been used for the integration testing
 it.polito.ezgas package assumed for all classes
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
+
 | UC1.1       |   FR1.1, FR1.4                   | UserServiceAPITests.TC1_saveUser, UserServiceTests.TC1_saveUser,UserRepositoryTests.TestfindByEmail ,UserConverterTest.testToUserDto, UserConverterTest.testToUser |
 | UC1.2       |   FR1.1, FR1.4                   | UserServiceAPITests.TC2_saveUser, UserServiceTests.TC2_saveUser,UserRepositoryTests.TestfindByEmail, UserConverterTest.testToUserDto, UserConverterTest.testToUser |
 | UC1.3       |   FR1.1, FR1.4           | UserServiceAPITests.TC1_saveUser, UserServiceTests.TC1_saveUser,UserRepositoryTests.TestfindByEmail UserConverterTest.testToUserDto, UserConverterTest.testToUser|
@@ -348,9 +349,9 @@ it.polito.ezgas package assumed for all classes
 | UC6.1| FR3.2, FR3.3 | GasStationServiceAPITests.TC1_deleteGasStation, GasStationServiceTests.TC1_deleteGasStation |
 | UC7.1| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
 | UC7.2| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
-| UC8.1| FR4.2 |GasStationServiceAPITests.TCn_getGasStationByProximity, GasStationServiceTests.TCn_getGasStationByProximity,GasStationConverterTest.testToGasStationDtoList  |
-| UC8.2| FR4.5|GasStationServiceAPITests.TCn_getGasStationWithCoordinates, GasStationServiceTests.TCn_getGasWithCooordinates GasStationConverterTest.testToGasStationDtoList  |
-| UC8.3 | FR4.3, FR4.4|GasStationServiceAPITests.TCn_getGasStationWithoutCoordinates, GasStationServiceTests.TCn_getGasWithoutCooordinates GasStationConverterTest.testToGasStationDtoList |
+| UC8.1| FR4.2 |GasStationServiceAPITests.TC2_getGasStationByProximity, GasStationServiceTests.TC1_getGasStationByProximity,GasStationConverterTest.testToGasStationDtoList  |
+| UC8.2| FR4.5|GasStationServiceAPITests.TC8_getGasStationWithCoordinates, GasStationServiceTests.TC1_getGasWithCooordinates GasStationConverterTest.testToGasStationDtoList  |
+| UC8.3 | FR4.3, FR4.4|GasStationServiceAPITests.TC7_getGasStationWithoutCoordinates, GasStationServiceTests.TC1_getGasWithoutCooordinates GasStationConverterTest.testToGasStationDtoList |
 | UC9.1| FR5.2| GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport   |
 | UC10.1| FR4, FR5.3 | UserServiceAPITests.TC2_increaseUserReputation, UserServiceTests.TC2_increaseUserReputation, UserServiceAPITests.TC3_increaseUserReputation, UserServiceTests.TC3_increaseUserReputation|
 | UC10.2| FR4, FR5.3 |TC1_decreaseUserReputation, TC1_decreaseUserReputation, TC2_decreaseUserReputation, TC2_decreaseUserReputation|

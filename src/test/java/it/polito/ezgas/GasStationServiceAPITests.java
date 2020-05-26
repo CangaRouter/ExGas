@@ -813,15 +813,16 @@ public class GasStationServiceAPITests {
 	public void TC1_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
 		// existing user sets all prices -> no errors
 		Boolean thrown = false;
-		gasStationDto.setGasStationId(1);
+		gasStationDto.setGasStationId(null);
+		GasStationDto gsDto=new GasStationDto();
 		try {
-			gasStationService.saveGasStation(gasStationDto);
+			 gsDto=gasStationService.saveGasStation(gasStationDto);
 		} catch (PriceException | GPSDataException e1) {
 			thrown = true;
 		}
 
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+			gasStationService.setReport(gsDto.getGasStationId(), 0.99, 0.98, 0.97, 0.96, 0.95, 1);
 		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
 			thrown = true;
 		}
@@ -832,29 +833,23 @@ public class GasStationServiceAPITests {
 	public void TC2_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
 		// invalid user -> should throw InvalidUserException
 		Boolean thrown = false;
-
-		user.setUserId(-1);
-		userRepository.saveAndFlush(user);
-
-		userDto.setUserId(1);
-		gasStationDto.setGasStationId(1);
+		gasStationDto.setGasStationId(null);
+		GasStationDto gsDto=new GasStationDto();
 		try {
-			gasStationService.saveGasStation(gasStationDto);
+			gsDto=gasStationService.saveGasStation(gasStationDto);
 		} catch (PriceException | GPSDataException e1) {
 			thrown = true;
 		}
 
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, -1);
+			gasStationService.setReport(gsDto.getGasStationId(), 0.99, 0.98, 0.97, 0.96, 0.95, -1);
 
 		} catch (InvalidGasStationException e) {
-
 			thrown = true;
 		} catch (PriceException e) {
-
 			thrown = true;
 		} catch (InvalidUserException e) {
-
+			thrown = true;
 		}
 		assertTrue(thrown);
 	}
@@ -864,15 +859,15 @@ public class GasStationServiceAPITests {
 		// non existing user -> the reportUser attribute of the gasStation with the
 		// given ID should be empty
 		Boolean thrown = false;
-		gasStationDto.setGasStationId(1);
+		gasStationDto.setGasStationId(null);
+		GasStationDto gsDto=new GasStationDto();
 		try {
-			gasStationService.saveGasStation(gasStationDto);
+			gsDto=gasStationService.saveGasStation(gasStationDto);
 		} catch (PriceException | GPSDataException e1) {
 			thrown = true;
 		}
-
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 2);
+			gasStationService.setReport(gsDto.getGasStationId(), 0.99, 0.98, 0.97, 0.96, 0.95, 2);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {
@@ -881,8 +876,7 @@ public class GasStationServiceAPITests {
 			thrown = true;
 		}
 
-		assertFalse(thrown);
-		assertNull(gasStationService.getGasStationById(1).getReportUser());
+		assertTrue(thrown);
 //		assertEquals(gasStationService.getGasStationById(1).getUserDto(), null);
 	}
 
@@ -891,7 +885,7 @@ public class GasStationServiceAPITests {
 		// non-existing gas station
 		Boolean thrown = false;
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+			gasStationService.setReport(0, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {
@@ -899,7 +893,7 @@ public class GasStationServiceAPITests {
 		} catch (InvalidUserException e) {
 			thrown = true;
 		}
-		assertFalse(thrown);
+		assertTrue(thrown);
 	}
 
 }

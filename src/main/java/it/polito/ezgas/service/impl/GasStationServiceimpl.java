@@ -288,7 +288,8 @@ public class GasStationServiceimpl implements GasStationService {
 			}
 			this.checkPriceList(prices, true);
 			User user = userRepository.findOne(userId);
-			if (user == null || userId<0) {
+			
+			if (user == null|| userId<0) {
 				throw new InvalidUserException("User id non valid " + userId);
 			}
 			gasStation.setUser(user);
@@ -296,6 +297,8 @@ public class GasStationServiceimpl implements GasStationService {
 			gasStation.setReportDependability((50 * (user.getReputation() + 5) / 10) + 50);
 			gasStation.setReportUser(user.getUserId());
 			gasStationRepository.saveAndFlush(gasStation);
+		}else {
+			throw new InvalidGasStationException("Invalida ga station " + gasStationId);
 		}
 	}
 
