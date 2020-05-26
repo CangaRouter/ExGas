@@ -159,51 +159,148 @@ public class GasStationServiceAPITests {
 	}
 
 	@Test
-	public void TC1_getGasStationsByGasolineType() {
+	public void TC1_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with invalid fuel type
-		
+		Boolean thrown = false;
+		try {
+			assert(gasStationService.getGasStationsByGasolineType("water").isEmpty());
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
 	}
-
+	
 	@Test
-	public void TC2_getGasStationsByGasolineType() {
+	public void TC2_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (Diesel)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("diesel").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
-
+	
 	@Test
-	public void TC3_getGasStationsByGasolineType() {
+	public void TC3_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (Super)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("super").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
-
+	
 	@Test
-	public void TC4_getGasStationsByGasolineType() {
+	public void TC4_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (Methane)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("methane").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
-
+	
 	@Test
-	public void TC5_getGasStationsByGasolineType() {
+	public void TC5_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (Gas)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("gas").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
-
+	
 	@Test
-	public void TC6_getGasStationsByGasolineType() {
+	public void TC6_getGasStationsByGasolineType() throws InvalidGasTypeException {
 		// try to get a gas station with valid fuel type (SuperPlus)
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByGasolineType("superplus").isEmpty());
+		} catch (InvalidGasTypeException e2) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC1_getGasStationsByProximity() {
+	public void TC1_getGasStationsByProximity() throws GPSDataException {
 		// valid coordinates
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(!gasStationService.getGasStationsByProximity(40.0005, 25.0010).isEmpty());
+		} catch (GPSDataException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
 	}
 
 	@Test
-	public void TC2_getGasStationsByProximity() {
+	public void TC2_getGasStationsByProximity() throws GPSDataException {
 		// invalid coordinates
+		Boolean thrown = false;
+		gasStationService.setUpdateDependability(true);
+		try {
+			gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 		
+		try {
+			assert(gasStationService.getGasStationsByProximity(999.9999, -999.9999).isEmpty());
+		} catch (GPSDataException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
 	}
 
 	// one test for each fuel type;
