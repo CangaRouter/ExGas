@@ -22,7 +22,7 @@ public class GasStationConverterTest {
 	GasStationConverter gasStationConverter;
 
 	@Test
-	public void testCase1() {
+	public void testToGasStationDto() {
 		GasStation gasStation = new GasStation("Test", "TestAddress", true, true, true, true, true, "Test", 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0, "TestDate", 0);
 		GasStationDto gasStationDto = gasStationConverter.toGasStationDto(gasStation);
@@ -47,7 +47,7 @@ public class GasStationConverterTest {
 	}
 
 	@Test
-	public void testCase2() {
+	public void testToGasStation() {
 		GasStationDto gasStationDto = new GasStationDto(1, "Pompa", "corso duca 24", true, true, false, false, true,
 				"Enjoy", 45.6666, 7.6666, 1.234, 1.3432, -1, -1, 0.3232, 1, "28/02/2020", 100);
 		GasStation gasStation = gasStationConverter.toGasStation(gasStationDto);
@@ -73,7 +73,7 @@ public class GasStationConverterTest {
 	}
 
 	@Test
-	public void testCase3() {
+	public void testToGasStationDtoList() {
 		List<GasStation> gasStationList = Arrays.asList(
 				new GasStation("Pompa", "corso duca 24", true, true, false, false, true, "Enjoy", 45.6666, 7.6666,
 						1.234, 1.3432, -1, -1, 0.3232, 1, "28/02/2020", 100),
@@ -107,7 +107,7 @@ public class GasStationConverterTest {
 	}
 
 	@Test
-	public void testCase4() {
+	public void testToGasStationList() {
 		List<GasStationDto> gasStationDtoList = Arrays.asList(
 				new GasStationDto(0, "Pompa", "corso duca 24", true, true, false, false, true, "Enjoy", 45.6666, 7.6666,
 						1.234, 1.3432, -1, -1, 0.3232, 1, "28/02/2020", 100),
@@ -141,30 +141,4 @@ public class GasStationConverterTest {
 		}
 	}
 
-	@Test
-	public void testCase5() {
-		GasStation gasStation = new GasStation(null, null, false, false, false, false, false, null,
-				Double.MAX_VALUE + 1, Double.MAX_VALUE + 1, Double.MAX_VALUE + 1, Double.MIN_VALUE - 1,
-				Double.MIN_VALUE - 1, Double.MIN_VALUE - 1, 0, 0, null, 100);
-		GasStationDto gasStationDto = gasStationConverter.toGasStationDto(gasStation);
-		assertEquals(gasStationDto.getCarSharing(), gasStation.getCarSharing());
-		assertEquals(gasStationDto.getGasStationName(), gasStation.getGasStationName());
-		assertEquals(gasStationDto.getGasStationAddress(), gasStation.getGasStationAddress());
-		assertEquals(gasStationDto.getReportTimestamp(), gasStation.getReportTimestamp());
-		assertEquals(gasStationDto.getHasDiesel(), gasStation.getHasDiesel());
-		assertEquals(gasStationDto.getHasSuper(), gasStation.getHasSuper());
-		assertEquals(gasStationDto.getHasSuperPlus(), gasStation.getHasSuperPlus());
-		assertEquals(gasStationDto.getHasGas(), gasStation.getHasGas());
-		assertEquals(gasStationDto.getLat(), gasStation.getLat(), 0);
-		assertEquals(gasStationDto.getLon(), gasStation.getLon(), 0);
-		assertEquals(gasStationDto.getDieselPrice(), gasStation.getDieselPrice(), 0);
-		assertEquals(gasStationDto.getSuperPrice(), gasStation.getSuperPrice(), 0);
-		assertEquals(gasStationDto.getSuperPlusPrice(), gasStation.getSuperPlusPrice(), 0);
-		assertEquals(gasStationDto.getGasPrice(), gasStation.getGasPrice(), 0);
-		assertEquals(gasStationDto.getMethanePrice(), gasStation.getMethanePrice(), 0);
-		assertEquals(gasStationDto.getReportUser(), gasStation.getReportUser(), 0);
-		assertEquals(gasStationDto.getReportDependability(), gasStation.getReportDependability(), 0);
-		assertEquals(gasStationDto.getGasStationId(), gasStation.getGasStationId());
-
-	}
 }

@@ -22,7 +22,7 @@ public class UserConverterTest {
 	UserConverter userConverter;
 
 	@Test
-	public void testCase1() {
+	public void testToUserDto() {
 		User user = new User("Test", "TestPw", "Test@email", 0);
 		user.setAdmin(false);
 		user.setUserId(3);
@@ -36,7 +36,7 @@ public class UserConverterTest {
 	}
 
 	@Test
-	public void testCase2() {
+	public void testToUser() {
 		UserDto userDto = new UserDto(0, "Test", "TestPw", "Test@email", 0);
 		userDto.setAdmin(false);
 		userDto.setUserId(3);
@@ -50,7 +50,7 @@ public class UserConverterTest {
 	}
 
 	@Test
-	public void testCase3() {
+	public void testToUserDtoList() {
 		List<User> userList = Arrays.asList(new User("Test", "Test", "email", 0),
 				new User("test2", "pswtest2", "test@mail.com", 0));
 		userList.get(0).setAdmin(false);
@@ -71,7 +71,7 @@ public class UserConverterTest {
 	}
 
 	@Test
-	public void testCase4() {
+	public void testToUserList() {
 
 		List<UserDto> userDtoList = Arrays.asList(new UserDto(0, "Test", "test", "email", 0, false),
 				new UserDto(1, "usertest", "pswtest", "test@mail.com", 1, true));
@@ -86,20 +86,6 @@ public class UserConverterTest {
 			assertEquals(userList.get(i).getReputation(), userDtoList.get(i).getReputation());
 			assertEquals(userList.get(i).getUserId(), userDtoList.get(i).getUserId());
 		}
-	}
-
-	@Test
-	public void testCase5() {
-		User user = new User(null, null, null, Integer.MIN_VALUE - 1);
-		user.setAdmin(false);
-		user.setUserId(Integer.MAX_VALUE + 1);
-		UserDto userDto = userConverter.toUserDto(user);
-		assertEquals(userDto.getAdmin(), user.getAdmin());
-		assertEquals(userDto.getEmail(), user.getEmail());
-		assertEquals(userDto.getUserName(), user.getUserName());
-		assertEquals(userDto.getPassword(), user.getPassword());
-		assertEquals(userDto.getReputation(), user.getReputation());
-		assertEquals(userDto.getUserId(), user.getUserId());
 	}
 
 }

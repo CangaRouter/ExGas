@@ -16,22 +16,27 @@ Version:
 - [Integration approach](#integration-approach)
 - [Tests](#tests)
   - [Step 1](#step-1)
-  - [Step 2](#step-2)
-  - [Step n API Tests](#step-n-api-tests)
+  - [Step 2 API Tests](#step-n-api-tests)
 - [Scenarios](#scenarios)
+  - [Scenario UC1.1](#scenario-uc11)
+  - [Scenario UC1.2](#scenario-uc12)
+  - [Scenario UC1.3](#scenario-uc13)
+  - [Scenario UC1.4](#scenario-uc14)
+  - [Scenario UC2.1](#scenario-uc21)
+  - [Scenario UC2.2](#scenario-uc22)
+  - [Scenario UC3.1](#scenario-uc31)
+  - [Scenario UC3.2](#scenario-uc32)
   - [Scenario UC4.1](#scenario-uc41)
   - [Scenario UC5.1](#scenario-uc51)
   - [Scenario UC6.1](#scenario-uc61)
+  - [Scenario UC7.1](#scenario-uc71)
+  - [Scenario UC7.2](#scenario-uc72)
+  - [Scenario UC8.1](#scenario-uc81)
+  - [Scenario UC8.2](#scenario-uc82)
+  - [Scenario UC8.3](#scenario-uc83)
+  - [Scenario UC9.1](#scenario-uc91)
 - [Coverage of Scenarios and FR](#coverage-of-scenarios-and-fr)
 - [Coverage of Non Functional Requirements](#coverage-of-non-functional-requirements)
-    - [](#)
-
-- [Tests](#tests)
-
-- [Scenarios](#scenarios)
-
-- [Coverage of scenarios and FR](#scenario-coverage)
-- [Coverage of non-functional requirements](#nfr-coverage)
 
 
 
@@ -86,12 +91,7 @@ GasStationRepository --> GasStationEntity
      
 # Integration approach
 
-    <Write here the integration sequence you adopted, in general terms (top down, bottom up, mixed) and as sequence
-    (ex: step1: class A, step 2: class A+B, step 3: class A+B+C, etc)> 
-    <The last integration step corresponds to API testing at level of Service package>
-    <Tests at level of Controller package will be done later>
-
-
+A mixed approach has been used for the integration testing
 
 #  Tests
 
@@ -106,18 +106,11 @@ GasStationRepository --> GasStationEntity
 |--|--|
 |UserConverter ,GasStationConverter| it.polito.ezgas.UserConverterTest, it.polito.ezgas.GasStationConverterTest|
 |UserRepository, GasStationRepository| it.polito.ezgas.UserRepositoryTest, it.polito.ezgas.GasStationRepositoryTest|
-
-
-## Step 2
-| Classes  | JUnit test cases |
-|--|--|
 |UserService | it.polito.ezgas.UserServiceTest|
 |GasStationService| it.polito.ezgas.GasStationServiceTest|
 
 
-## Step 3 API Tests
-
-
+## Step 2 API Tests
 | Classes  | JUnit test cases |
 |--|--|
 |UserService | it.polito.ezgas.UserServiceAPITest|
@@ -127,10 +120,6 @@ GasStationRepository --> GasStationEntity
 
 
 # Scenarios
-
-
-<If needed, define here additional scenarios for the application. Scenarios should be named
- referring the UC they detail>
 
 
 ## Scenario UC1.1
@@ -257,57 +246,121 @@ GasStationRepository --> GasStationEntity
 |  2     |  The administrator tells the system he wants to delete the GS  |   
 |  3     |  GS deleted         |
 
+
+## Scenario UC7.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas Station GS exists |
+|                    | User U is registered in the system  |
+| | G has an attached price list   |
+|  Post condition     |   Price list P is updated       |
+|                     | P.time_tag is set to the current timestamp of the system |
+| | P is attached to G |
+| | U is attached to P     |
+| Step#        | Description  |
+|  1     |  The user selects a GS |
+|  2     |  The user select add Prices  |   
+|  3     |  User inserts prices for GS(only the available ones) |
+| 4 |System checks that the updated informations are valid|
+|5| GS updated|
+
+## Scenario UC7.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas Station GS exists |
+|                    | User U is registered in the system  |
+| | G has no attached price list   |
+|  Post condition     |   Price list P is created        |
+|                     | P.time_tag is set to the current timestamp of the system |
+| | P is attached to G |
+| | U is attached to P     |
+| Step#        | Description  |
+|  1     |  The user selects a GS |
+|  2     |  The user select add Prices  |   
+|  3     |  User inserts prices for GS(only the available ones) |
+| 4 |System checks that the updated informations are valid|
+|5| GS updated|
+
+
+
+## Scenario UC8.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     | -     |
+| Step#        | Description  |
+|  1     |  The user inserts an address |
+|  2     |  System retrieves coordinates of the address  |   
+|  3     |  GS in 1 km radius are shown |
+
+## Scenario UC8.2
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     | -     |
+| Step#        | Description  |
+|  1     |  The user inserts an address a fuel type and a carsharing company |
+|  2     |  System retrieves coordinates of the address and filters them by fuel type and car sharing |   
+|  3     |  GS in 1 km radius are shown |
+
+## Scenario UC8.3
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | - |
+|  Post condition     | -     |
+| Step#        | Description  |
+|  1     |  The user inserts a fuel type and a carsharing company |
+|  2     |  System retrieves GS and filters them by fuel type and car sharing |   
+|  3     | Filtered GSs are shown |
+
+## Scenario UC9.1
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | price list P is attached to user U |
+|  Post condition     | P.trust_level = 50 * (U.trust_level +5)/10 + 50 * obsolescence    |
+||obsolescence = 0 if (today - P.time_tag) > 7 days|
+||otherwise obsolescence = 1 - (today - P.time_tag)/7|
+| Step#        | Description  |
+|  1     |  GS ReportDependability is updated every day |
+
 # Coverage of Scenarios and FR
 
 
-<Report in the following table the coverage of  scenarios (from official requirements and from above) vs FR. 
-Report also for each of the scenarios the (one or more) API JUnit tests that cover it. >
-
-
-
-
+it.polito.ezgas package assumed for all classes
 | Scenario ID | Functional Requirements covered | JUnit  Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  ..         | FR1.1                            |             |             
-|  ..         | FR1.2                             |             |             
-| ...         | FR1.3                               |             |             
-| ...         | FR1.4                               |             |             
-| ...         | FR3.1                               |             |             
-| ...         | FR3.2                               |             |
-|             | FR3.3                               |    |  
-<<<<<<< HEAD
-|             | FR4.1                               |              |
-|             | FR4.2                               |              |
-|             | FR4.3                               |              |
-|             | FR4.5                               |            |
-|             | FR3.1 FR5.1                         |              |
-|             | FR5.2                               |              |
-|             | FR5.3                               |              |
-
-
-=======
-|             |           
-| UC1.1       |   FR1.1,FR1.4                   | it.polito.ezgas.UserServiceAPITests.TC1_saveUser, it.polito.ezgas.UserServiceTests.TC1_saveUser,it.polito.ezgas.UserRepositoryTests.TestfindByEmail  |
-| UC1.2       |   FR1.1,FR1.4                   | it.polito.ezgas.UserServiceAPITests.TC2_saveUser, it.polito.ezgas.UserServiceTests.TC2_saveUser,it.polito.ezgas.UserRepositoryTests.TestfindByEmail |
-| UC1.3       |   FR1.1, FR1.3, FR1.4           | it.polito.ezgas.UserServiceAPITests.TC1_saveUser, it.polito.ezgas.UserServiceTests.TC1_saveUser,it.polito.ezgas.UserRepositoryTests.TestfindByEmail |
-| UC1.4       |   FR1.1, FR1.3, FR1.4           | it.polito.ezgas.UserServiceAPITests.TC2_saveUser, it.polito.ezgas.UserServiceTests.TC2_saveUser,it.polito.ezgas.UserRepositoryTests.TestfindByEmail |
-| UC2.1       |   FR1.1                         | it.polito.ezgas.UserServiceAPITests.TC3_saveUser, it.polito.ezgas.UserServiceTests.TC3_saveUser |
-| UC2.2       |   FR1.1, FR1.3, FR1.4           | it.polito.ezgas.UserServiceAPITests.TC3_saveUser, it.polito.ezgas.UserServiceTests.TC3_saveUser,it.polito.ezgas.UserRepositoryTests.TestfindByEmail |
-| UC3.1       |   FR1.2                         | it.polito.ezgas.UserServiceAPITests.TC1_deleteUser, it.polito.ezgas.UserServiceTests.TC1_deleteUser |
-| UC3.2       |   FR1.2, FR1.3, FR1.4           | it.polito.ezgas.UserServiceAPITests.TC1_deleteUser, it.polito.ezgas.UserServiceTests.TC1_deleteUser, it.polito.ezgas.UserRepositoryTests.TestfindByEmail |
->>>>>>> f3bc9285eb6621a5937256afb2b517790a56d6a8
+| UC1.1       |   FR1.1, FR1.4                   | UserServiceAPITests.TC1_saveUser, UserServiceTests.TC1_saveUser,UserRepositoryTests.TestfindByEmail ,UserConverterTest.testToUserDto, UserConverterTest.testToUser |
+| UC1.2       |   FR1.1, FR1.4                   | UserServiceAPITests.TC2_saveUser, UserServiceTests.TC2_saveUser,UserRepositoryTests.TestfindByEmail, UserConverterTest.testToUserDto, UserConverterTest.testToUser |
+| UC1.3       |   FR1.1, FR1.4           | UserServiceAPITests.TC1_saveUser, UserServiceTests.TC1_saveUser,UserRepositoryTests.TestfindByEmail UserConverterTest.testToUserDto, UserConverterTest.testToUser|
+| UC1.4       |   FR1.1, FR1.4           | UserServiceAPITests.TC2_saveUser, UserServiceTests.TC2_saveUser,UserRepositoryTests.TestfindByEmail, UserConverterTest.testToUserDto, UserConverterTest.testToUser |
+| UC2.1       |   FR1.1                         | UserServiceAPITests.TC3_saveUser, UserServiceTests.TC3_saveUser |
+| UC2.2       |   FR1.1, FR1.3, FR1.4           | UserServiceAPITests.TC3_saveUser, UserServiceTests.TC3_saveUser,UserRepositoryTests.TestfindByEmail, UserConverterTest.testToUserDto, UserConverterTest.testToUserUserConverterTest.testToUserDtoList  |
+| UC3.1       |   FR1.2, FR1.3                         | UserServiceAPITests.TC1_deleteUser, UserServiceTests.TC1_deleteUser  |
+| UC3.2       |   FR1.2, FR1.3, FR1.4           | UserServiceAPITests.TC1_deleteUser, UserServiceTests.TC1_deleteUser|
+| UC4.1 | FR3.1, FR4 |GasStationServiceAPITests.TC1_saveGasStation, GasStationServiceTests.TC1_saveGasStation,GasStationConverterTest.testToGasStationDto, GasStationConverterTest.testToGasStation |
+| UC5.1| FR3.1, FR4 |GasStationServiceAPITests.TC1_saveGasStation, GasStationServiceTests.TC1_saveGasStation,GasStationConverterTest.testToGasStationDto, GasStationConverterTest.testToGasStation|
+| UC6.1| FR3.2, FR3.3 | GasStationServiceAPITests.TC1_deleteGasStation, GasStationServiceTests.TC1_deleteGasStation |
+| UC7.1| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
+| UC7.2| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
+| UC8.1| FR4.2 |GasStationServiceAPITests.TCn_getGasStationByProximity, GasStationServiceTests.TCn_getGasStationByProximity,GasStationConverterTest.testToGasStationDtoList  |
+| UC8.2| FR4.5|GasStationServiceAPITests.TCn_getGasStationWithCoordinates, GasStationServiceTests.TCn_getGasWithCooordinates GasStationConverterTest.testToGasStationDtoList  |
+| UC8.3 | FR4.3, FR4.4|GasStationServiceAPITests.TCn_getGasStationWithoutCoordinates, GasStationServiceTests.TCn_getGasWithoutCooordinates GasStationConverterTest.testToGasStationDtoList |
+| UC9.1| FR5.2| GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport   |
+| UC10.1| FR4, FR5.3 | UserServiceAPITests.TC2_increaseUserReputation, UserServiceTests.TC2_increaseUserReputation, UserServiceAPITests.TC3_increaseUserReputation, UserServiceTests.TC3_increaseUserReputation|
+| UC10.2| FR4, FR5.3 |TC1_decreaseUserReputation, TC1_decreaseUserReputation, TC2_decreaseUserReputation, TC2_decreaseUserReputation|
 
 
 # Coverage of Non Functional Requirements
 
+No avaiable framework can tests non functional requirements
+NFR2 could be tested, but backend performance is  insufficent to estimate total performance
 
-<Report in the following table the coverage of the Non Functional Requirements of the application - only those that can be tested with automated testing frameworks.>
 
-
-### 
-
-| Non Functional Requirement | Test name |
-| -------------------------- | --------- |
-|                            |           |
 
 
