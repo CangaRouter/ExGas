@@ -160,7 +160,14 @@ Report also for each of the scenarios the (one or more) API JUnit tests that cov
 | ...         | FR3.1                               |             |             
 | ...         | FR3.2                               |             |
 |             | FR3.3                               |    |  
-|             |           
+|             | FR4.1                               |              |
+|             | FR4.2                               |              |
+|             | FR4.3                               |              |
+|             | FR4.5                               |            |
+|             | FR3.1 FR5.1                         |              |
+|             | FR5.2                               |              |
+|             | FR5.3                               |              |
+
 
 
 

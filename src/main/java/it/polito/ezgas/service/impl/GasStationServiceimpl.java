@@ -2,7 +2,9 @@ package it.polito.ezgas.service.impl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -111,26 +113,6 @@ public class GasStationServiceimpl implements GasStationService {
 		this.updateDependability = updateDependability;
 	}
 
-	public static double getLonDiff() {
-		return LON_DIFF;
-	}
-
-	public static double getLatDiff() {
-		return LAT_DIFF;
-	}
-
-	public GasStationRepository getGasStationRepository() {
-		return gasStationRepository;
-	}
-
-	public GasStationConverter getGasStationConverter() {
-		return gasStationConverter;
-	}
-
-	public UserRepository getUserRepository() {
-		return userRepository;
-	}
-
 	@Override
 	public Boolean deleteGasStation(Integer gasStationId) throws InvalidGasStationException {
 		this.checkId(gasStationId);
@@ -148,7 +130,7 @@ public class GasStationServiceimpl implements GasStationService {
 			this.calculateDependability();
 			this.updateDependability = true;
 		}
-		gasolinetype = gasolinetype.toLowerCase().trim();
+		gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+","");
 		switch (gasolinetype) {
 		case "diesel":
 			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasDiesel(true));
@@ -186,48 +168,50 @@ public class GasStationServiceimpl implements GasStationService {
 		this.checkCoordinates(lat, lon);
 		List<GasStation> gasStationList = gasStationRepository.findBylatBetweenAndLonBetween(lat - LAT_DIFF,
 				lat + LAT_DIFF, lon - LON_DIFF, lon + LON_DIFF);
+		List<GasStation> gasStationListNew= new ArrayList<>(gasStationList);
 		if (!carsharing.equals("null")) {
 			for (GasStation gs : gasStationList) {
 				if (!gs.getCarSharing().equals(carsharing)) {
-					gasStationList.remove(gs);
+					gasStationListNew.remove(gs);
 				}
 			}
 		}
 		if (!gasolinetype.equals("null")) {
-			gasolinetype = gasolinetype.toLowerCase().trim();
+			gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+","");
 			switch (gasolinetype) {
 			case "diesel":
 				for (GasStation gs : gasStationList) {
 					if (!gs.getHasDiesel()) {
-						gasStationList.remove(gs);
+						gasStationListNew.remove(gs);
+						
 					}
 				}
 				break;
 			case "super":
 				for (GasStation gs : gasStationList) {
 					if (!gs.getHasSuper()) {
-						gasStationList.remove(gs);
+						gasStationListNew.remove(gs);
 					}
 				}
 				break;
 			case "methane":
 				for (GasStation gs : gasStationList) {
 					if (!gs.getHasMethane()) {
-						gasStationList.remove(gs);
+						gasStationListNew.remove(gs);
 					}
 				}
 				break;
 			case "gas":
 				for (GasStation gs : gasStationList) {
 					if (!gs.getHasGas()) {
-						gasStationList.remove(gs);
+						gasStationListNew.remove(gs);
 					}
 				}
 				break;
 			case "superplus":
 				for (GasStation gs : gasStationList) {
 					if (!gs.getHasSuperPlus()) {
-						gasStationList.remove(gs);
+						gasStationListNew.remove(gs);
 					}
 				}
 				break;
@@ -235,8 +219,7 @@ public class GasStationServiceimpl implements GasStationService {
 				throw new InvalidGasTypeException("invalid gas type " + gasolinetype);
 			}
 		}
-
-		return gasStationConverter.toGasStationDtoList(gasStationList);
+		return gasStationConverter.toGasStationDtoList(gasStationListNew);
 	}
 
 	@Override
@@ -252,7 +235,7 @@ public class GasStationServiceimpl implements GasStationService {
 		if (!carsharing.equals("null") && gasolinetype.equals("null")) {
 			return getGasStationByCarSharing(carsharing);
 		}
-		gasolinetype = gasolinetype.toLowerCase().trim();
+		gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+","");
 		switch (gasolinetype) {
 		case "diesel":
 			return gasStationConverter
