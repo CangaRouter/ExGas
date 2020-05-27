@@ -1,17 +1,21 @@
 package it.polito.ezgas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
-import it.polito.ezgas.entity.GasStation;
-import it.polito.ezgas.entity.User;
+import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.PriceReportDto;
+import it.polito.ezgas.dto.UserDto;
 
 @RunWith(SpringRunner.class)
 
-public class GasStationTests {
-	private GasStation gs = new GasStation("Eni - Station 24", "Corso Palermo, 12 Torino", true, true, true, true, true,
-			"Enjoy", 41.023, 40.069, 1.17, 1.57, 1.69, 0.95, 0.89, 1, "2020-05-12T01:00:00", 2.34);
-	private GasStation emptyGs = new GasStation();
+public class GasStationDtoTests {
+	private GasStationDto gs = new GasStationDto(5, "Eni - Station 24", "Corso Palermo, 12 Torino", true, true, true,
+			true, true, "Enjoy", 41.023, 40.069, 1.17, 1.57, 1.69, 0.95, 0.89, 1, "2020-05-12T01:00:00", 2.34);
+	private GasStationDto emptyGs = new GasStationDto();
 
 	@Test
 	public void TC1_GasStationID() {
@@ -259,8 +263,15 @@ public class GasStationTests {
 
 	@Test
 	public void TC1_GasStationUser() {
-		User u = new User();
-		gs.setUser(u);
-		assert (gs.getUser() == u);
+		UserDto u = new UserDto();
+		gs.setUserDto(u);
+		assert (gs.getUserDto() == u);
+	}
+
+	@Test
+	public void TC1_GasStationPriceReport() {
+		List<PriceReportDto> l = new ArrayList<PriceReportDto>();
+		gs.setPriceReportDtos(l);
+		assert (gs.getPriceReportDtos() == l);
 	}
 }
