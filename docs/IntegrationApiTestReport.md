@@ -1,8 +1,9 @@
 # Integration and API Test Documentation
 
-Authors:
+Authors:<br />
+Barco Luca<br />Di Vincenzo Alessandro<br />Pappalardo Marco Giulio Lorenzo<br />Petruzzi Rocco Luigi<br />
 
-Date:
+Date:<br />25/05/2020
 
 Version:
 
@@ -260,12 +261,12 @@ A mixed approach has been used for the integration testing
 | | U is attached to P     |
 | Step#        | Description  |
 |  1     |  The user selects a GS |
-|  2     |  The user select add Prices  |   
+|  2     |  The user select new report  |   
 |  3     |  User inserts prices for GS(only the available ones) |
 | 4 |System checks that the updated informations are valid|
 |5| GS updated|
 
-## Scenario UC7.1
+## Scenario UC7.2
 
 | Scenario |  name |
 | ------------- |:-------------:| 
@@ -278,7 +279,7 @@ A mixed approach has been used for the integration testing
 | | U is attached to P     |
 | Step#        | Description  |
 |  1     |  The user selects a GS |
-|  2     |  The user select add Prices  |   
+|  2     |  The user select new report  |   
 |  3     |  User inserts prices for GS(only the available ones) |
 | 4 |System checks that the updated informations are valid|
 |5| GS updated|

@@ -1,8 +1,9 @@
 # GUI  Testing Documentation 
 
-Authors:
+Authors:<br />
+Barco Luca<br />Di Vincenzo Alessandro<br />Pappalardo Marco Giulio Lorenzo<br />Petruzzi Rocco Luigi<br />
 
-Date:
+Date:<br />01/06/2020
 
 Version:
 
@@ -12,20 +13,30 @@ This part of the document reports about testing at the GUI level. Tests are end 
 
 ## Coverage of Scenarios and FR
 
-```
-<Complete this table (from IntegrationApiTestReport.md) with the column on the right. In the GUI Test column, report the name of the .py  file with the test case you created.>
-```
 
 ### 
 
-| Scenario ID | Functional Requirements covered | GUI Test(s) |
+| Scenario ID | Functional Requirements covered |GUI Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-| 1           | FRx                             |             |             
-| 2           | FRy                             |             |             
-| ...         |                                 |             |         
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
+| UC1.1       |   FR1.1, FR1.4                   | |
+| UC1.2       |   FR1.1, FR1.4                   | |
+| UC1.3       |   FR1.1, FR1.4           | |
+| UC1.4       |   FR1.1, FR1.4           | |
+| UC2.1       |   FR1.1                         | |
+| UC2.2       |   FR1.1, FR1.3, FR1.4           | |
+| UC3.1       |   FR1.2, FR1.3                         ||
+| UC3.2       |   FR1.2, FR1.3, FR1.4           | |
+| UC4.1 | FR3.1, FR4 ||
+| UC5.1| FR3.1, FR4 ||
+| UC6.1| FR3.2, FR3.3 | |
+| UC7.1| FR1.4 FR3.1 FR5.1| testUC7_1.py|
+| UC7.2| FR1.4 FR3.1 FR5.1|testUC7_2.py |
+| UC8.1| FR4.2 |testUC8_1.py |
+| UC8.2| FR4.5|testUC8_2.py|
+| UC8.3 | FR4.3, FR4.4|testUC8_3.py |
+| UC9.1| FR5.2|testUC9_1.py  |
+| UC10.1| FR4, FR5.3 |testUC10_1.py |
+| UC10.2| FR4, FR5.3 |testUC10_2.py|          
 
 
 # REST  API  Testing
