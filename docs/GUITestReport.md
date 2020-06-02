@@ -18,17 +18,17 @@ This part of the document reports about testing at the GUI level. Tests are end 
 
 | Scenario ID | Functional Requirements covered |GUI Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-| UC1.1       |   FR1.1, FR1.4                   | |
-| UC1.2       |   FR1.1, FR1.4                   | |
-| UC1.3       |   FR1.1, FR1.4           | |
-| UC1.4       |   FR1.1, FR1.4           | |
-| UC2.1       |   FR1.1                         | |
-| UC2.2       |   FR1.1, FR1.3, FR1.4           | |
-| UC3.1       |   FR1.2, FR1.3                         ||
-| UC3.2       |   FR1.2, FR1.3, FR1.4           | |
-| UC4.1 | FR3.1, FR4 ||
-| UC5.1| FR3.1, FR4 ||
-| UC6.1| FR3.2, FR3.3 | |
+| UC1.1       |   FR1.1, FR1.4                   | testUC1_1.py|
+| UC1.2       |   FR1.1, FR1.4                   |testUC1_2.py |
+| UC1.3       |   FR1.1, FR1.4           |testUC1_3.py |
+| UC1.4       |   FR1.1, FR1.4           |testUC1_4.py |
+| UC2.1       |   FR1.1                         |testUC2_1.py |
+| UC2.2       |   FR1.1, FR1.3, FR1.4           |testUC2_2.py |
+| UC3.1       |   FR1.2, FR1.3                         |https://git-softeng.polito.it/se-2020/ezgas/-/issues/27|
+| UC3.2       |   FR1.2, FR1.3, FR1.4           |testUC3_2.py |
+| UC4.1 | FR3.1, FR4 |testUC4_1.py|
+| UC5.1| FR3.1, FR4 |testUC5_1.py|
+| UC6.1| FR3.2, FR3.3 |testUC6_1.py |
 | UC7.1| FR1.4 FR3.1 FR5.1| testUC7_1.py|
 | UC7.2| FR1.4 FR3.1 FR5.1|testUC7_2.py |
 | UC8.1| FR4.2 |testUC8_1.py |
