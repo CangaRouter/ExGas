@@ -18,17 +18,17 @@ This part of the document reports about testing at the GUI level. Tests are end 
 
 | Scenario ID | Functional Requirements covered |GUI Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-| UC1.1       |   FR1.1, FR1.4                   | |
-| UC1.2       |   FR1.1, FR1.4                   | |
-| UC1.3       |   FR1.1, FR1.4           | |
-| UC1.4       |   FR1.1, FR1.4           | |
-| UC2.1       |   FR1.1                         | |
-| UC2.2       |   FR1.1, FR1.3, FR1.4           | |
-| UC3.1       |   FR1.2, FR1.3                         ||
-| UC3.2       |   FR1.2, FR1.3, FR1.4           | |
-| UC4.1 | FR3.1, FR4 ||
-| UC5.1| FR3.1, FR4 ||
-| UC6.1| FR3.2, FR3.3 | |
+| UC1.1       |   FR1.1, FR1.4                   | testUC1_1.py|
+| UC1.2       |   FR1.1, FR1.4                   |testUC1_2.py |
+| UC1.3       |   FR1.1, FR1.4           |testUC1_3.py |
+| UC1.4       |   FR1.1, FR1.4           |testUC1_4.py |
+| UC2.1       |   FR1.1                         |testUC2_1.py |
+| UC2.2       |   FR1.1, FR1.3, FR1.4           |testUC2_2.py |
+| UC3.1       |   FR1.2, FR1.3                         |https://git-softeng.polito.it/se-2020/ezgas/-/issues/27|
+| UC3.2       |   FR1.2, FR1.3, FR1.4           |testUC3_2.py |
+| UC4.1 | FR3.1, FR4 |testUC4_1.py|
+| UC5.1| FR3.1, FR4 |testUC5_1.py|
+| UC6.1| FR3.2, FR3.3 |testUC6_1.py |
 | UC7.1| FR1.4 FR3.1 FR5.1| testUC7_1.py|
 | UC7.2| FR1.4 FR3.1 FR5.1|testUC7_2.py |
 | UC8.1| FR4.2 |testUC8_1.py |
@@ -51,22 +51,22 @@ Tests should cover each function of classes in the Controller package
 
 | class.method name | Functional Requirements covered |REST  API Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
-|  GasStationController.saveGasStation                   | FR3.1  |  TC01_TestsaveGasStation                   |     
-|  GasStationController.getAllGasStations                | FR3.3  |  TC02_TestgetAllGasStations                |
-|  GasStationController.getGasStationById                | FR4    |  TC03_TestgetGasStationById                |
-|  GasStationController.getGasStationByProximity         | FR4.1  |  TC04_TestgetGasStationByProximity         |
-|  GasStationController.searchGasStationByNeighborhood   | FR4.2  |  TC05_TestsearchGasStationsByNeighborhood  |
-|  GasStationController.searchGasStationsByGasolineType  | FR4.3  |  TC06_TestsearchGasStationsByGasolineType  |
-|  GasStationController.getGasStationsWithCoordinates    | FR4.5  |  TC07_TestgetGasStationsWithCoordinates    |
-|  GasStationController.setReport                        | FR5.1  |  TC09_TestsetReport                        |
-|  GasStationController.deleteGasStation                 | FR3.2  |  TC10_TestdeleteGasStation                 |
-|  UserController.saveUser                               | FR1.1  |  TC11_TestsaveUser                         |
-|  UserController.getUserById                            | FR1.4  |  TC12_TestgetUserById                      |
-|  UserController.getAllUsers                            | FR1.3  |  TC13_TestgetAllUsers                      |
-|  UserController.increaseUserReputation                 | FR5.3  |  TC14_TestincreaseUserReputation           |
-|  UserController.decreaseUserReputation                 | FR5.3  |  TC15_TestdecreaseUserReputation           |
-|  UserController.login                                  | FR2    |  TC16_Testlogin                            |
-|  UserController.deleteUser                             | FR1.2  |  TC17_TestdeleteUser                       |
+|  GasStationController.saveGasStation                   | FR3.1         |  TC01_TestsaveGasStation                   |     
+|  GasStationController.getAllGasStations                | FR3.3         |  TC02_TestgetAllGasStations                |
+|  GasStationController.getGasStationById                | FR4           |  TC03_TestgetGasStationById                |
+|  GasStationController.getGasStationByProximity         | FR4.1         |  TC04_TestgetGasStationByProximity         |
+|  GasStationController.searchGasStationByNeighborhood   | FR4.2         |  TC05_TestsearchGasStationsByNeighborhood  |
+|  GasStationController.searchGasStationsByGasolineType  | FR4.3 - FR4.5 |  TC06_TestsearchGasStationsByGasolineType  |
+|  GasStationController.getGasStationsWithCoordinates    | FR4.5         |  TC07_TestgetGasStationsWithCoordinates    |
+|  GasStationController.setReport                        | FR5.1 - FR5.2 |  TC09_TestsetReport                        |
+|  GasStationController.deleteGasStation                 | FR3.2         |  TC10_TestdeleteGasStation                 |
+|  UserController.saveUser                               | FR1.1         |  TC11_TestsaveUser                         |
+|  UserController.getUserById                            | FR1.4         |  TC12_TestgetUserById                      |
+|  UserController.getAllUsers                            | FR1.3         |  TC13_TestgetAllUsers                      |
+|  UserController.increaseUserReputation                 | FR5.3         |  TC14_TestincreaseUserReputation           |
+|  UserController.decreaseUserReputation                 | FR5.3         |  TC15_TestdecreaseUserReputation           |
+|  UserController.login                                  | FR2           |  TC16_Testlogin                            |
+|  UserController.deleteUser                             | FR1.2         |  TC17_TestdeleteUser                       |
 <!--
 |  GasStationController.getGasStationWithoutCoordinates  | FR  |  TC08_TestgetGasStationsWithoutCoordinates | 
 
