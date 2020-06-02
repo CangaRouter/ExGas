@@ -11,6 +11,7 @@ import exception.GPSDataException;
 import exception.PriceException;
 import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.LoginDto;
 import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.repository.GasStationRepository;
 import it.polito.ezgas.repository.UserRepository;
@@ -286,7 +287,6 @@ public class TestController {
 		}
 		assert (thrown == false);
 		client.close();
-
 	}
 
 	@Test
@@ -302,7 +302,6 @@ public class TestController {
 		String jsonFromResponse = EntityUtils.toString(response.getEntity());
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		UserDto user = mapper.readValue(jsonFromResponse, UserDto.class);
-
 		assert (user.getUserId().equals(newUsId));
 	}
 
@@ -319,7 +318,6 @@ public class TestController {
 
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		UserDto[] userArray = mapper.readValue(jsonFromResponse, UserDto[].class);
-
 		assert (userArray.length > 0);
 	}
 
@@ -330,10 +328,10 @@ public class TestController {
 				"http://localhost:8080/user/increaseUserReputation/" + newUsId.toString());
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		assert (response.getStatusLine().getStatusCode() == 200);
+		
 		String jsonFromResponse = EntityUtils.toString(response.getEntity());
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		Integer reputation = mapper.readValue(jsonFromResponse, Integer.class);
-
 		assert (reputation <= 5);
 	}
 
@@ -344,10 +342,10 @@ public class TestController {
 				"http://localhost:8080/user/decreaseUserReputation/" + newUsId.toString());
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		assert (response.getStatusLine().getStatusCode() == 200);
+		
 		String jsonFromResponse = EntityUtils.toString(response.getEntity());
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		Integer reputation = mapper.readValue(jsonFromResponse, Integer.class);
-
 		assert (reputation >= -5);
 	}
 
@@ -355,7 +353,7 @@ public class TestController {
 	public void TC16_Testlogin() throws ClientProtocolException, IOException, JSONException { // /login
 
 		CloseableHttpClient client = HttpClients.createDefault();
-		HttpPost httpPost = new HttpPost("http://localhost:8080/user/saveUser");
+		HttpPost httpPost = new HttpPost("http://localhost:8080/user/login");
 
 		String json = "{\"user\":\"test@test.com\"," + "\"pw\":\"test11\"}";
 
@@ -366,6 +364,11 @@ public class TestController {
 
 		CloseableHttpResponse response = client.execute(httpPost);
 		assert (response.getStatusLine().getStatusCode() == 200);
+		
+		String jsonFromResponse = EntityUtils.toString(response.getEntity());
+		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		LoginDto login = mapper.readValue(jsonFromResponse, LoginDto.class);
+		assert(login.getUserId().equals(newUsId));
 	}
 
 	@Test
@@ -374,6 +377,7 @@ public class TestController {
 		HttpUriRequest request = new HttpDelete("http://localhost:8080/user/deleteUser/" + newUsId.toString());
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		assert (response.getStatusLine().getStatusCode() == 200);
+		
 		String jsonFromResponse = EntityUtils.toString(response.getEntity());
 		assert (jsonFromResponse.equals("true"));
 	}
