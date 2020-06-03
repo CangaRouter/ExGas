@@ -344,6 +344,7 @@ public class GasStationServiceimpl implements GasStationService {
 	@Scheduled(cron = "0 0 0 * * *")
 	private void calculateDependability() {
 		for (GasStation gs : gasStationRepository.findAll()) {
+			if(gs.getReportUser()!=null && gs.getReportUser()>0 && gs.getUser()!=null) {
 			LocalDate oldDate = LocalDate.parse(gs.getReportTimestamp());
 			LocalDate newDate = LocalDate.now();
 			if (oldDate.getYear() == newDate.getYear()) {
@@ -366,6 +367,7 @@ public class GasStationServiceimpl implements GasStationService {
 									- oldDate.getDayOfYear()) / 7))));
 					gasStationRepository.saveAndFlush(gs);
 				}
+			}
 			}
 		}
 	}

@@ -1,0 +1,8 @@
+click("1591019418185.png")
+type(Key.PAGE_DOWN)
+sleep(1)
+click("1591019937634.png")
+type("corso duca degli abruzzi")
+click("1591020144656.png")
+click("1591020192954.png")
+find("1591020259313.png")

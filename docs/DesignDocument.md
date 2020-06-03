@@ -1,9 +1,9 @@
 # Design Document 
 
+Authors:<br />
+Barco Luca<br />Di Vincenzo Alessandro<br />Pappalardo Marco Giulio Lorenzo<br />Petruzzi Rocco Luigi<br />
 
-Authors: 
-
-Date:
+Date:<br />03/05/2020
 
 Version:
 
