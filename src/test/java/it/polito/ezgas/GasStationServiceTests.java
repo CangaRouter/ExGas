@@ -172,7 +172,7 @@ public class GasStationServiceTests {
 		}
 		assertEquals(thrown, false);
 	}
-	
+
 	@Test
 	public void TC6_saveGasStation() {
 		// try to update an already existing gas station with wrong long and/or lat
@@ -195,7 +195,7 @@ public class GasStationServiceTests {
 		}
 		assertEquals(thrown, true);
 	}
-	
+
 	@Test
 	public void TC7_saveGasStation() {
 		// try to update an already existing gas station with wrong price (negative)
@@ -217,7 +217,7 @@ public class GasStationServiceTests {
 		}
 		assertEquals(thrown, true);
 	}
-	
+
 	@Test
 	public void TC1_getAllGasStations() {
 		// try to retrieve an empty list
@@ -991,12 +991,12 @@ public class GasStationServiceTests {
 
 	@Test
 	public void TC5_setReport() {
-		// non-esisting gas station
+		// invalid gas station
 		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(null);
 		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(user);
 		Boolean thrown = false;
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+			gasStationService.setReport(-1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {
@@ -1004,7 +1004,7 @@ public class GasStationServiceTests {
 		} catch (InvalidUserException e) {
 			thrown = true;
 		}
-		assertEquals(thrown, false);
+		assertEquals(thrown, true);
 	}
 
 }

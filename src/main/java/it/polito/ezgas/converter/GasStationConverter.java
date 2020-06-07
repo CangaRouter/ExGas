@@ -41,7 +41,11 @@ public class GasStationConverter {
 				gasStationdto.getReportDependability());
 
 		gs.setGasStationId(gasStationdto.getGasStationId());
+		
+		if(gasStationdto.getUserDto()!=null) 
+			gs.setUser(userConverter.toUser(gasStationdto.getUserDto()));
 
+			
 		return gs;
 	}
 

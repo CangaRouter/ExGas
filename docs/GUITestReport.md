@@ -47,7 +47,6 @@ Tests should cover each function of classes in the Controller package
 ## Coverage of Controller methods
 
 
-<Report in this table the test cases defined to cover all methods in Controller classes >
 
 | class.method name | Functional Requirements covered |REST  API Test(s) | 
 | ----------- | ------------------------------- | ----------- | 
