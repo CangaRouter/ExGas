@@ -172,7 +172,52 @@ public class GasStationServiceTests {
 		}
 		assertEquals(thrown, false);
 	}
-
+	
+	@Test
+	public void TC6_saveGasStation() {
+		// try to update an already existing gas station with wrong long and/or lat
+		GasStationDto myDto = new GasStationDto(1, gasStationDto.getGasStationName(),
+				gasStationDto.getGasStationAddress(), gasStationDto.getHasDiesel(), gasStationDto.getHasSuper(),
+				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),
+				gasStationDto.getCarSharing(), gasStationDto.getLat(), gasStationDto.getLon(),
+				gasStationDto.getDieselPrice(), gasStationDto.getSuperPrice(), gasStationDto.getSuperPlusPrice(),
+				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getReportUser(),
+				gasStationDto.getReportTimestamp(), gasStationDto.getReportDependability());
+		myDto.setLat(-100.0);
+		myDto.setLon(200.0);
+		Boolean thrown = false;
+		try {
+			assertNotNull(gasStationService.saveGasStation(myDto));
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
+	}
+	
+	@Test
+	public void TC7_saveGasStation() {
+		// try to update an already existing gas station with wrong price (negative)
+		GasStationDto myDto = new GasStationDto(1, gasStationDto.getGasStationName(),
+				gasStationDto.getGasStationAddress(), gasStationDto.getHasDiesel(), gasStationDto.getHasSuper(),
+				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),
+				gasStationDto.getCarSharing(), gasStationDto.getLat(), gasStationDto.getLon(),
+				gasStationDto.getDieselPrice(), gasStationDto.getSuperPrice(), gasStationDto.getSuperPlusPrice(),
+				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getReportUser(),
+				gasStationDto.getReportTimestamp(), gasStationDto.getReportDependability());
+		myDto.setDieselPrice(-1.69);
+		Boolean thrown = false;
+		try {
+			assertNotNull(gasStationService.saveGasStation(myDto));
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
+	}
+	
 	@Test
 	public void TC1_getAllGasStations() {
 		// try to retrieve an empty list
