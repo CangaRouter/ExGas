@@ -71,6 +71,9 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
+			if(gasStationDto.getCarSharing().equals("null")){
+				gasStationDto.setCarSharing(null);
+			}
 			this.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon());
 			List<Double> prices = new ArrayList<Double>();
 			if (gasStationDto.getHasDiesel()) {
