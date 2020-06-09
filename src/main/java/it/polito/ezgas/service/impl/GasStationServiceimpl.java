@@ -1,6 +1,7 @@
 package it.polito.ezgas.service.impl;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -261,7 +262,7 @@ public class GasStationServiceimpl implements GasStationService {
 			throw new InvalidGasTypeException("invalid gas type " + gasolinetype);
 		}
 	}
-
+	/*
 	@Override
 	public void setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,
 			double gasPrice, double methanePrice, Integer userId)
@@ -307,7 +308,69 @@ public class GasStationServiceimpl implements GasStationService {
 			throw new InvalidGasStationException("Invalida ga station " + gasStationId);
 		}
 	}
-
+	*/
+	
+	@Override
+	public void setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,
+			double gasPrice, double methanePrice, Integer userId)
+			throws InvalidGasStationException, PriceException, InvalidUserException {	// da rivedere 
+		this.checkId(gasStationId);
+		GasStation gasStation = gasStationRepository.findOne(gasStationId);
+		User user1 = userRepository.findOne(userId);
+		if (user1 == null|| userId<0) {
+			throw new InvalidUserException("User id non valid " + userId);
+		}
+		if (gasStation != null) {
+			Date date1 = new Date(System.currentTimeMillis()); //current date, the one of user1
+			User user2 = gasStation.getUser();
+			if(user2!=null){  //otherwise gasStation has never had a report
+				Date date2 = null;
+				try {
+					date2 = new SimpleDateFormat("MM-dd-YYYY").parse(gasStation.getReportTimestamp());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 			
+				if(user2.getReputation()>user1.getReputation() && date2.getTime()+4*24*60*60*1000>date1.getTime()){ //time in milliseconds
+				//in this case, the last report is still valid -> no update
+					return;
+				}
+			}
+			//in all other cases, report must be updated, user1 assigned to gasStation and timeReport setted
+			List<Double> prices = new ArrayList<Double>();
+			if (gasStation.getHasDiesel()) {
+				prices.add(dieselPrice);
+				gasStation.setDieselPrice(dieselPrice);
+			}
+			if (gasStation.getHasMethane()) {
+				prices.add(methanePrice);
+				gasStation.setMethanePrice(methanePrice);
+			}
+			if (gasStation.getHasGas()) {
+				prices.add(gasPrice);
+				gasStation.setGasPrice(gasPrice);
+			}
+			if (gasStation.getHasSuper()) {
+				prices.add(superPrice);
+				gasStation.setSuperPrice(superPrice);
+			}
+			if (gasStation.getHasSuperPlus()) {
+				prices.add(superPlusPrice);
+				gasStation.setSuperPlusPrice(superPlusPrice);
+			}
+			this.checkPriceList(prices, true);
+			
+			DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
+			gasStation.setUser(user1);
+			gasStation.setReportTimestamp(formatter.format(date1));
+			gasStation.setReportDependability((50 * (user1.getReputation() + 5) / 10) + 50);
+			gasStation.setReportUser(user1.getUserId());
+			gasStationRepository.saveAndFlush(gasStation);
+		}else {
+			throw new InvalidGasStationException("Invalida gas station " + gasStationId);
+		}
+	}
+	
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
 		if (!updateDependability) {
