@@ -35,6 +35,8 @@ import it.polito.ezgas.service.GasStationService;
 @EnableScheduling
 @Service
 public class GasStationServiceimpl implements GasStationService {
+	private static final int DAYS_IN_YEAR = 365;
+	private static final int OBSOLESCENCE_50 = 50;
 	private static final double LON_DIFF = 0.012733784;
 	private static final double LAT_DIFF = 0.0089977776;
 //	@Autowired
@@ -45,17 +47,18 @@ public class GasStationServiceimpl implements GasStationService {
 //	UserRepository userRepository;
 
 	private boolean updateDependability = false;
-	
+
 	private GasStationRepository gasStationRepository;
 	private GasStationConverter gasStationConverter;
 	private UserRepository userRepository;
-	
-	public GasStationServiceimpl (GasStationRepository gasStationRepository, GasStationConverter gasStationConverter, UserRepository userRepository) {
+
+	public GasStationServiceimpl(GasStationRepository gasStationRepository, GasStationConverter gasStationConverter,
+			UserRepository userRepository) {
 		this.gasStationRepository = gasStationRepository;
 		this.gasStationConverter = gasStationConverter;
 		this.userRepository = userRepository;
 	}
-	
+
 	@Override
 	public GasStationDto getGasStationById(Integer gasStationId) throws InvalidGasStationException {
 		if (!updateDependability) {
@@ -72,33 +75,33 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
-			if(gasStationDto.getCarSharing().equals("null")){
-				gasStationDto.setCarSharing(null);
-			}
-			this.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon());
-			List<Double> prices = new ArrayList<Double>();
-			if (gasStationDto.getHasDiesel()) {
-				prices.add(gasStationDto.getDieselPrice());
-			}
-			if (gasStationDto.getHasMethane()) {
-				prices.add(gasStationDto.getMethanePrice());
-			}
-			if (gasStationDto.getHasGas()) {
-				prices.add(gasStationDto.getGasPrice());
-			}
-			if (gasStationDto.getHasSuper()) {
-				prices.add(gasStationDto.getSuperPrice());
-			}
-			if (gasStationDto.getHasSuperPlus()) {
-				prices.add(gasStationDto.getSuperPlusPrice());
-			}
-			this.checkPriceList(prices, false);
-			if (gasStationDto.getGasStationId() == null) {
+		if (gasStationDto.getCarSharing().equals("null")) {
+			gasStationDto.setCarSharing(null);
+		}
+		this.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon());
+		List<Double> prices = new ArrayList<Double>();
+		if (gasStationDto.getHasDiesel()) {
+			prices.add(gasStationDto.getDieselPrice());
+		}
+		if (gasStationDto.getHasMethane()) {
+			prices.add(gasStationDto.getMethanePrice());
+		}
+		if (gasStationDto.getHasGas()) {
+			prices.add(gasStationDto.getGasPrice());
+		}
+		if (gasStationDto.getHasSuper()) {
+			prices.add(gasStationDto.getSuperPrice());
+		}
+		if (gasStationDto.getHasSuperPlus()) {
+			prices.add(gasStationDto.getSuperPlusPrice());
+		}
+		this.checkPriceList(prices, false);
+		if (gasStationDto.getGasStationId() == null) {
 			return gasStationConverter.toGasStationDto(
 					gasStationRepository.saveAndFlush(gasStationConverter.toGasStation(gasStationDto)));
-		} 
-			gasStationRepository.saveAndFlush(gasStationConverter.toGasStation(gasStationDto));
-			return gasStationDto;
+		}
+		gasStationRepository.saveAndFlush(gasStationConverter.toGasStation(gasStationDto));
+		return gasStationDto;
 	}
 
 	@Override
@@ -136,7 +139,7 @@ public class GasStationServiceimpl implements GasStationService {
 			this.calculateDependability();
 			this.updateDependability = true;
 		}
-		gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+","");
+		gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+", "");
 		switch (gasolinetype) {
 		case "diesel":
 			return gasStationConverter.toGasStationDtoList(gasStationRepository.findByhasDiesel(true));
@@ -174,22 +177,22 @@ public class GasStationServiceimpl implements GasStationService {
 		this.checkCoordinates(lat, lon);
 		List<GasStation> gasStationList = gasStationRepository.findBylatBetweenAndLonBetween(lat - LAT_DIFF,
 				lat + LAT_DIFF, lon - LON_DIFF, lon + LON_DIFF);
-		List<GasStation> gasStationListNew= new ArrayList<>(gasStationList);
+		List<GasStation> gasStationListNew = new ArrayList<>(gasStationList);
 		if (!carsharing.equals("null")) {
 			for (GasStation gs : gasStationList) {
-				if (gs.getCarSharing()==null || !gs.getCarSharing().equals(carsharing)) {
+				if (gs.getCarSharing() == null || !gs.getCarSharing().equals(carsharing)) {
 					gasStationListNew.remove(gs);
 				}
 			}
 		}
 		if (!gasolinetype.equals("null")) {
-			gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+","");
+			gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+", "");
 			switch (gasolinetype) {
 			case "diesel":
 				for (GasStation gs : gasStationList) {
 					if (!gs.getHasDiesel()) {
 						gasStationListNew.remove(gs);
-						
+
 					}
 				}
 				break;
@@ -241,7 +244,7 @@ public class GasStationServiceimpl implements GasStationService {
 		if (!carsharing.equals("null") && gasolinetype.equals("null")) {
 			return getGasStationByCarSharing(carsharing);
 		}
-		gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+","");
+		gasolinetype = gasolinetype.toLowerCase().replaceAll("\\s+", "");
 		switch (gasolinetype) {
 		case "diesel":
 			return gasStationConverter
@@ -262,7 +265,7 @@ public class GasStationServiceimpl implements GasStationService {
 			throw new InvalidGasTypeException("invalid gas type " + gasolinetype);
 		}
 	}
-	/*
+
 	@Override
 	public void setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,
 			double gasPrice, double methanePrice, Integer userId)
@@ -270,6 +273,30 @@ public class GasStationServiceimpl implements GasStationService {
 		this.checkId(gasStationId);
 		GasStation gasStation = gasStationRepository.findOne(gasStationId);
 		if (gasStation != null) {
+			User user1 = userRepository.findOne(userId);
+			if (user1 == null || userId < 0) {
+				throw new InvalidUserException("User id non valid " + userId);
+			}
+			if (gasStation != null) {
+				LocalDate newDate = LocalDate.now(); // current date, the one of user1
+				User user2 = gasStation.getUser();
+				if (user2 != null) { // otherwise gasStation has never had a report
+					LocalDate oldDate = LocalDate.parse(gasStation.getReportTimestamp());
+					if (oldDate.getYear() == newDate.getYear()) {
+						if (user2.getReputation() > user1.getReputation()
+								&& newDate.getDayOfYear() - oldDate.getDayOfYear() < 4) { // time in milliseconds
+							// in this case, the last report is still valid -> no update
+							return;
+						}
+					} else {
+						if (user2.getReputation() > user1.getReputation()
+								&& (newDate.getDayOfYear() + DAYS_IN_YEAR + (1 - (oldDate.getYear() % 4)))
+										- oldDate.getDayOfYear() < 4) {
+							return;
+						}
+					}
+				}
+			}
 
 			List<Double> prices = new ArrayList<Double>();
 			if (gasStation.getHasDiesel()) {
@@ -294,82 +321,18 @@ public class GasStationServiceimpl implements GasStationService {
 			}
 			this.checkPriceList(prices, true);
 			User user = userRepository.findOne(userId);
-			
-			if (user == null|| userId<0) {
-				throw new InvalidUserException("User id non valid " + userId);
-			}
-			 DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
+
+			DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
 			gasStation.setUser(user);
 			gasStation.setReportTimestamp(formatter.format(new Date(System.currentTimeMillis())));
-			gasStation.setReportDependability((50 * (user.getReputation() + 5) / 10) + 50);
+			gasStation.setReportDependability((OBSOLESCENCE_50 * (user.getReputation() + 5) / 10) + OBSOLESCENCE_50);
 			gasStation.setReportUser(user.getUserId());
 			gasStationRepository.saveAndFlush(gasStation);
-		}else {
-			throw new InvalidGasStationException("Invalida ga station " + gasStationId);
+		} else {
+			throw new InvalidGasStationException("Invalid gas station " + gasStationId);
 		}
 	}
-	*/
-	
-	@Override
-	public void setReport(Integer gasStationId, double dieselPrice, double superPrice, double superPlusPrice,
-			double gasPrice, double methanePrice, Integer userId)
-			throws InvalidGasStationException, PriceException, InvalidUserException {	// da rivedere 
-		this.checkId(gasStationId);
-		GasStation gasStation = gasStationRepository.findOne(gasStationId);
-		User user1 = userRepository.findOne(userId);
-		if (user1 == null|| userId<0) {
-			throw new InvalidUserException("User id non valid " + userId);
-		}
-		if (gasStation != null) {
-			Date date1 = new Date(System.currentTimeMillis()); //current date, the one of user1
-			User user2 = gasStation.getUser();
-			if(user2!=null){  //otherwise gasStation has never had a report
-				Date date2 = null;
-				try {
-					date2 = new SimpleDateFormat("MM-dd-YYYY").parse(gasStation.getReportTimestamp());
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 			
-				if(user2.getReputation()>user1.getReputation() && date2.getTime()+4*24*60*60*1000>date1.getTime()){ //time in milliseconds
-				//in this case, the last report is still valid -> no update
-					return;
-				}
-			}
-			//in all other cases, report must be updated, user1 assigned to gasStation and timeReport setted
-			List<Double> prices = new ArrayList<Double>();
-			if (gasStation.getHasDiesel()) {
-				prices.add(dieselPrice);
-				gasStation.setDieselPrice(dieselPrice);
-			}
-			if (gasStation.getHasMethane()) {
-				prices.add(methanePrice);
-				gasStation.setMethanePrice(methanePrice);
-			}
-			if (gasStation.getHasGas()) {
-				prices.add(gasPrice);
-				gasStation.setGasPrice(gasPrice);
-			}
-			if (gasStation.getHasSuper()) {
-				prices.add(superPrice);
-				gasStation.setSuperPrice(superPrice);
-			}
-			if (gasStation.getHasSuperPlus()) {
-				prices.add(superPlusPrice);
-				gasStation.setSuperPlusPrice(superPlusPrice);
-			}
-			this.checkPriceList(prices, true);
-			
-			DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
-			gasStation.setUser(user1);
-			gasStation.setReportTimestamp(formatter.format(date1));
-			gasStation.setReportDependability((50 * (user1.getReputation() + 5) / 10) + 50);
-			gasStation.setReportUser(user1.getUserId());
-			gasStationRepository.saveAndFlush(gasStation);
-		}else {
-			throw new InvalidGasStationException("Invalida gas station " + gasStationId);
-		}
-	}
+
 	
 	@Override
 	public List<GasStationDto> getGasStationByCarSharing(String carSharing) {
@@ -413,30 +376,30 @@ public class GasStationServiceimpl implements GasStationService {
 	@Scheduled(cron = "0 0 0 * * *")
 	private void calculateDependability() {
 		for (GasStation gs : gasStationRepository.findAll()) {
-			if(gs.getReportUser()!=null && gs.getReportUser()>0 && gs.getUser()!=null) {
-			LocalDate oldDate = LocalDate.parse(gs.getReportTimestamp());
-			LocalDate newDate = LocalDate.now();
-			if (oldDate.getYear() == newDate.getYear()) {
-				if (newDate.getDayOfYear() - oldDate.getDayOfYear() > 7) {
-					gs.setReportDependability(Math.round(50 * (gs.getUser().getReputation() + 5) / 10));
-					gasStationRepository.saveAndFlush(gs);
+			if (gs.getReportUser() != null && gs.getReportUser() > 0 && gs.getUser() != null) {
+				LocalDate oldDate = LocalDate.parse(gs.getReportTimestamp());
+				LocalDate newDate = LocalDate.now();
+				if (oldDate.getYear() == newDate.getYear()) {
+					if (newDate.getDayOfYear() - oldDate.getDayOfYear() > 7) {
+						gs.setReportDependability(Math.round(OBSOLESCENCE_50 * (gs.getUser().getReputation() + 5) / 10));
+						gasStationRepository.saveAndFlush(gs);
+					} else {
+						gs.setReportDependability(Math.round(OBSOLESCENCE_50 * (gs.getUser().getReputation() + 5) / 10
+								+ OBSOLESCENCE_50 * (1 - ((double) (newDate.getDayOfYear() - oldDate.getDayOfYear()) / 7))));
+						gasStationRepository.saveAndFlush(gs);
+					}
 				} else {
-					gs.setReportDependability(Math.round(50 * (gs.getUser().getReputation() + 5) / 10
-							+ 50 * (1 - ((double) (newDate.getDayOfYear() - oldDate.getDayOfYear()) / 7))));
-					gasStationRepository.saveAndFlush(gs);
-				}
-			} else {
-				if ((newDate.getDayOfYear() + 365 + (1 - (oldDate.getYear() % 4))) - oldDate.getDayOfYear() > 7) {
-					gs.setReportDependability(Math.round(50 * (gs.getUser().getReputation() + 5) / 10));
-					gasStationRepository.saveAndFlush(gs);
+					if ((newDate.getDayOfYear() + DAYS_IN_YEAR + (1 - (oldDate.getYear() % 4))) - oldDate.getDayOfYear() > 7) {
+						gs.setReportDependability(Math.round(OBSOLESCENCE_50 * (gs.getUser().getReputation() + 5) / 10));
+						gasStationRepository.saveAndFlush(gs);
 
-				} else {
-					gs.setReportDependability(Math.round((50 * (gs.getUser().getReputation() + 5) / 10
-							+ 50 * (1 - ((double) (newDate.getDayOfYear() + 365 + (1 - (oldDate.getYear() % 4)))
-									- oldDate.getDayOfYear()) / 7))));
-					gasStationRepository.saveAndFlush(gs);
+					} else {
+						gs.setReportDependability(Math.round((OBSOLESCENCE_50 * (gs.getUser().getReputation() + 5) / 10
+								+ OBSOLESCENCE_50 * (1 - ((double) (newDate.getDayOfYear() + DAYS_IN_YEAR + (1 - (oldDate.getYear() % 4)))
+										- oldDate.getDayOfYear()) / 7))));
+						gasStationRepository.saveAndFlush(gs);
+					}
 				}
-			}
 			}
 		}
 	}
