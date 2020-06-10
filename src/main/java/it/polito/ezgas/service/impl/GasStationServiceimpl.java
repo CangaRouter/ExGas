@@ -177,7 +177,7 @@ public class GasStationServiceimpl implements GasStationService {
 		List<GasStation> gasStationListNew= new ArrayList<>(gasStationList);
 		if (!carsharing.equals("null")) {
 			for (GasStation gs : gasStationList) {
-				if (!gs.getCarSharing().equals(carsharing)) {
+				if (gs.getCarSharing()==null || !gs.getCarSharing().equals(carsharing)) {
 					gasStationListNew.remove(gs);
 				}
 			}
