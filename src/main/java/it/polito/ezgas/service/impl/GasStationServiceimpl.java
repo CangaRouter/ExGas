@@ -1,8 +1,11 @@
 package it.polito.ezgas.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +71,9 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
-		if (gasStationDto.getGasStationId() == null) {
+			if(gasStationDto.getCarSharing().equals("null")){
+				gasStationDto.setCarSharing(null);
+			}
 			this.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon());
 			List<Double> prices = new ArrayList<Double>();
 			if (gasStationDto.getHasDiesel()) {
@@ -87,12 +92,12 @@ public class GasStationServiceimpl implements GasStationService {
 				prices.add(gasStationDto.getSuperPlusPrice());
 			}
 			this.checkPriceList(prices, false);
+			if (gasStationDto.getGasStationId() == null) {
 			return gasStationConverter.toGasStationDto(
 					gasStationRepository.saveAndFlush(gasStationConverter.toGasStation(gasStationDto)));
-		} else {
+		} 
 			gasStationRepository.saveAndFlush(gasStationConverter.toGasStation(gasStationDto));
 			return gasStationDto;
-		}
 	}
 
 	@Override
@@ -292,8 +297,9 @@ public class GasStationServiceimpl implements GasStationService {
 			if (user == null|| userId<0) {
 				throw new InvalidUserException("User id non valid " + userId);
 			}
+			 DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
 			gasStation.setUser(user);
-			gasStation.setReportTimestamp(LocalDate.now().toString());
+			gasStation.setReportTimestamp(formatter.format(new Date(System.currentTimeMillis())));
 			gasStation.setReportDependability((50 * (user.getReputation() + 5) / 10) + 50);
 			gasStation.setReportUser(user.getUserId());
 			gasStationRepository.saveAndFlush(gasStation);

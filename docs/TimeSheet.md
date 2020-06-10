@@ -6,7 +6,7 @@ Count only effort spent on EZGas (so do not count effort spent in virtual labs 1
 
 These figures will not be used to evaluate neither the project nor the team
 
-| Week | requirement engineering | design | coding | unit testing | integration testing | acceptance testing | management | git maven |
+| Week | requirement engineering | design | coding | unit testing | integration testing | GUI testing | management | git maven |
 |:-----------:|:--------:|:-----------:|:-----------:|:----------:|:------------:|:---------------:|:-------------:|:--------------:|
 | apr 13 - 19| 13 | | | | | | 3 | 1 | 
 | apr 20 - 27| | 7 | | | | | | 0.5 | 
@@ -16,10 +16,4 @@ These figures will not be used to evaluate neither the project nor the team
 | may 18 - 24| | | | 5 | 10 | | 2 | 0.5 | 
 | may 25 - 31| | | | | | 10 | 8 | 0.5 | 
 | jun 1 -  7 | | | | | 6 | 4.5 | | | 
-| jun 8 - 14 | | | | | | | | | 
-| jun 15 -21 | | | | | | | | | 
-| jun 22 -28 | | | | | | | | | 
-| jun 29 - 5 | | | | | | | | | 
-| jul 6 - 12 | | | | | | | | | 
-| jul 13 -19 | | | | | | | | |
-| jul 20 -26 | | | | | | | | |
+| jun 8 - 14 | | | | | | | 1 | |

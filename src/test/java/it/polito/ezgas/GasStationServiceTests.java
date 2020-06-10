@@ -174,6 +174,51 @@ public class GasStationServiceTests {
 	}
 
 	@Test
+	public void TC6_saveGasStation() {
+		// try to update an already existing gas station with wrong long and/or lat
+		GasStationDto myDto = new GasStationDto(1, gasStationDto.getGasStationName(),
+				gasStationDto.getGasStationAddress(), gasStationDto.getHasDiesel(), gasStationDto.getHasSuper(),
+				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),
+				gasStationDto.getCarSharing(), gasStationDto.getLat(), gasStationDto.getLon(),
+				gasStationDto.getDieselPrice(), gasStationDto.getSuperPrice(), gasStationDto.getSuperPlusPrice(),
+				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getReportUser(),
+				gasStationDto.getReportTimestamp(), gasStationDto.getReportDependability());
+		myDto.setLat(-100.0);
+		myDto.setLon(200.0);
+		Boolean thrown = false;
+		try {
+			assertNotNull(gasStationService.saveGasStation(myDto));
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
+	}
+
+	@Test
+	public void TC7_saveGasStation() {
+		// try to update an already existing gas station with wrong price (negative)
+		GasStationDto myDto = new GasStationDto(1, gasStationDto.getGasStationName(),
+				gasStationDto.getGasStationAddress(), gasStationDto.getHasDiesel(), gasStationDto.getHasSuper(),
+				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),
+				gasStationDto.getCarSharing(), gasStationDto.getLat(), gasStationDto.getLon(),
+				gasStationDto.getDieselPrice(), gasStationDto.getSuperPrice(), gasStationDto.getSuperPlusPrice(),
+				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getReportUser(),
+				gasStationDto.getReportTimestamp(), gasStationDto.getReportDependability());
+		myDto.setDieselPrice(-1.69);
+		Boolean thrown = false;
+		try {
+			assertNotNull(gasStationService.saveGasStation(myDto));
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, true);
+	}
+
+	@Test
 	public void TC1_getAllGasStations() {
 		// try to retrieve an empty list
 		when(gasStationRepositoryMock.findAll()).thenReturn(new ArrayList<GasStation>());
@@ -946,12 +991,12 @@ public class GasStationServiceTests {
 
 	@Test
 	public void TC5_setReport() {
-		// non-esisting gas station
+		// invalid gas station
 		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(null);
 		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(user);
 		Boolean thrown = false;
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+			gasStationService.setReport(-1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {
@@ -959,7 +1004,7 @@ public class GasStationServiceTests {
 		} catch (InvalidUserException e) {
 			thrown = true;
 		}
-		assertEquals(thrown, false);
+		assertEquals(thrown, true);
 	}
 
 }

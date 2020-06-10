@@ -6,12 +6,16 @@ import it.polito.ezgas.dto.GasStationDto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GasStationConverter {
+	@Autowired
+	UserConverter userConverter;
 
 	public GasStationDto toGasStationDto(GasStation gasStation) {
+		
 
 		GasStationDto gsDto = new GasStationDto(gasStation.getGasStationId(), gasStation.getGasStationName(),
 				gasStation.getGasStationAddress(), gasStation.getHasDiesel(), gasStation.getHasSuper(),
@@ -20,6 +24,8 @@ public class GasStationConverter {
 				gasStation.getSuperPrice(), gasStation.getSuperPlusPrice(), gasStation.getGasPrice(),
 				gasStation.getMethanePrice(), gasStation.getReportUser(), gasStation.getReportTimestamp(),
 				gasStation.getReportDependability());
+		if(gasStation.getUser()!=null) 
+		gsDto.setUserDto(userConverter.toUserDto(gasStation.getUser()));
 
 		return gsDto;
 	}
@@ -35,7 +41,11 @@ public class GasStationConverter {
 				gasStationdto.getReportDependability());
 
 		gs.setGasStationId(gasStationdto.getGasStationId());
+		
+		if(gasStationdto.getUserDto()!=null) 
+			gs.setUser(userConverter.toUser(gasStationdto.getUserDto()));
 
+			
 		return gs;
 	}
 

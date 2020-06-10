@@ -13,7 +13,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import it.polito.ezgas.converter.GasStationConverter;
 import it.polito.ezgas.dto.GasStationDto;
+import it.polito.ezgas.dto.UserDto;
 import it.polito.ezgas.entity.GasStation;
+import it.polito.ezgas.entity.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,6 +27,7 @@ public class GasStationConverterTest {
 	public void testToGasStationDto() {
 		GasStation gasStation = new GasStation("Test", "TestAddress", true, true, true, true, true, "Test", 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0, "TestDate", 0);
+		gasStation.setUser(new User("test", "test", "test", 5));
 		GasStationDto gasStationDto = gasStationConverter.toGasStationDto(gasStation);
 		assertEquals(gasStationDto.getCarSharing(), gasStation.getCarSharing());
 		assertEquals(gasStationDto.getGasStationName(), gasStation.getGasStationName());
@@ -44,12 +47,14 @@ public class GasStationConverterTest {
 		assertEquals(gasStationDto.getReportUser(), gasStation.getReportUser(), 0);
 		assertEquals(gasStationDto.getReportDependability(), gasStation.getReportDependability(), 0);
 		assertEquals(gasStationDto.getGasStationId(), gasStation.getGasStationId());
+		assertEquals(gasStationDto.getUserDto().getUserName(), "test");
 	}
 
 	@Test
 	public void testToGasStation() {
 		GasStationDto gasStationDto = new GasStationDto(1, "Pompa", "corso duca 24", true, true, false, false, true,
 				"Enjoy", 45.6666, 7.6666, 1.234, 1.3432, -1, -1, 0.3232, 1, "28/02/2020", 100);
+		gasStationDto.setUserDto(new UserDto(1, "test", "test", "test", 5));
 		GasStation gasStation = gasStationConverter.toGasStation(gasStationDto);
 		assertEquals(gasStation.getCarSharing(), gasStationDto.getCarSharing());
 		assertEquals(gasStation.getGasStationName(), gasStationDto.getGasStationName());
@@ -69,6 +74,7 @@ public class GasStationConverterTest {
 		assertEquals(gasStation.getReportUser(), gasStationDto.getReportUser(), 0);
 		assertEquals(gasStation.getReportDependability(), gasStationDto.getReportDependability(), 0);
 		assertEquals(gasStation.getGasStationId(), gasStationDto.getGasStationId());
+		assertEquals(gasStation.getUser().getUserId(), 1, 0);
 
 	}
 
