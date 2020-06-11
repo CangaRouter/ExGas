@@ -286,6 +286,7 @@ class GasStation {
  boolean hasSuperPlus
  boolean hasGas
  boolean hasMethane
+ boolean hasDieselPremium
  double lat
  double lon
  double dieselPrice
@@ -293,6 +294,7 @@ class GasStation {
  double superPlusPrice
  double gasPrice
  double methanePrice
+ double dieselPremiumPrice
  double reportDependability
  String reportTimestamp
  Integer reportUser 
@@ -317,6 +319,8 @@ class GasStation {
  void setUser()
  void setHasMethane() 
  void setMethanePrice()
+ void setHasDieselPremium()
+ void setdieselPremiumPrice()
  void setCarSharing()
  String getGasStationId()
  String getGasStationName()
@@ -337,6 +341,8 @@ class GasStation {
  User getUser()
  boolean getHasMethane()
  double getMethanePrice()
+ boolean getHasDieselPremium()
+ double getdieselPremiumPrice()
  String getCarSharing()
 }
 
@@ -456,6 +462,7 @@ Class GasStationDto{
  boolean hasSuperPlus
  boolean hasGas
  boolean hasMethane
+ boolean hasPremiumDiesel
  String carSharing
  double lat
  double lon
@@ -464,6 +471,7 @@ Class GasStationDto{
  double superPlusPrice
  double gasPrice
  double methanePrice
+ double premiumDieselPrice
  Integer reportUser
  UserDto userDto
  String reportTimestamp
@@ -483,6 +491,8 @@ Class GasStationDto{
  void setGasPrice()
  void setHasMethane()
  void setMethanePrice()
+ void setHasDieselPremium()
+ void setDieselPremiumPrice()
  void setReportUser()
  void setReportTimestamp()
  void setLat()
@@ -503,6 +513,8 @@ Class GasStationDto{
  double getGasPrice()
  boolean getHasMethane()
  double getMethanePrice()
+ boolean getHasDieselPremium()
+ double getDieselPremium()
  Integer getReportUser()
  String getReportTimestamp()
  UserDto getUserDto()
@@ -530,6 +542,7 @@ Package it.polito.ezgas.serviceimpl {
     GasStationDto getGasStationById()
     List<GasStationDto> getAllGasStations()
     List<GasStationDto> getGasStationsByGasolinType()
+    List<GasStationDto> getGasStationsByProximity()
     List<GasStationDto> getGasStationsByProximity()
     List<GasStationDto> getGasStationsWithCoordinates()
     List<GasStationDto> getGasStationsWithoutCoordinates()
