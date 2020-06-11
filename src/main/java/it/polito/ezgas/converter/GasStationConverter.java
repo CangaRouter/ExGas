@@ -19,14 +19,14 @@ public class GasStationConverter {
 
 		GasStationDto gsDto = new GasStationDto(gasStation.getGasStationId(), gasStation.getGasStationName(),
 				gasStation.getGasStationAddress(), gasStation.getHasDiesel(), gasStation.getHasSuper(),
-				gasStation.getHasSuperPlus(), gasStation.getHasGas(), gasStation.getHasMethane(),
+				gasStation.getHasSuperPlus(), gasStation.getHasGas(), gasStation.getHasMethane(), gasStation.getHasPremiumDiesel(),
 				gasStation.getCarSharing(), gasStation.getLat(), gasStation.getLon(), gasStation.getDieselPrice(),
 				gasStation.getSuperPrice(), gasStation.getSuperPlusPrice(), gasStation.getGasPrice(),
-				gasStation.getMethanePrice(), gasStation.getReportUser(), gasStation.getReportTimestamp(),
+				gasStation.getMethanePrice(), gasStation.getPremiumDieselPrice(), gasStation.getReportUser(), gasStation.getReportTimestamp(),
 				gasStation.getReportDependability());
 		if(gasStation.getUser()!=null) 
 		gsDto.setUserDto(userConverter.toUserDto(gasStation.getUser()));
-
+		
 		return gsDto;
 	}
 
@@ -34,10 +34,10 @@ public class GasStationConverter {
 
 		GasStation gs = new GasStation(gasStationdto.getGasStationName(), gasStationdto.getGasStationAddress(),
 				gasStationdto.getHasDiesel(), gasStationdto.getHasSuper(), gasStationdto.getHasSuperPlus(),
-				gasStationdto.getHasGas(), gasStationdto.getHasMethane(), gasStationdto.getCarSharing(),
+				gasStationdto.getHasGas(), gasStationdto.getHasMethane(), gasStationdto.getHasPremiumDiesel(), gasStationdto.getCarSharing(),
 				gasStationdto.getLat(), gasStationdto.getLon(), gasStationdto.getDieselPrice(),
 				gasStationdto.getSuperPrice(), gasStationdto.getSuperPlusPrice(), gasStationdto.getGasPrice(),
-				gasStationdto.getMethanePrice(), gasStationdto.getReportUser(), gasStationdto.getReportTimestamp(),
+				gasStationdto.getMethanePrice(), gasStationdto.getPremiumDieselPrice(), gasStationdto.getReportUser(), gasStationdto.getReportTimestamp(),
 				gasStationdto.getReportDependability());
 
 		gs.setGasStationId(gasStationdto.getGasStationId());
@@ -45,7 +45,6 @@ public class GasStationConverter {
 		if(gasStationdto.getUserDto()!=null) 
 			gs.setUser(userConverter.toUser(gasStationdto.getUserDto()));
 
-			
 		return gs;
 	}
 

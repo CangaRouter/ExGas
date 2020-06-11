@@ -27,8 +27,8 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindBygasStationName() {
 
-		GasStation gs = new GasStation("GSNameTest", "AddressTest", false, false, false, false, false, "CarSharingTest",
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest", 0.0);
+		GasStation gs = new GasStation("GSNameTest", "AddressTest", false, false, false, false, false, false, "CarSharingTest",
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest", 0.0);
 
 		entityManager.persist(gs);
 		entityManager.flush();
@@ -39,22 +39,22 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindBylatBetweenAndLonBetween() {
 
-		GasStation gs1 = new GasStation("GSgoodone1", "AddressTest1", false, false, false, false, false,
-				"CarSharingTest1", 7.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSNameTest3", "AddressTest3", false, false, false, false, false,
-				"CarSharingTest3", 11.0, 11.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
-		GasStation gs4 = new GasStation("GSGoodOne4", "AddressTest4", false, false, false, false, false,
-				"CarSharingTest4", 6.0, 6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
-		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, false, false, false, false,
-				"CarSharingTest5", 0.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
-		GasStation gs6 = new GasStation("GSNameTest6", "AddressTest6", false, false, false, false, false,
-				"CarSharingTest6", 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest6", 0.0);
-		GasStation gs7 = new GasStation("GSNameTest7", "AddressTest7", false, false, false, false, false,
-				"CarSharingTest7", 0.0, 11.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest7", 0.0);
-		GasStation gs8 = new GasStation("GSNameTest8", "AddressTest8", false, false, false, false, false,
-				"CarSharingTest8", 11.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest8", 0.0);
+		GasStation gs1 = new GasStation("GSgoodone1", "AddressTest1", false, false, false, false, false, false,
+				"CarSharingTest1", 7.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSNameTest3", "AddressTest3", false, false, false, false, false,false,
+				"CarSharingTest3", 11.0, 11.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs4 = new GasStation("GSGoodOne4", "AddressTest4", false, false, false, false, false,false,
+				"CarSharingTest4", 6.0, 6.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest4", 0.0);
+		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, false, false, false, false, false,
+				"CarSharingTest5", 0.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest5", 0.0);
+		GasStation gs6 = new GasStation("GSNameTest6", "AddressTest6", false, false, false, false, false,false,
+				"CarSharingTest6", 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest6", 0.0);
+		GasStation gs7 = new GasStation("GSNameTest7", "AddressTest7", false, false, false, false, false,false,
+				"CarSharingTest7", 0.0, 11.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest7", 0.0);
+		GasStation gs8 = new GasStation("GSNameTest8", "AddressTest8", false, false, false, false, false,false,
+				"CarSharingTest8", 11.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest8", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -76,12 +76,12 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasDiesel() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", true, false, false, false, false,
-				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", true, false, false, false, false,
-				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", true, false, false, false, false,false,
+				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", true, false, false, false, false,false,
+				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -98,12 +98,12 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasSuper() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, true, false, false, false,
-				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, false, false, false,
-				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, true, false, false, false,false,
+				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, false, false, false,false,
+				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -120,12 +120,12 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasGas() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, false, true, false,
-				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, false, true, false,
-				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, false, true, false,false,
+				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, false, true, false,false,
+				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -142,12 +142,12 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasSuperPlus() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, true, false, false,
-				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, true, false, false,
-				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, true, false, false,false,
+				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, true, false, false,false,
+				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -164,12 +164,12 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasMethane() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, false, false, true,
-				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, false, false, true,
-				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, false, false, true,false,
+				"CarSharingTest1", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, false, false, true,false,
+				"CarSharingTest3", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -186,16 +186,16 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasDieselAndCarSharing() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", true, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", true, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
-		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
-		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", true, false, false, false, false,
-				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", true, false, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", true, false, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest4", 0.0);
+		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", true, false, false, false, false,false,
+				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest5", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -214,16 +214,16 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasSuperAndCarSharing() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, true, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
-		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
-		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, true, false, false, false,
-				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, true, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
+		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, true, false, false, false,false,
+				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -242,16 +242,16 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasGasAndCarSharing() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, false, true, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, false, true, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
-		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
-		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, false, false, true, false,
-				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, true, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, true, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, true, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
+		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, true, false, false, false,false,
+				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -270,17 +270,16 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasSuperPlusAndCarSharing() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, true, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, true, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
-		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
-		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, false, true, false, false,
-				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
-
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, true, false, true, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, false, true, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, true, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
+		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, true, false, false, false,false,
+				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
 		entityManager.persist(gs3);
@@ -298,16 +297,16 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByhasMethaneAndCarSharing() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, false, false, true,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, false, false, true,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
-		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
-		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, false, false, false, true,
-				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, true, false, false, true,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, true, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs4 = new GasStation("GSNameTest4", "AddressTest4", false, false, false, false, true,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest4", 0.0);
+		GasStation gs5 = new GasStation("GSNameTest5", "AddressTest5", false, true, false, false, false,false,
+				"CarSharingTest5", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest5", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.persist(gs2);
@@ -326,12 +325,12 @@ public class GasStationRepositoryTests {
 	@Test
 	public void TestfindByCarSharing() {
 
-		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest1", 0.0);
-		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,
-				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest2", 0.0);
-		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, false, false, false,
-				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0);
+		GasStation gs1 = new GasStation("GSGoodOne1", "AddressTest1", false, false, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest1", 0.0);
+		GasStation gs2 = new GasStation("GSNameTest2", "AddressTest2", false, false, false, false, false,false,
+				"CarSharingTest2", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest2", 0.0);
+		GasStation gs3 = new GasStation("GSGoodOne3", "AddressTest3", false, false, false, false, false,false,
+				"CarSharingToBeFound", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0);
 
 		entityManager.persist(gs1);
 		entityManager.flush();

@@ -537,6 +537,7 @@ Package it.polito.ezgas.serviceimpl {
     GasStationDto saveGasStation()
     boolean deleteGasStation()
     void setReport()
+    void checkCarSharing()
     void checkPriceList()
     void checkCoordinates()
     void calculateDependability()

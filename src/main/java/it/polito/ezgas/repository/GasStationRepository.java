@@ -24,7 +24,9 @@ public interface GasStationRepository extends JpaRepository<GasStation, Integer>
 	List<GasStation> findByhasSuperPlus(boolean fuel);
 
 	List<GasStation> findByhasMethane(boolean fuel);
-
+	
+	List<GasStation> findByhasPremiumDiesel(boolean fuel);
+	
 	List<GasStation> findByhasDieselAndCarSharing(boolean fuel, String carSharing);
 
 	List<GasStation> findByhasSuperAndCarSharing(boolean fuel, String carSharing);
@@ -34,7 +36,9 @@ public interface GasStationRepository extends JpaRepository<GasStation, Integer>
 	List<GasStation> findByhasSuperPlusAndCarSharing(boolean fuel, String carSharing);
 
 	List<GasStation> findByhasMethaneAndCarSharing(boolean fuel, String carSharing);
-
+	
+	List<GasStation> findByhasPremiumDieselAndCarSharing(boolean fuel, String carSharing);
+		
 	List<GasStation> findByCarSharing(String carSharing);
 
 }

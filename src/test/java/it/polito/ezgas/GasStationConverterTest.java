@@ -25,8 +25,8 @@ public class GasStationConverterTest {
 
 	@Test
 	public void testToGasStationDto() {
-		GasStation gasStation = new GasStation("Test", "TestAddress", true, true, true, true, true, "Test", 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0, "TestDate", 0);
+		GasStation gasStation = new GasStation("Test", "TestAddress", true, true, true, true, true,true, "Test", 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TestDate", 0);
 		gasStation.setUser(new User("test", "test", "test", 5));
 		GasStationDto gasStationDto = gasStationConverter.toGasStationDto(gasStation);
 		assertEquals(gasStationDto.getCarSharing(), gasStation.getCarSharing());
@@ -52,8 +52,8 @@ public class GasStationConverterTest {
 
 	@Test
 	public void testToGasStation() {
-		GasStationDto gasStationDto = new GasStationDto(1, "Pompa", "corso duca 24", true, true, false, false, true,
-				"Enjoy", 45.6666, 7.6666, 1.234, 1.3432, -1, -1, 0.3232, 1, "28/02/2020", 100);
+		GasStationDto gasStationDto = new GasStationDto(1, "Pompa", "corso duca 24", true, true, false, false, true, false,
+				"Enjoy", 45.6666, 7.6666, 1.234, 1.3432, -1.0, -1.0, 0.3232,-1.0, -1, "28/02/2020", 100);
 		gasStationDto.setUserDto(new UserDto(1, "test", "test", "test", 5));
 		GasStation gasStation = gasStationConverter.toGasStation(gasStationDto);
 		assertEquals(gasStation.getCarSharing(), gasStationDto.getCarSharing());
@@ -81,12 +81,12 @@ public class GasStationConverterTest {
 	@Test
 	public void testToGasStationDtoList() {
 		List<GasStation> gasStationList = Arrays.asList(
-				new GasStation("Pompa", "corso duca 24", true, true, false, false, true, "Enjoy", 45.6666, 7.6666,
-						1.234, 1.3432, -1, -1, 0.3232, 1, "28/02/2020", 100),
-				new GasStation("GSNameTest", "AddressTest", false, false, false, false, false, "CarSharingTest", 0.0,
-						0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest", 0.0),
-				new GasStation("GSNameTest3", "AddressTest3", false, false, false, false, false, "CarSharingTest3",
-						11.0, 11.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0));
+				new GasStation("Pompa", "corso duca 24", true, true, false, false, true,false, "Enjoy", 45.6666, 7.6666,
+						1.234, 1.3432, -1.0, -1.0, 0.3232, -1.0, 1, "28/02/2020", 100),
+				new GasStation("GSNameTest", "AddressTest", false, false, false, false, false,false, "CarSharingTest", 0.0,
+						0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest", 0.0),
+				new GasStation("GSNameTest3", "AddressTest3", false, false, false, false, false, false, "CarSharingTest3",
+						11.0, 11.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, 0, "TimeStampTest3", 0.0));
 		List<GasStationDto> gasStationDtoList = gasStationConverter.toGasStationDtoList(gasStationList);
 		assertEquals(gasStationDtoList.isEmpty(), false);
 		for (int i = 0; i < 3; i++) {
@@ -115,12 +115,12 @@ public class GasStationConverterTest {
 	@Test
 	public void testToGasStationList() {
 		List<GasStationDto> gasStationDtoList = Arrays.asList(
-				new GasStationDto(0, "Pompa", "corso duca 24", true, true, false, false, true, "Enjoy", 45.6666, 7.6666,
-						1.234, 1.3432, -1, -1, 0.3232, 1, "28/02/2020", 100),
-				new GasStationDto(1, "GSNameTest", "AddressTest", false, false, false, false, false, "CarSharingTest",
-						0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest", 0.0),
-				new GasStationDto(2, "GSNameTest3", "AddressTest3", false, false, false, false, false,
-						"CarSharingTest3", 11.0, 11.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0));
+				new GasStationDto(0, "Pompa", "corso duca 24", true, true, false, false, true,false ,"Enjoy", 45.6666, 7.6666,
+						1.234, 1.3432, -1.0, -1.0, 0.3232, -1.0, 1, "28/02/2020", 100),
+				new GasStationDto(1, "GSNameTest", "AddressTest", false, false, false, false, false, false, "CarSharingTest",
+						0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest", 0.0),
+				new GasStationDto(2, "GSNameTest3", "AddressTest3", false, false, false, false, false, false,
+						"CarSharingTest3", 11.0, 11.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, "TimeStampTest3", 0.0));
 		List<GasStation> gasStationList = gasStationConverter.toGasStationList(gasStationDtoList);
 		assertEquals(gasStationList.isEmpty(), false);
 		assertEquals(gasStationList.size(), 3);

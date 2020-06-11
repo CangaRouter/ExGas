@@ -14,7 +14,7 @@ import it.polito.ezgas.dto.UserDto;
 
 public class GasStationDtoTests {
 	private GasStationDto gs = new GasStationDto(5, "Eni - Station 24", "Corso Palermo, 12 Torino", true, true, true,
-			true, true, "Enjoy", 41.023, 40.069, 1.17, 1.57, 1.69, 0.95, 0.89, 1, "2020-05-12T01:00:00", 2.34);
+			true, true, true, "Enjoy", 41.023, 40.069, 1.17, 1.57, 1.69, 0.95, 0.89,0.55, 1, "2020-05-12T01:00:00", 2.34);
 	private GasStationDto emptyGs = new GasStationDto();
 
 	@Test
@@ -268,10 +268,5 @@ public class GasStationDtoTests {
 		assert (gs.getUserDto() == u);
 	}
 
-	@Test
-	public void TC1_GasStationPriceReport() {
-		List<PriceReportDto> l = new ArrayList<PriceReportDto>();
-		gs.setPriceReportDtos(l);
-		assert (gs.getPriceReportDtos() == l);
-	}
+	
 }
