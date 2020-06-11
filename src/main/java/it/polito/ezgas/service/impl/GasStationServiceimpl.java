@@ -378,6 +378,7 @@ public class GasStationServiceimpl implements GasStationService {
 		}
 	}
 	private void checkCarSharing(String carsharing) throws InvalidCarSharingException {
+		carsharing=carsharing.toLowerCase().replaceAll("\\s+", "");
 		if (!carsharing.equals("null") && !carsharing.equals("enjoy") && !carsharing.equals("car2go")) {
 			throw new InvalidCarSharingException("invalid car sharing " + carsharing);
 		}
