@@ -382,7 +382,25 @@ public class GasStationServiceTests {
 		}
 		assertEquals(thrown, false);
 	}
-
+	
+	@Test
+	public void TC7_getGasStationsByGasolineType() {
+		// try to get a gas station with valid fuel type (PremiumDiesel)
+		List<GasStation> list = new ArrayList<GasStation>();
+		list.add(gasStation);
+		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
+		listDto.add(gasStationDto);
+		when(gasStationRepositoryMock.findByhasPremiumDiesel(any(Boolean.class))).thenReturn(list);
+		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsByGasolineType("premiumdiesel").isEmpty(), false);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	}
+	
 	@Test
 	public void TC1_getGasStationsByProximity() {
 		// valid coordinates
@@ -401,9 +419,47 @@ public class GasStationServiceTests {
 		}
 		assertEquals(thrown, false);
 	}
-
+	
 	@Test
 	public void TC2_getGasStationsByProximity() {
+		// valid coordinates + radius<=0
+		List<GasStation> list = new ArrayList<GasStation>();
+		list.add(gasStation);
+		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
+		listDto.add(gasStationDto);
+		when(gasStationRepositoryMock.findBylatBetweenAndLonBetween(any(Double.class), any(Double.class),
+				any(Double.class), any(Double.class))).thenReturn(list);
+		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsByProximity(40.0005, 25.0010, -1), listDto);
+		} catch (GPSDataException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	}
+	
+	@Test
+	public void TC3_getGasStationsByProximity() {
+		// valid coordinates + radius>0
+		List<GasStation> list = new ArrayList<GasStation>();
+		list.add(gasStation);
+		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
+		listDto.add(gasStationDto);
+		when(gasStationRepositoryMock.findBylatBetweenAndLonBetween(any(Double.class), any(Double.class),
+				any(Double.class), any(Double.class))).thenReturn(list);
+		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsByProximity(40.0005, 25.0010, 2), listDto);
+		} catch (GPSDataException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	}
+	
+	@Test
+	public void TC4_getGasStationsByProximity() {
 		// invalid coordinates
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gasStation);
@@ -425,6 +481,7 @@ public class GasStationServiceTests {
 	@Test
 	public void TC1_getGasStationsWithCoordinates() {
 		// null fuel type and null car sharing -> all gas stations
+		// radius<=0
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gasStation);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -434,9 +491,9 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "null", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,-1, "null", "null").isEmpty(),
 					false);
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "null", "null"), listDto);
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,-1, "null", "null"), listDto);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
@@ -446,9 +503,35 @@ public class GasStationServiceTests {
 		}
 		assertEquals(thrown, false);
 	}
-
+	
 	@Test
 	public void TC2_getGasStationsWithCoordinates() {
+		// null fuel type and null car sharing -> all gas stations
+		// radius>0
+		List<GasStation> list = new ArrayList<GasStation>();
+		list.add(gasStation);
+		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
+		listDto.add(gasStationDto);
+		when(gasStationRepositoryMock.findBylatBetweenAndLonBetween(any(Double.class), any(Double.class),
+				any(Double.class), any(Double.class))).thenReturn(list);
+		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,2, "null", "null").isEmpty(),
+					false);
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,2, "null", "null"), listDto);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	}
+	
+	@Test
+	public void TC3_getGasStationsWithCoordinates() {
 		// Select ANY fuel type and car sharing (Enjoy) -> one gas station matches (just
 		// inserted)
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
@@ -475,7 +558,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC3_getGasStationsWithCoordinates() {
+	public void TC4_getGasStationsWithCoordinates() {
 		// ANY fuel type and car sharing (Car2GO) -> no gas station matches
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
 				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
@@ -501,7 +584,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC4_getGasStationsWithCoordinates() {
+	public void TC5_getGasStationsWithCoordinates() {
 		// INVALID fuel type and ANY car sharing
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gasStation);
@@ -525,7 +608,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC5_getGasStationsWithCoordinates() {
+	public void TC6_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->diesel YES) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false,false, "Enjoy", 40.0005, 25.0010,
 				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
@@ -552,7 +635,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC6_getGasStationsWithCoordinates() {
+	public void TC7_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->diesel NO) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
 				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
@@ -578,7 +661,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC7_getGasStationsWithCoordinates() {
+	public void TC8_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->super YES) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, true, false, false, false,false, "Enjoy", 40.0005, 25.0010,
 				0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
@@ -604,7 +687,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC8_getGasStationsWithCoordinates() {
+	public void TC9_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->super NO) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
 				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
@@ -630,7 +713,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC9_getGasStationsWithCoordinates() {
+	public void TC10_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->methane YES) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, true, false,"Enjoy", 40.0005, 25.0010,
 				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
@@ -656,7 +739,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC10_getGasStationsWithCoordinates() {
+	public void TC11_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->methane NO) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, false,"Enjoy", 40.0005,
 				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
@@ -682,7 +765,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC11_getGasStationsWithCoordinates() {
+	public void TC12_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->gas YES) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, true, false,false, "Enjoy", 40.0005, 25.0010,
 				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
@@ -708,7 +791,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC12_getGasStationsWithCoordinates() {
+	public void TC13_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->diesel NO) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
 				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
@@ -734,7 +817,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC13_getGasStationsWithCoordinates() {
+	public void TC14_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->superplus YES) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, true, false, false,false, "Enjoy", 40.0005, 25.0010,
 				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
@@ -761,7 +844,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC14_getGasStationsWithCoordinates() {
+	public void TC15_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->superplus NO) and ANY car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
 				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
@@ -787,6 +870,60 @@ public class GasStationServiceTests {
 		assertEquals(thrown, false);
 	}
 
+	@Test
+	public void TC16_getGasStationsWithCoordinates() {
+		// non-null fuel type (VALID->premiumdiesel YES) and ANY car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,true, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		List<GasStation> list = new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
+		listDto.add(gasStationDto);
+		when(gasStationRepositoryMock.findBylatBetweenAndLonBetween(any(Double.class), any(Double.class),
+				any(Double.class), any(Double.class))).thenReturn(list);
+		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(
+					gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, 1,"premiumdiesel", "null").isEmpty(),
+					false);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	}
+
+	@Test
+	public void TC17_getGasStationsWithCoordinates() {
+		// non-null fuel type (VALID->premiumdiesel NO) and ANY car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
+		List<GasStation> list = new ArrayList<GasStation>();
+		list.add(gs);
+		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
+		when(gasStationRepositoryMock.findBylatBetweenAndLonBetween(any(Double.class), any(Double.class),
+				any(Double.class), any(Double.class))).thenReturn(list);
+		list.remove(list.indexOf(gs));
+		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
+		Boolean thrown = false;
+		try {
+			assertEquals(
+					gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "premiumdiesel", "null").isEmpty(),
+					true);
+		} catch (GPSDataException e) {
+			thrown = true;
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	}
+	
 	@Test
 	public void TC1_getGasStationsWithoutCoordinates() {
 		// null fuel type and null car sharing
@@ -948,6 +1085,31 @@ public class GasStationServiceTests {
 
 	@Test
 	public void TC8_getGasStationsWithoutCoordinates() {
+		// SET fuel type and null car sharing
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false,false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
+		List<GasStation> list = new ArrayList<GasStation>();
+		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
+		Boolean thrown = false;
+		when(gasStationRepositoryMock.findByhasSuperPlusAndCarSharing(any(Boolean.class), any(String.class)))
+				.thenReturn(list);
+		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
+		try {
+			assertEquals(gasStationService.getGasStationsWithoutCoordinates("premiumdiesel", "Enjoy").isEmpty(), true);
+		} catch (InvalidGasTypeException e) {
+			thrown = true;
+			System.out.println(e.getMessage());
+
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
+		}
+		assertEquals(thrown, false);
+	}
+	
+	@Test
+	public void TC9_getGasStationsWithoutCoordinates() {
 		// SET fuel type and SET car sharing
 		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, false, "Enjoy", 40.0005, 25.0010,
 				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);

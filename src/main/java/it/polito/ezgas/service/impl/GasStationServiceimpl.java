@@ -175,6 +175,9 @@ public class GasStationServiceimpl implements GasStationService {
 			this.updateDependability = true;
 		}
 		this.checkCoordinates(lat, lon);
+		if(radius <= 0){
+			radius = 1;
+		}
 		return gasStationConverter.toGasStationDtoList(gasStationRepository
 				.findBylatBetweenAndLonBetween(lat - (LAT_DIFF * radius) , lat + (LAT_DIFF * radius) , lon - (LON_DIFF * radius) , lon + (LON_DIFF * radius) ));
 	}
@@ -189,6 +192,9 @@ public class GasStationServiceimpl implements GasStationService {
 		}
 		this.checkCoordinates(lat, lon);
 		this.checkCarSharing(carsharing);
+		if(radius <= 0){
+			radius = 1;
+		}
 		List<GasStation> gasStationList = gasStationRepository.findBylatBetweenAndLonBetween(lat - (LAT_DIFF * radius),
 				lat + (LAT_DIFF * radius), lon - (LON_DIFF * radius), lon + (LON_DIFF * radius));
 		List<GasStation> gasStationListNew = new ArrayList<>(gasStationList);
