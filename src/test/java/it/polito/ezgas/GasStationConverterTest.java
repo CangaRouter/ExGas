@@ -37,6 +37,7 @@ public class GasStationConverterTest {
 		assertEquals(gasStationDto.getHasSuper(), gasStation.getHasSuper());
 		assertEquals(gasStationDto.getHasSuperPlus(), gasStation.getHasSuperPlus());
 		assertEquals(gasStationDto.getHasGas(), gasStation.getHasGas());
+		assertEquals(gasStationDto.getHasPremiumDiesel(), gasStation.getHasPremiumDiesel());
 		assertEquals(gasStationDto.getLat(), gasStation.getLat(), 0);
 		assertEquals(gasStationDto.getLon(), gasStation.getLon(), 0);
 		assertEquals(gasStationDto.getDieselPrice(), gasStation.getDieselPrice(), 0);
@@ -44,6 +45,7 @@ public class GasStationConverterTest {
 		assertEquals(gasStationDto.getSuperPlusPrice(), gasStation.getSuperPlusPrice(), 0);
 		assertEquals(gasStationDto.getGasPrice(), gasStation.getGasPrice(), 0);
 		assertEquals(gasStationDto.getMethanePrice(), gasStation.getMethanePrice(), 0);
+		assertEquals(gasStationDto.getPremiumDieselPrice(), gasStation.getPremiumDieselPrice(), 0);
 		assertEquals(gasStationDto.getReportUser(), gasStation.getReportUser(), 0);
 		assertEquals(gasStationDto.getReportDependability(), gasStation.getReportDependability(), 0);
 		assertEquals(gasStationDto.getGasStationId(), gasStation.getGasStationId());
@@ -64,6 +66,7 @@ public class GasStationConverterTest {
 		assertEquals(gasStation.getHasSuper(), gasStationDto.getHasSuper());
 		assertEquals(gasStation.getHasSuperPlus(), gasStationDto.getHasSuperPlus());
 		assertEquals(gasStation.getHasGas(), gasStationDto.getHasGas());
+		assertEquals(gasStation.getHasPremiumDiesel(), gasStationDto.getHasPremiumDiesel());
 		assertEquals(gasStation.getLat(), gasStationDto.getLat(), 0);
 		assertEquals(gasStation.getLon(), gasStationDto.getLon(), 0);
 		assertEquals(gasStation.getDieselPrice(), gasStationDto.getDieselPrice(), 0);
@@ -71,6 +74,7 @@ public class GasStationConverterTest {
 		assertEquals(gasStation.getSuperPlusPrice(), gasStationDto.getSuperPlusPrice(), 0);
 		assertEquals(gasStation.getGasPrice(), gasStationDto.getGasPrice(), 0);
 		assertEquals(gasStation.getMethanePrice(), gasStationDto.getMethanePrice(), 0);
+		assertEquals(gasStation.getPremiumDieselPrice(), gasStationDto.getPremiumDieselPrice(), 0);
 		assertEquals(gasStation.getReportUser(), gasStationDto.getReportUser(), 0);
 		assertEquals(gasStation.getReportDependability(), gasStationDto.getReportDependability(), 0);
 		assertEquals(gasStation.getGasStationId(), gasStationDto.getGasStationId());
@@ -98,6 +102,7 @@ public class GasStationConverterTest {
 			assertEquals(gasStationList.get(i).getHasSuper(), gasStationDtoList.get(i).getHasSuper());
 			assertEquals(gasStationList.get(i).getHasSuperPlus(), gasStationDtoList.get(i).getHasSuperPlus());
 			assertEquals(gasStationList.get(i).getHasGas(), gasStationDtoList.get(i).getHasGas());
+			assertEquals(gasStationList.get(i).getHasPremiumDiesel(), gasStationDtoList.get(i).getHasPremiumDiesel());
 			assertEquals(gasStationList.get(i).getLat(), gasStationDtoList.get(i).getLat(), i);
 			assertEquals(gasStationList.get(i).getLon(), gasStationDtoList.get(i).getLon(), i);
 			assertEquals(gasStationList.get(i).getDieselPrice(), gasStationDtoList.get(i).getDieselPrice(), i);
@@ -105,6 +110,7 @@ public class GasStationConverterTest {
 			assertEquals(gasStationList.get(i).getSuperPlusPrice(), gasStationDtoList.get(i).getSuperPlusPrice(), i);
 			assertEquals(gasStationList.get(i).getGasPrice(), gasStationDtoList.get(i).getGasPrice(), i);
 			assertEquals(gasStationList.get(i).getMethanePrice(), gasStationDtoList.get(i).getMethanePrice(), i);
+			assertEquals(gasStationList.get(i).getPremiumDieselPrice(), gasStationDtoList.get(i).getPremiumDieselPrice(), i);
 			assertEquals(gasStationList.get(i).getReportUser(), gasStationDtoList.get(i).getReportUser(), i);
 			assertEquals(gasStationList.get(i).getReportDependability(),
 					gasStationDtoList.get(i).getReportDependability(), i);
@@ -133,6 +139,7 @@ public class GasStationConverterTest {
 			assertEquals(gasStationList.get(i).getHasSuper(), gasStationDtoList.get(i).getHasSuper());
 			assertEquals(gasStationList.get(i).getHasSuperPlus(), gasStationDtoList.get(i).getHasSuperPlus());
 			assertEquals(gasStationList.get(i).getHasGas(), gasStationDtoList.get(i).getHasGas());
+			assertEquals(gasStationList.get(i).getHasPremiumDiesel(), gasStationDtoList.get(i).getHasPremiumDiesel());
 			assertEquals(gasStationList.get(i).getLat(), gasStationDtoList.get(i).getLat(), i);
 			assertEquals(gasStationList.get(i).getLon(), gasStationDtoList.get(i).getLon(), i);
 			assertEquals(gasStationList.get(i).getDieselPrice(), gasStationDtoList.get(i).getDieselPrice(), i);
@@ -140,6 +147,7 @@ public class GasStationConverterTest {
 			assertEquals(gasStationList.get(i).getSuperPlusPrice(), gasStationDtoList.get(i).getSuperPlusPrice(), i);
 			assertEquals(gasStationList.get(i).getGasPrice(), gasStationDtoList.get(i).getGasPrice(), i);
 			assertEquals(gasStationList.get(i).getMethanePrice(), gasStationDtoList.get(i).getMethanePrice(), i);
+			assertEquals(gasStationList.get(i).getPremiumDieselPrice(), gasStationDtoList.get(i).getPremiumDieselPrice(), i);
 			assertEquals(gasStationList.get(i).getReportUser(), gasStationDtoList.get(i).getReportUser(), i);
 			assertEquals(gasStationList.get(i).getReportDependability(),
 					gasStationDtoList.get(i).getReportDependability(), i);
