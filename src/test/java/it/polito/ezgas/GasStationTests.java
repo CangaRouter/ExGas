@@ -115,7 +115,11 @@ public class GasStationTests {
 		gs.setHasMethane(true);
 		assert (gs.getHasMethane() == true);
 	}
-
+	@Test
+	public void TC1_GasStationHasPremiumDiesel() {
+		gs.setHasPremiumDiesel(true);
+		assert (gs.getHasPremiumDiesel() == true);
+	}
 	@Test
 	public void TC1_GasStationLat() {
 		Double value = 12.45;
@@ -250,7 +254,24 @@ public class GasStationTests {
 		gs.setMethanePrice(Double.MAX_VALUE + 1);
 		assert (gs.getMethanePrice() == Double.MAX_VALUE);
 	}
+	@Test
+	public void TC1_GasStationPremiumDieselPrice() {
+		Double value = 12.45;
+		gs.setPremiumDieselPrice(value);
+		assert (gs.getPremiumDieselPrice() == value);
+	}
 
+	@Test
+	public void TC2_GasStationPremiumDieselPrice() {
+		gs.setPremiumDieselPrice(-Double.MAX_VALUE - 1);
+		assert (gs.getPremiumDieselPrice() == -Double.MAX_VALUE);
+	}
+
+	@Test
+	public void TC3_GasStationPremiumDieselPrice() {
+		gs.setPremiumDieselPrice(Double.MAX_VALUE + 1);
+		assert (gs.getPremiumDieselPrice() == Double.MAX_VALUE);
+	}
 	@Test
 	public void TC1_GasStationCarSharing() {
 		gs.setCarSharing("Enjoy");

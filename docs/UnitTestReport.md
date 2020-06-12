@@ -16,7 +16,7 @@ Version:
     + [Class UserDto](#class-userdto)
     + [Class LoginDto](#class-logindto)
     + [Class IdPw](#class-idpw)
-
+    + [Class PriceReportDto](#class-pricereportdto)
 - [White Box Unit Tests](#white-box-unit-tests)
 
 # Black Box Unit Tests
@@ -372,6 +372,35 @@ Version:
 ||| getHasMethane() -> true ||:
 |No    | I | Not feasible||
 
+### **Class *GasStation* - method *setHasPremiumDiesel***
+
+
+**Criteria for method *setHasPremiumDiesel*:**
+
+ - Is a boolean
+
+**Predicates for method *setHasPremiumDiesel:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a boolean       |     Yes      |
+|          |      No     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|
+|Yes    | V |  setHasMethane(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasPremiumDiesel|
+||| getHasPremiumDiesel() -> true ||:
+|No    | I | Not feasible||
+
+
 
 ### **Class *GasStation* - method *setLat***
 
@@ -643,6 +672,43 @@ Version:
 ||||getMethanPrice() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
+
+### **Class *GasStation* - method *setPremiumDieselPrice***
+
+
+**Criteria for method *setPremiumDieselPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setPremiumDieselPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setPremiumDieselPrice(1.45);|it.polito.ezgas.GasStationDtoTests.TC1_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setPremiumDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationDtoTests.TC2_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> -Double.MAX_VALUE||
+|| > Double.MAX_VALUE| I | setPremiumDieselPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationDtoTests.TC3_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
 
  ### **Class *GasStation* - method *setCarSharing***
 
@@ -1246,6 +1312,35 @@ Version:
 ||| getHasMethane() -> true ||:
 |No    | I | Not feasible||
 
+### **Class *GasStationDto* - method *setHasPremiumDiesel***
+
+
+**Criteria for method *setHasPremiumDiesel*:**
+
+ - Is a boolean
+
+**Predicates for method *setHasPremiumDiesel:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a boolean       |     Yes      |
+|          |      No     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|
+|Yes    | V |  setHasMethane(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasPremiumDiesel|
+||| getHasPremiumDiesel() -> true ||:
+|No    | I | Not feasible||
+
+
 
 ### **Class *GasStationDto* - method *setLat***
 
@@ -1517,6 +1612,43 @@ Version:
 ||||getMethanPrice() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
+
+### **Class *GasStationDto* - method *setPremiumDieselPrice***
+
+
+**Criteria for method *setPremiumDieselPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setPremiumDieselPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setPremiumDieselPrice(1.45);|it.polito.ezgas.GasStationDtoTests.TC1_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setPremiumDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationDtoTests.TC2_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> -Double.MAX_VALUE||
+|| > Double.MAX_VALUE| I | setPremiumDieselPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationDtoTests.TC3_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
 
  ### **Class *GasStationDto* - method *setCarSharing***
 
@@ -2050,6 +2182,315 @@ Version:
 |Yes    | V |  setPw("Th1s@ppISc00l"); |it.polito.ezgas.IdPwTests.TC1_IdPwPassword|
 |||getPw -> "Th1s@ppISc00l" ||
 |No    | I | Not feasible||
+
+ ## **Class *PriceReportDto***
+
+ ### **Class *PriceReportDto* - method *setGasStationId***
+
+
+**Criteria for method *setGasStationId*:**
+	
+ - Is an integer number
+ - Range
+
+**Predicates for method *setGasStationId*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is an integer number        |     Yes      |
+|          |      No     |
+|  Range        |   >= Integer.MAX_VALUE   and <= Integer.MIN_VALUE   |
+|          |     < Integer.MIN_VALUE      |
+|          |     > Integer.MAX_VALUE      |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     Integer.MIN_VALUE,Integer.MAX_VALUE        |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setGasStationId(1250);|it.polito.ezgas.PriceReportDtoests.TC1_PriceReportDtoGasStationId|
+||||getgasStationId()-> 1250 ||
+||< Integer.MIN_VALUE | I | setGasStationId(Integer.MIN_VALUE-1)|it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoGasStationId|
+||||getgasStationId()-> Integer.MAX_VALUE ||
+|| > Integer.MAX_VALUE| I | setGasStationId(Integer.MAX_VALUE+1)|it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoGasStationId|
+||||getgasStationId()-> Integer.MIN_VALUE ||
+|No    || I | Not feasible||
+
+
+
+### **Class *PriceReportDto* - method *setDieselPrice***
+
+
+**Criteria for method *setDieselPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setDieselPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setDieselPrice(1.45);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoDieselPrice|
+||||getDieselPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoDieselPrice|
+||||getDieselPrice() -> -Double.MAX_VALUE||
+|| > Double.MAX_VALUE| I | setDieselPrice(Double.MAX_VALUE+1) |it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoDieselPrice|
+||||getDieselPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
+
+
+
+### **Class *PriceReportDto* - method *setSuperPrice***
+
+
+**Criteria for method *setSuperPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setSuperPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setSuperPrice(1.45);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoSuperPrice|
+||||getSuperPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setSuperPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoSuperPrice|
+||||getSuperPrice() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setSuperPrice(Double.MAX_VALUE+1) |it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoSuperPrice|
+||||getSuperPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
+
+
+
+### **Class *PriceReportDto* - method *setSuperPlusPrice***
+
+
+**Criteria for method *setSuperPlusPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setSuperPlusPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setSuperPlusPrice(1.45);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoSuperPlusPrice|
+||||getSuperPlusPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setSuperPlusPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoSuperPlusPrice|
+||||getSuperPlusPrice() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setSuperPlusPrice(Double.MAX_VALUE+1) |it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoSuperPlusPrice|
+||||getSuperPlusPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
+
+
+### **Class *PriceReportDto* - method *setGasPrice***
+
+
+**Criteria for method *setGasPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setGasPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setGasPrice(1.45);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoGasPrice|
+||||getGasPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setGasPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoGasPrice|
+||||getGasPrice() -> Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setGasPrice(Double.MAX_VALUE+1) |it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoGasPrice|
+||||getGasPrice() -> Double.MAX_VALUE ||
+|No   || I | Not feasible||
+
+
+
+### **Class *PriceReportDto* - method *setMethanPrice***
+
+
+**Criteria for method *setMethanPrice*:**
+
+ - Is a double number
+ - Range
+
+**Predicates for method *setMethanPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoMethanePrice|
+||||getMethanPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setMethanPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoMethanePrice|
+||||getMethanPrice() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) |it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoMethanePrice|
+||||getMethanPrice() -> Double.MAX_VALUE ||
+|No   || I | Not feasible||
+
+
+### **Class *PriceReportDto* - method *setPremiumDieselPrice***
+
+
+**Criteria for method *setPremiumDieselPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setPremiumDieselPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setPremiumDieselPrice(1.45);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoPremiumDieselPrice|
+||||getPremiumDieselPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setPremiumDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoPremiumDieselPrice|
+||||getPremiumDieselPrice() -> -Double.MAX_VALUE||
+|| > Double.MAX_VALUE| I | setPremiumDieselPrice(Double.MAX_VALUE+1) |it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoPremiumDieselPrice|
+||||getPremiumDieselPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
+
+
+### **Class *PriceReportDto* - method *setReportUser***
+
+
+**Criteria for method *setReportUser*:**
+	
+ - Is an integer number
+ - Range
+
+**Predicates for method *setReportUser*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is an integer number        |     Yes      |
+|          |      No     |
+|  Range        |   >= Integer.MAX_VALUE   and <= Integer.MIN_VALUE   |
+|          |     < Integer.MIN_VALUE      |
+|          |     > Integer.MAX_VALUE      |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     Integer.MIN_VALUE, Integer.MAX_VALUE       |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is an integer number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= Integer.MIN_VALUE   and <= Integer.MAX_VALUE| V |  setReportUser(1250);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoUserId|
+||||getReportUser() -> 1250 ||
+||< Integer.MIN_VALUE | I | setReportUser(Integer.MIN_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoUserId|
+||||getReportUser() -> Integer.MAX_VALUE ||
+|| > Integer.MAX_VALUE| I | setReportUser(Integer.MAX_VALUE+1)|it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoUserId|
+||||getReportUser() -> Integer.MIN_VALUE ||
+|No    || I | Not feasible||
 
 
 
