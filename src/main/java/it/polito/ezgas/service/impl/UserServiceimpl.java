@@ -103,7 +103,7 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer increaseUserReputation(Integer userId) throws InvalidUserException {
-		if (userId < 0)
+		if (userId < 0 || (!userRepository.exists(userId)))
 			throw new InvalidUserException("Invalid user ID");
 		User user = userRepository.getOne(userId);
 		if (user.getReputation() < 5) {
@@ -115,7 +115,7 @@ public class UserServiceimpl implements UserService {
 
 	@Override
 	public Integer decreaseUserReputation(Integer userId) throws InvalidUserException {
-		if (userId < 0)
+		if (userId < 0 || (!userRepository.exists(userId)))
 			throw new InvalidUserException("Invalid user ID");
 		User user = userRepository.getOne(userId);
 		if (user.getReputation() > -5) {
