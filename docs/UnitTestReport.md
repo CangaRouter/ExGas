@@ -2512,7 +2512,7 @@ Version:
 ### Code coverage report
 
 
-![Coverage](./Coverage_Screenshots/units_coverage.png)
+![Coverage](./Coverage_Screenshots/units_coverage_v2.png)
 
 ### Loop coverage analysis
 
