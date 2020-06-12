@@ -103,6 +103,7 @@ A mixed approach has been used for the integration testing
 |User , UserDto| unit tests|
 |GasStation, GasStationDto| unit tests|
 | PriceReportDto, IdPw, LoginDto | unit tests|
+
 ## Step 1
 | Classes  | JUnit test cases |
 |--|--|
@@ -361,8 +362,9 @@ it.polito.ezgas package assumed for all classes
 
 # Coverage of Non Functional Requirements
 
-No avaiable framework can tests non functional requirements
-NFR2 could be tested, but backend performance is  insufficent to estimate total performance
+No avaiable framework can tests non functional requirements.
+
+NFR2 could be tested, but backend performance is  insufficent to estimate total performance.
 
 
 
