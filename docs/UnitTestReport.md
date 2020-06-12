@@ -673,6 +673,43 @@ Version:
 |No   || I | Not feasible||
 
 
+### **Class *GasStation* - method *setPremiumDieselPrice***
+
+
+**Criteria for method *setPremiumDieselPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setPremiumDieselPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setPremiumDieselPrice(1.45);|it.polito.ezgas.GasStationDtoTests.TC1_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setPremiumDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationDtoTests.TC2_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> -Double.MAX_VALUE||
+|| > Double.MAX_VALUE| I | setPremiumDieselPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationDtoTests.TC3_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
+
  ### **Class *GasStation* - method *setCarSharing***
 
 
@@ -1575,6 +1612,43 @@ Version:
 ||||getMethanPrice() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
+
+### **Class *GasStationDto* - method *setPremiumDieselPrice***
+
+
+**Criteria for method *setPremiumDieselPrice*:**
+	
+ - Is a double number
+ - Range
+
+**Predicates for method *setPremiumDieselPrice*:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a double number        |     Yes      |
+|          |      No     |
+|  Range        |   >= -(Double.MAX_VALUE)  and <= Double.MAX_VALUE   |
+|          |     < (- Double.MAX_VALUE )     |
+|          |     > Double.MAX_VALUE     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|     Range     |     -Double.MAX_VALUE,  Double.MAX_VALUE          |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|-------|
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setPremiumDieselPrice(1.45);|it.polito.ezgas.GasStationDtoTests.TC1_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setPremiumDieselPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationDtoTests.TC2_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> -Double.MAX_VALUE||
+|| > Double.MAX_VALUE| I | setPremiumDieselPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationDtoTests.TC3_GasStationPremiumDieselPrice|
+||||getPremiumDieselPrice() -> Double.MAX_VALUE ||
+|No   | | I | Not feasible||
 
  ### **Class *GasStationDto* - method *setCarSharing***
 
