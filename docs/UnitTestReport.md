@@ -372,6 +372,35 @@ Version:
 ||| getHasMethane() -> true ||:
 |No    | I | Not feasible||
 
+### **Class *GasStation* - method *setHasPremiumDiesel***
+
+
+**Criteria for method *setHasPremiumDiesel*:**
+
+ - Is a boolean
+
+**Predicates for method *setHasPremiumDiesel:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a boolean       |     Yes      |
+|          |      No     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|
+|Yes    | V |  setHasMethane(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasPremiumDiesel|
+||| getHasPremiumDiesel() -> true ||:
+|No    | I | Not feasible||
+
+
 
 ### **Class *GasStation* - method *setLat***
 
@@ -1245,6 +1274,35 @@ Version:
 |Yes    | V |  setHasMethane(true);|it.polito.ezgas.GasStationDtoTests.TC1_GasStationHasMethane|
 ||| getHasMethane() -> true ||:
 |No    | I | Not feasible||
+
+### **Class *GasStationDto* - method *setHasPremiumDiesel***
+
+
+**Criteria for method *setHasPremiumDiesel*:**
+
+ - Is a boolean
+
+**Predicates for method *setHasPremiumDiesel:**
+
+| Criteria | Predicate |
+| -------- | --------- |
+|  Is a boolean       |     Yes      |
+|          |      No     |
+
+**Boundaries**:
+
+| Criteria | Boundary values |
+| -------- | --------------- |
+|          |                 |
+
+**Combination of predicates**:
+
+| Is a boolean  | Valid / Invalid | Description of the test case | JUnit test case |
+|-------|-------|-------|-------|
+|Yes    | V |  setHasMethane(true);|it.polito.ezgas.GasStationTests.TC1_GasStationHasPremiumDiesel|
+||| getHasPremiumDiesel() -> true ||:
+|No    | I | Not feasible||
+
 
 
 ### **Class *GasStationDto* - method *setLat***
