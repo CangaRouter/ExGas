@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import exception.GPSDataException;
+import exception.InvalidCarSharingException;
 import exception.InvalidGasStationException;
 import exception.InvalidGasTypeException;
 import exception.InvalidUserException;
@@ -45,10 +46,10 @@ public class GasStationServiceTests {
 
 	private GasStationServiceimpl gasStationService;
 
-	private GasStation gasStation = new GasStation("ENI", "corso Duca", true, true, true, true, true, "Enjoy", 40.0005,
-			25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-	private GasStationDto gasStationDto = new GasStationDto(null, "ENI", "corso Duca", true, true, true, true, true,
-			"Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+	private GasStation gasStation = new GasStation("ENI", "corso Duca", true, true, true, true, true, true,"Enjoy", 40.0005,
+			25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+	private GasStationDto gasStationDto = new GasStationDto(null, "ENI", "corso Duca", true, true, true, true, true,true,
+			"Enjoy", 40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 	private User user = new User("nome", "password", "email", 0);
 
 	@Before
@@ -107,10 +108,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC1_saveGasStation() {
 		// try to save a gas station which has no fuels -> ERROR?
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false,false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		when(gasStationRepositoryMock.saveAndFlush(any(GasStation.class))).thenReturn(gs);
 		when(gasStationConverterMock.toGasStation(any(GasStationDto.class))).thenReturn(gs);
 		when(gasStationConverterMock.toGasStationDto(any(GasStation.class))).thenReturn(gsDto);
@@ -133,10 +134,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC2_saveGasStation() {
 		// saving without errors (all prices and no ID)
-		GasStation gs = new GasStation("ENI", "corso Duca", true, true, true, true, true, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, true, true, true, true, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, true, true, true, true,true, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, true, true, true, true,true, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
 		when(gasStationRepositoryMock.saveAndFlush(any(GasStation.class))).thenReturn(gs);
 		when(gasStationConverterMock.toGasStation(any(GasStationDto.class))).thenReturn(gs);
 		when(gasStationConverterMock.toGasStationDto(any(GasStation.class))).thenReturn(gsDto);
@@ -157,10 +158,10 @@ public class GasStationServiceTests {
 		// try to update an already existing gas station
 		GasStationDto myDto = new GasStationDto(1, gasStationDto.getGasStationName(),
 				gasStationDto.getGasStationAddress(), gasStationDto.getHasDiesel(), gasStationDto.getHasSuper(),
-				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),
+				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(), gasStationDto.getHasPremiumDiesel(),
 				gasStationDto.getCarSharing(), gasStationDto.getLat(), gasStationDto.getLon(),
 				gasStationDto.getDieselPrice(), gasStationDto.getSuperPrice(), gasStationDto.getSuperPlusPrice(),
-				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getReportUser(),
+				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getPremiumDieselPrice(),gasStationDto.getReportUser(),
 				gasStationDto.getReportTimestamp(), gasStationDto.getReportDependability());
 		Boolean thrown = false;
 		try {
@@ -178,10 +179,10 @@ public class GasStationServiceTests {
 		// try to update an already existing gas station with wrong long and/or lat
 		GasStationDto myDto = new GasStationDto(1, gasStationDto.getGasStationName(),
 				gasStationDto.getGasStationAddress(), gasStationDto.getHasDiesel(), gasStationDto.getHasSuper(),
-				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),
+				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),gasStationDto.getHasPremiumDiesel(),
 				gasStationDto.getCarSharing(), gasStationDto.getLat(), gasStationDto.getLon(),
 				gasStationDto.getDieselPrice(), gasStationDto.getSuperPrice(), gasStationDto.getSuperPlusPrice(),
-				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getReportUser(),
+				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getPremiumDieselPrice(),gasStationDto.getReportUser(),
 				gasStationDto.getReportTimestamp(), gasStationDto.getReportDependability());
 		myDto.setLat(-100.0);
 		myDto.setLon(200.0);
@@ -201,10 +202,10 @@ public class GasStationServiceTests {
 		// try to update an already existing gas station with wrong price (negative)
 		GasStationDto myDto = new GasStationDto(1, gasStationDto.getGasStationName(),
 				gasStationDto.getGasStationAddress(), gasStationDto.getHasDiesel(), gasStationDto.getHasSuper(),
-				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),
+				gasStationDto.getHasSuperPlus(), gasStationDto.getHasGas(), gasStationDto.getHasMethane(),gasStationDto.getHasPremiumDiesel(),
 				gasStationDto.getCarSharing(), gasStationDto.getLat(), gasStationDto.getLon(),
 				gasStationDto.getDieselPrice(), gasStationDto.getSuperPrice(), gasStationDto.getSuperPlusPrice(),
-				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(), gasStationDto.getReportUser(),
+				gasStationDto.getGasPrice(), gasStationDto.getMethanePrice(),gasStationDto.getPremiumDieselPrice(), gasStationDto.getReportUser(),
 				gasStationDto.getReportTimestamp(), gasStationDto.getReportDependability());
 		myDto.setDieselPrice(-1.69);
 		Boolean thrown = false;
@@ -433,12 +434,14 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "null", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "null", "null").isEmpty(),
 					false);
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "null", "null"), listDto);
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "null", "null"), listDto);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -448,8 +451,8 @@ public class GasStationServiceTests {
 	public void TC2_getGasStationsWithCoordinates() {
 		// Select ANY fuel type and car sharing (Enjoy) -> one gas station matches (just
 		// inserted)
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -459,11 +462,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "null", "Enjoy").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "null", "Enjoy").isEmpty(),
 					false);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -472,8 +477,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC3_getGasStationsWithCoordinates() {
 		// ANY fuel type and car sharing (Car2GO) -> no gas station matches
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -483,11 +488,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "null", "Car2GO").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, 1,"null", "Car2GO").isEmpty(),
 					true);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -506,10 +513,12 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "d1esel!!!!", "null");
+			gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, 1,"d1esel!!!!", "null");
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, true);
@@ -518,8 +527,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC5_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->diesel YES) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -529,11 +538,14 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "diesel", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "diesel", "null").isEmpty(),
 					false);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}
+		catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -542,8 +554,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC6_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->diesel NO) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -553,11 +565,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "diesel", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, 1,"diesel", "null").isEmpty(),
 					true);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -566,8 +580,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC7_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->super YES) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, true, false, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, true, false, false, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -577,11 +591,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "super", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "super", "null").isEmpty(),
 					false);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -590,8 +606,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC8_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->super NO) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -601,11 +617,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "super", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "super", "null").isEmpty(),
 					true);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -614,8 +632,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC9_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->methane YES) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, true, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, true, false,"Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -625,11 +643,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "methane", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "methane", "null").isEmpty(),
 					false);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -638,8 +658,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC10_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->methane NO) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, false,"Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -649,11 +669,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "methane", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "methane", "null").isEmpty(),
 					true);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -662,8 +684,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC11_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->gas YES) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, true, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, true, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -673,11 +695,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "gas", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "gas", "null").isEmpty(),
 					false);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -686,8 +710,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC12_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->diesel NO) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -697,11 +721,13 @@ public class GasStationServiceTests {
 		when(gasStationConverterMock.toGasStationDtoList(list)).thenReturn(listDto);
 		Boolean thrown = false;
 		try {
-			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "gas", "null").isEmpty(),
+			assertEquals(gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "gas", "null").isEmpty(),
 					true);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -710,8 +736,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC13_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->superplus YES) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, true, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, true, false, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -722,11 +748,13 @@ public class GasStationServiceTests {
 		Boolean thrown = false;
 		try {
 			assertEquals(
-					gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "superplus", "null").isEmpty(),
+					gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, 1,"superplus", "null").isEmpty(),
 					false);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -735,8 +763,8 @@ public class GasStationServiceTests {
 	@Test
 	public void TC14_getGasStationsWithCoordinates() {
 		// non-null fuel type (VALID->superplus NO) and ANY car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -747,11 +775,13 @@ public class GasStationServiceTests {
 		Boolean thrown = false;
 		try {
 			assertEquals(
-					gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010, "superplus", "null").isEmpty(),
+					gasStationService.getGasStationsWithCoordinates(40.0005, 25.0010,1, "superplus", "null").isEmpty(),
 					true);
 		} catch (GPSDataException e) {
 			thrown = true;
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -769,6 +799,8 @@ public class GasStationServiceTests {
 			assertEquals(gasStationService.getGasStationsWithoutCoordinates("null", "null").isEmpty(), true);
 		} catch (InvalidGasTypeException e) {
 			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
 		}
 		assertEquals(thrown, true);
 	}
@@ -776,10 +808,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC2_getGasStationsWithoutCoordinates() {
 		// null fuel type and SET car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, false,"Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -791,6 +823,8 @@ public class GasStationServiceTests {
 			assertEquals(gasStationService.getGasStationsWithoutCoordinates("null", "Enjoy").isEmpty(), false);
 		} catch (InvalidGasTypeException e) {
 			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
 		}
 		assertEquals(thrown, false);
 	}
@@ -798,10 +832,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC3_getGasStationsWithoutCoordinates() {
 		// SET fuel type and SET car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false, "Enjoy", 40.0005,
-				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", false, false, false, false, false,false, "Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", false, false, false, false, false,false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
 		Boolean thrown = false;
@@ -812,6 +846,8 @@ public class GasStationServiceTests {
 			assertEquals(gasStationService.getGasStationsWithoutCoordinates("diesel", "Enjoy").isEmpty(), true);
 		} catch (InvalidGasTypeException e) {
 			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
 		}
 		assertEquals(thrown, false);
 	}
@@ -819,10 +855,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC4_getGasStationsWithoutCoordinates() {
 		// SET fuel type and null car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, false,"Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, false,"Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
 		Boolean thrown = false;
@@ -833,6 +869,8 @@ public class GasStationServiceTests {
 			assertEquals(gasStationService.getGasStationsWithoutCoordinates("super", "Enjoy").isEmpty(), true);
 		} catch (InvalidGasTypeException e) {
 			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
 		}
 		assertEquals(thrown, false);
 	}
@@ -840,10 +878,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC5_getGasStationsWithoutCoordinates() {
 		// SET fuel type and null car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false,false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
 		Boolean thrown = false;
@@ -854,6 +892,8 @@ public class GasStationServiceTests {
 			assertEquals(gasStationService.getGasStationsWithoutCoordinates("methane", "Enjoy").isEmpty(), true);
 		} catch (InvalidGasTypeException e) {
 			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
 		}
 		assertEquals(thrown, false);
 	}
@@ -861,10 +901,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC6_getGasStationsWithoutCoordinates() {
 		// SET fuel type and null car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false,false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
 		Boolean thrown = false;
@@ -875,6 +915,8 @@ public class GasStationServiceTests {
 			assertEquals(gasStationService.getGasStationsWithoutCoordinates("gas", "Enjoy").isEmpty(), true);
 		} catch (InvalidGasTypeException e) {
 			thrown = true;
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
 		}
 		assertEquals(thrown, false);
 	}
@@ -882,10 +924,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC7_getGasStationsWithoutCoordinates() {
 		// SET fuel type and null car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false,false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false,false, "Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
 		Boolean thrown = false;
@@ -898,6 +940,8 @@ public class GasStationServiceTests {
 			thrown = true;
 			System.out.println(e.getMessage());
 
+		}catch (InvalidCarSharingException e) {
+			thrown = true;
 		}
 		assertEquals(thrown, false);
 	}
@@ -905,10 +949,10 @@ public class GasStationServiceTests {
 	@Test
 	public void TC8_getGasStationsWithoutCoordinates() {
 		// SET fuel type and SET car sharing
-		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, "Enjoy", 40.0005, 25.0010,
-				0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
-		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, "Enjoy",
-				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "1590345000", 0.88);
+		GasStation gs = new GasStation("ENI", "corso Duca", true, false, false, false, false, false, "Enjoy", 40.0005, 25.0010,
+				0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
+		GasStationDto gsDto = new GasStationDto(null, "ENI", "corso Duca", true, false, false, false, false, false,"Enjoy",
+				40.0005, 25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-20", 0.88);
 		List<GasStation> list = new ArrayList<GasStation>();
 		list.add(gs);
 		List<GasStationDto> listDto = new ArrayList<GasStationDto>();
@@ -919,6 +963,8 @@ public class GasStationServiceTests {
 		try {
 			assertEquals(gasStationService.getGasStationsWithoutCoordinates("diesel", "null").isEmpty(), false);
 		} catch (InvalidGasTypeException e) {
+			thrown = true;
+		}catch (InvalidCarSharingException e) {
 			thrown = true;
 		}
 		assertEquals(thrown, false);
@@ -942,7 +988,7 @@ public class GasStationServiceTests {
 		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(user);
 		Boolean thrown = false;
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95,1.0, 1);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {
@@ -960,7 +1006,7 @@ public class GasStationServiceTests {
 		when(userRepositoryMock.findOne(-1)).thenReturn(null);
 		Boolean thrown = false;
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, -1);
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95,1.0, -1);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {
@@ -978,7 +1024,7 @@ public class GasStationServiceTests {
 		when(userRepositoryMock.findOne(1)).thenReturn(null);
 		Boolean thrown = false;
 		try {
-			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+			gasStationService.setReport(1, 0.99, 0.98, 0.97, 0.96, 0.95,1.0, 1);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {
@@ -996,7 +1042,7 @@ public class GasStationServiceTests {
 		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(user);
 		Boolean thrown = false;
 		try {
-			gasStationService.setReport(-1, 0.99, 0.98, 0.97, 0.96, 0.95, 1);
+			gasStationService.setReport(-1, 0.99, 0.98, 0.97, 0.96, 0.95,1.0, 1);
 		} catch (InvalidGasStationException e) {
 			thrown = true;
 		} catch (PriceException e) {

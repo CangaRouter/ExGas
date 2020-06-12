@@ -9,8 +9,8 @@ import it.polito.ezgas.entity.User;
 @RunWith(SpringRunner.class)
 
 public class GasStationTests {
-	private GasStation gs = new GasStation("Eni - Station 24", "Corso Palermo, 12 Torino", true, true, true, true, true,
-			"Enjoy", 41.023, 40.069, 1.17, 1.57, 1.69, 0.95, 0.89, 1, "2020-05-12T01:00:00", 2.34);
+	private GasStation gs = new GasStation("Eni - Station 24", "Corso Palermo, 12 Torino", true, true, true, true,true, true,
+			"Enjoy", 41.023, 40.069, 1.17, 1.57, 1.69, 0.95, 0.89,1.32,1, "2020-05-12T01:00:00", 2.34);
 	private GasStation emptyGs = new GasStation();
 
 	@Test
