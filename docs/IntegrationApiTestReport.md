@@ -16,8 +16,9 @@ Version:
 - [Dependency graph](#dependency-graph)
 - [Integration approach](#integration-approach)
 - [Tests](#tests)
+  - [Step 0](#step-0)
   - [Step 1](#step-1)
-  - [Step 2 API Tests](#step-n-api-tests)
+  - [Step 2 API Tests](#step-2-api-tests)
 - [Scenarios](#scenarios)
   - [Scenario UC1.1](#scenario-uc11)
   - [Scenario UC1.2](#scenario-uc12)
@@ -101,7 +102,7 @@ A mixed approach has been used for the integration testing
 |--|--|
 |User , UserDto| unit tests|
 |GasStation, GasStationDto| unit tests|
-
+| PriceReportDto, IdPw, LoginDto | unit tests|
 ## Step 1
 | Classes  | JUnit test cases |
 |--|--|
