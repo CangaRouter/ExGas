@@ -315,7 +315,18 @@ public class UserServiceAPITests {
 		}
 		assertFalse(thrown);
 	}
-
+	@Test
+	public void TC4_increaseUserReputation() {
+		// Test: try to increase reputation for a user
+		Boolean thrown = false;
+		
+		try {
+			assertEquals(userService.increaseUserReputation(-1), 4, 0);
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertTrue(thrown);
+	}
 	@Test
 	public void TC1_decreaseUserReputation() {
 		// Test: try to decrease reputation of a user with a negative id
@@ -355,5 +366,17 @@ public class UserServiceAPITests {
 			thrown = true;
 		}
 		assertFalse(thrown);
+	}
+	@Test
+	public void TC4_decreaseUserReputation() {
+		// Test: try to decrease reputation of a user
+		Boolean thrown = false;
+		
+		try {
+			assertEquals(userService.decreaseUserReputation(-1), -4, 0);
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertTrue(thrown);
 	}
 }

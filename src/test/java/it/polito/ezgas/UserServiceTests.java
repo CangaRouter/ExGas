@@ -295,6 +295,7 @@ public class UserServiceTests {
 
 		Boolean thrown = false;
 		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(user);
+		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(true);
 		UserService userService = new UserServiceimpl(userRepositoryMock, userConverterMock);
 		try {
 			assertEquals(userService.increaseUserReputation(1), 5, 0);
@@ -311,6 +312,7 @@ public class UserServiceTests {
 		User u = new User();
 		Boolean thrown = false;
 		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(u);
+		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(true);
 		u.setReputation(3);
 		UserService userService = new UserServiceimpl(userRepositoryMock, userConverterMock);
 		try {
@@ -319,6 +321,23 @@ public class UserServiceTests {
 			thrown = true;
 		}
 		assertFalse(thrown);
+	}
+	@Test
+	public void TC4_increaseUserReputation() {
+		// Test: try to increase reputation for a user
+
+		User u = new User();
+		Boolean thrown = false;
+		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(u);
+		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(false);
+		u.setReputation(3);
+		UserService userService = new UserServiceimpl(userRepositoryMock, userConverterMock);
+		try {
+			assertEquals(userService.increaseUserReputation(1), 4, 0);
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertTrue(thrown);
 	}
 
 	@Test
@@ -343,6 +362,7 @@ public class UserServiceTests {
 
 		Boolean thrown = false;
 		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(user);
+		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(true);
 		user.setReputation(-5);
 		UserService userService = new UserServiceimpl(userRepositoryMock, userConverterMock);
 		try {
@@ -359,6 +379,7 @@ public class UserServiceTests {
 		User u = new User();
 		Boolean thrown = false;
 		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(u);
+		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(true);
 		u.setReputation(-3);
 		UserService userService = new UserServiceimpl(userRepositoryMock, userConverterMock);
 		try {
@@ -367,5 +388,21 @@ public class UserServiceTests {
 			thrown = true;
 		}
 		assertFalse(thrown);
+	}
+	@Test
+	public void TC4_decreaseUserReputation() {
+		// Test: try to decrease reputation of a user
+		User u = new User();
+		Boolean thrown = false;
+		when(userRepositoryMock.getOne(any(Integer.class))).thenReturn(u);
+		when(userRepositoryMock.exists(any(Integer.class))).thenReturn(false);
+		u.setReputation(-3);
+		UserService userService = new UserServiceimpl(userRepositoryMock, userConverterMock);
+		try {
+			assertEquals(userService.decreaseUserReputation(1), -4, 0);
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertTrue(thrown);
 	}
 }
