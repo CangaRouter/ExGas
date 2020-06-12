@@ -522,7 +522,35 @@ Class GasStationDto{
  double getLon() 
  String getCarSharing()
 }
+Class PriceReportDto{
+ Integer gasStationId
+ double dieselPrice
+ double superPrice
+ double superPlusPrice
+ double gasPrice
+ double methanePrice
+ double premiumDieselPrice
+ Integer userId
+ 
+ 
+ void setGasStationId()
+ void setDieselPrice()
+ void setSuperPrice()
+ void setSuperPlusPrice()
+ void setGasPrice()
+ void setMethanePrice()
+ void setDieselPremiumPrice()
+ void setUserId()
+ Integer getGasStationId()
+ double getDieselPrice()
+ double getSuperPrice()
+ double getSuperPlusPrice()
+ double getGasPrice()
+ double getMethanePrice()
+ double getDieselPremium()
+ Integer getUserID()
 
+}
 }
 
 Package it.polito.ezgas.service{
@@ -598,9 +626,7 @@ GasStationDto "*"- GasStationServiceImp
 UserController -- UserService
 GasStationController -- GasStationService
 
-
 @enduml
-
 ```
 
 
