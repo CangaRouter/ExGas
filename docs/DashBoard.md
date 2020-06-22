@@ -11,10 +11,10 @@ Report effort figures from the timesheet or timesheetCR document, compute size f
 | Measure| Value |
 |---|---|
 |effort E (report here effort in person hours, for New development, from timesheet)  | 92 |
-|size S (report here size in LOC of all code written, excluding test cases)  | 726|
-|productivity = S/E |8|
+|size S (report here size in LOC of all code written, excluding test cases)  | 1631|
+|productivity = S/E |18|
 |defects after release D (number of defects found running official acceptance tests and fixed in CR0) |7|
-|defect density = D/S|0,009|
+|defect density = D/S|0.004|
 | effort for non-quality ENQ (effort for CR0, or effort to fix defects found running official acceptance tests, from timesheetCR) |1|
 | effort for non quality, relative = ENQ / E |0,01|
 
