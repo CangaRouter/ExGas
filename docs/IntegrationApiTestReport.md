@@ -33,6 +33,8 @@ Version:
   - [Scenario UC6.1](#scenario-uc61)
   - [Scenario UC7.1](#scenario-uc71)
   - [Scenario UC7.2](#scenario-uc72)
+  - [Scenario UC7.3](#scenario-uc73)
+  - [Scenario UC7.4](#scenario-uc74)
   - [Scenario UC8.1](#scenario-uc81)
   - [Scenario UC8.2](#scenario-uc82)
   - [Scenario UC8.3](#scenario-uc83)
@@ -256,7 +258,7 @@ A mixed approach has been used for the integration testing
 | ------------- |:-------------:| 
 |  Precondition     | Gas Station GS exists |
 |                    | User U is registered in the system  |
-| | G has an attached price list   |
+| | G has an attached price list uploaded by U2  |
 |  Post condition     |   Price list P is updated       |
 |                     | P.time_tag is set to the current timestamp of the system |
 | | P is attached to G |
@@ -265,10 +267,49 @@ A mixed approach has been used for the integration testing
 |  1     |  The user selects a GS |
 |  2     |  The user select new report  |   
 |  3     |  User inserts prices for GS(only the available ones) |
-| 4 |System checks that the updated informations are valid|
-|5| GS updated|
+|  4     |  System checks that U.trust_level >= U2.trust_level |
+| 5 |System checks that the updated informations are valid|
+|6| GS updated|
+
 
 ## Scenario UC7.2
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas Station GS exists |
+|                    | User U is registered in the system  |
+| | G has an attached price list uploaded by U2  |
+|  Post condition     |   Price list P is updated       |
+|                     | P.time_tag is set to the current timestamp of the system |
+| | P is attached to G |
+| | U is attached to P     |
+| Step#        | Description  |
+|  1     |  The user selects a GS |
+|  2     |  The user select new report  |   
+|  3     |  User inserts prices for GS(only the available ones) |
+|  4     |  U.trust_level < U2.trust_level && (today - P.time_tag ) > 4 days  |
+| 5 |System checks that the updated informations are valid|
+|6| GS updated|
+
+## Scenario UC7.3
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas Station GS exists |
+|                    | User U is registered in the system  |
+| | G has an attached price list uploaded by U2  |
+|  Post condition     |   Price list P is updated       |
+|                     | P.time_tag is set to the current timestamp of the system |
+| | P is attached to G |
+| | U is attached to P     |
+| Step#        | Description  |
+|  1     |  The user selects a GS |
+|  2     |  The user select new report  |   
+|  3     |  User inserts prices for GS(only the available ones) |
+|  4     |  U.trust_level < U2.trust_level && (today - P.time_tag ) < 4 days  |
+|5| GS not updated|
+
+## Scenario UC7.4
 
 | Scenario |  name |
 | ------------- |:-------------:| 
