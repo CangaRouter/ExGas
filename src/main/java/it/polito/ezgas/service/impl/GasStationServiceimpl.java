@@ -78,27 +78,27 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
-		if (gasStationDto.getCarSharing().equals("null")) {
+		if (gasStationDto.getCarSharing() != null && gasStationDto.getCarSharing().equals("null")) {
 			gasStationDto.setCarSharing(null);
 		}
 		this.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon());
 		List<Double> prices = new ArrayList<Double>();
-		if (gasStationDto.getHasDiesel()) {
+		if (gasStationDto.getHasDiesel() && gasStationDto.getDieselPrice()!=null) {
 			prices.add(gasStationDto.getDieselPrice());
 		}
-		if (gasStationDto.getHasMethane()) {
+		if (gasStationDto.getHasMethane()&& gasStationDto.getMethanePrice()!=null) {
 			prices.add(gasStationDto.getMethanePrice());
 		}
-		if (gasStationDto.getHasGas()) {
+		if (gasStationDto.getHasGas()&& gasStationDto.getGasPrice()!=null) {
 			prices.add(gasStationDto.getGasPrice());
 		}
-		if (gasStationDto.getHasSuper()) {
+		if (gasStationDto.getHasSuper()&& gasStationDto.getSuperPrice()!=null) {
 			prices.add(gasStationDto.getSuperPrice());
 		}
-		if (gasStationDto.getHasSuperPlus()) {
+		if (gasStationDto.getHasSuperPlus()&& gasStationDto.getSuperPlusPrice()!=null) {
 			prices.add(gasStationDto.getSuperPlusPrice());
 		}
-		if (gasStationDto.getHasPremiumDiesel()) {
+		if (gasStationDto.getHasPremiumDiesel()&& gasStationDto.getPremiumDieselPrice()!=null) {
 			prices.add(gasStationDto.getPremiumDieselPrice());
 		}
 		this.checkPriceList(prices);
