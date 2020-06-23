@@ -391,8 +391,10 @@ it.polito.ezgas package assumed for all classes
 | UC4.1 | FR3.1, FR4 |GasStationServiceAPITests.TC1_saveGasStation, GasStationServiceTests.TC1_saveGasStation,GasStationConverterTest.testToGasStationDto, GasStationConverterTest.testToGasStation |
 | UC5.1| FR3.1, FR4 |GasStationServiceAPITests.TC1_saveGasStation, GasStationServiceTests.TC1_saveGasStation,GasStationConverterTest.testToGasStationDto, GasStationConverterTest.testToGasStation|
 | UC6.1| FR3.2, FR3.3 | GasStationServiceAPITests.TC1_deleteGasStation, GasStationServiceTests.TC1_deleteGasStation |
-| UC7.1| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
-| UC7.2| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
+| UC7.1| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC1_setReport, GasStationServiceTests.TC1_setReport |
+| UC7.2| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC3_setReport, GasStationServiceTests.TC3_setReport |
+| UC7.3| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC4_setReport, GasStationServiceTests.TC4_setReport |
+| UC7.4| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
 | UC8.1| FR4.2 |GasStationServiceAPITests.TC2_getGasStationByProximity, GasStationServiceTests.TC1_getGasStationByProximity,GasStationConverterTest.testToGasStationDtoList  |
 | UC8.2| FR4.5|GasStationServiceAPITests.TC8_getGasStationWithCoordinates, GasStationServiceTests.TC1_getGasWithCooordinates GasStationConverterTest.testToGasStationDtoList  |
 | UC8.3 | FR4.3, FR4.4|GasStationServiceAPITests.TC7_getGasStationWithoutCoordinates, GasStationServiceTests.TC1_getGasWithoutCooordinates GasStationConverterTest.testToGasStationDtoList |
