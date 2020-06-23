@@ -75,8 +75,8 @@ public class TestController {
 				+ "\"gasStationAddress\":\"Via Attilio Spinelli, 102 Latiano BR 72022\"," + "\"carSharing\":\"Enjoy\","
 				+ "\"hasDiesel\":\"true\"," + "\"hasSuper\":\"true\"," + "\"hasSuperPlus\":\"true\","
 				+ "\"hasGas\":\"true\"," + "\"hasMethane\":\"true\"," + "\"lat\":40.5555662," + "\"lon\":17.715888,"
-				+ "\"dieselPrice\":-1," + "\"superPrice\":-1," + "\"superPlusPrice\":-1," + "\"gasPrice\":-1,"
-				+ "\"methanePrice\":-1," + "\"reportUser\":-1," + "\"reportTimestamp\":\"2020-05-29\"}";
+				+ "\"dieselPrice\":0," + "\"superPrice\":0," + "\"superPlusPrice\":0," + "\"gasPrice\":0,"
+				+ "\"methanePrice\":0," + "\"reportUser\":0," + "\"reportTimestamp\":\"2020-05-29\"}";
 
 		StringEntity entity = new StringEntity(json);
 		httpPost.setEntity(entity);
@@ -147,7 +147,7 @@ public class TestController {
 	public void TC04_TestgetGasStationByProximity() throws ClientProtocolException, IOException { // /searchGasStationByProximity
 
 		HttpUriRequest request = new HttpGet(
-				"http://localhost:8080/gasstation/searchGasStationByProximity/40.5555662/17.715888/");
+				"http://localhost:8080/gasstation/searchGasStationByProximity/40.5555662/17.715888/1");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 
 		System.out.println("--------> Resp getAll: " + response.getEntity().toString());
@@ -191,7 +191,7 @@ public class TestController {
 	@Test
 	public void TC07_TestgetGasStationsWithCoordinates() throws ClientProtocolException, IOException { // /getGasStationsWithCoordinates
 		HttpUriRequest request = new HttpGet(
-				"http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.5555662/17.715888/null/Enjoy");
+				"http://localhost:8080/gasstation/getGasStationsWithCoordinates/40.5555662/17.715888/1/null/Enjoy");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 
 		System.out.println("--------> Resp getAll: " + response.getEntity().toString());
@@ -234,9 +234,16 @@ public class TestController {
 	public void TC09_TestsetReport() throws ClientProtocolException, IOException { // /setGasStationReport
 		assert (newGsId != null);
 		CloseableHttpClient client = HttpClients.createDefault();
-		HttpPost httpPost = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/" + newGsId.toString()
-				+ "/1.1/1.2/1.3/1.4/1.5/1");
+		HttpPost httpPost = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/");
+		String json = "{\"gasStationId\":\""+newGsId+"\","
+				+ "\"dieselPrice\":1.1," + "\"superPrice\":1.16,"
+				+ "\"superPrice\":1.29," + "\"superPlusPrice\":1.9," + "\"gasPrice\":0.87,"
+				+ "\"methanePrice\":0.96," + "\"premiumDieselPrice\":1.36," + "\"userId\":1," + "\"lon\":17.715888,"
+				+ "\"dieselPrice\":0," + "\"superPrice\":0," + "\"superPlusPrice\":0," + "\"gasPrice\":0,"
+				+ "\"methanePrice\":0," + "\"reportUser\":0," + "\"reportTimestamp\":\"2020-05-29\"}";
 
+		StringEntity entity = new StringEntity(json);
+		httpPost.setEntity(entity);
 		httpPost.setHeader("Accept", "application/json");
 		httpPost.setHeader("Content-type", "application/json");
 
