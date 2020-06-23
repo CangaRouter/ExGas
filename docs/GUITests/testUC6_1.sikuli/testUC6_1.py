@@ -6,4 +6,4 @@ click("1591049923425.png")
 for n in range(30):
     type(Key.DOWN)
 click("1591057152064.png")
-find("1591057200566.png")
+find("1592930451230.png")
