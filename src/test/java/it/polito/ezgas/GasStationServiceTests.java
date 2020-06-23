@@ -25,10 +25,16 @@ import it.polito.ezgas.repository.UserRepository;
 import it.polito.ezgas.service.impl.GasStationServiceimpl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -1178,9 +1184,71 @@ public class GasStationServiceTests {
 		}
 		assertEquals(thrown, true);
 	}
-
+	
+	@Test
+	public void TC3_setReport() {
+		// existing user has lower trust level but difference in days is >4
+		User user2= new User("nome2", "password2", "email2", -1);
+		user2.setUserId(2);
+		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(gasStation);
+		when(userRepositoryMock.findOne(1)).thenReturn(user);
+		when(userRepositoryMock.findOne(2)).thenReturn(user2);
+		Boolean thrown = false;
+		try {
+			gasStationService.setReport(1, 3.0, 3.0, 3.0, 3.0, 3.0,3.0, 2);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertEquals(gasStation.getDieselPrice(), 3.0,0);
+		assertEquals(gasStation.getPremiumDieselPrice(), 3.0,0);
+		assertEquals(gasStation.getSuperPrice(), 3.0,0);
+		assertEquals(gasStation.getSuperPlusPrice(), 3.0,0);
+		assertEquals(gasStation.getGasPrice(), 3.0,0);
+		assertEquals(gasStation.getMethanePrice(), 3.0,0);
+		assertEquals(gasStation.getReportUser(), 2,0);
+		assertFalse(thrown);
+	}
+	
 	@Test
 	public void TC4_setReport() {
+		// existing user has lower trust level and gs is not updated
+		User user2= new User("nome2", "password2", "email2", -1);
+		DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
+		GasStation gasStation2 = new GasStation("ENI", "corso Duca", true, true, true, true, true, true,"Enjoy", 40.0005,
+				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99, 0.99, 1, "", 0.88);
+		gasStation2.setReportTimestamp(formatter.format(new Date(System.currentTimeMillis())));
+		gasStation2.setUser(user);
+		user2.setUserId(2);
+		when(gasStationRepositoryMock.findOne(1)).thenReturn(gasStation2);
+		when(userRepositoryMock.findOne(1)).thenReturn(user);
+		when(userRepositoryMock.findOne(2)).thenReturn(user2);
+		Boolean thrown = false;
+		try {
+			gasStationService.setReport(1, 3.0, 3.0, 3.0, 3.0, 3.0,3.0, 2);
+		} catch (InvalidGasStationException e) {
+			thrown = true;
+		} catch (PriceException e) {
+			thrown = true;
+		} catch (InvalidUserException e) {
+			thrown = true;
+		}
+		assertEquals(gasStation2.getDieselPrice(), 0.99,0);
+		assertEquals(gasStation2.getPremiumDieselPrice(), 0.99,0);
+		assertEquals(gasStation2.getSuperPrice(), 0.99,0);
+		assertEquals(gasStation2.getSuperPlusPrice(), 0.99,0);
+		assertEquals(gasStation2.getGasPrice(), 0.99,0);
+		assertEquals(gasStation2.getMethanePrice(), 0.99,0);
+		assertEquals(gasStation2.getReportUser(), 1,0);
+		assertFalse(thrown);
+	}
+	
+
+	@Test
+	public void TC5_setReport() {
 		// non existing user
 		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(gasStation);
 		when(userRepositoryMock.findOne(1)).thenReturn(null);
@@ -1198,7 +1266,7 @@ public class GasStationServiceTests {
 	}
 
 	@Test
-	public void TC5_setReport() {
+	public void TC6_setReport() {
 		// invalid gas station
 		when(gasStationRepositoryMock.findOne(any(Integer.class))).thenReturn(null);
 		when(userRepositoryMock.findOne(any(Integer.class))).thenReturn(user);

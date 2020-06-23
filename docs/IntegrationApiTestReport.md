@@ -33,6 +33,8 @@ Version:
   - [Scenario UC6.1](#scenario-uc61)
   - [Scenario UC7.1](#scenario-uc71)
   - [Scenario UC7.2](#scenario-uc72)
+  - [Scenario UC7.3](#scenario-uc73)
+  - [Scenario UC7.4](#scenario-uc74)
   - [Scenario UC8.1](#scenario-uc81)
   - [Scenario UC8.2](#scenario-uc82)
   - [Scenario UC8.3](#scenario-uc83)
@@ -256,7 +258,7 @@ A mixed approach has been used for the integration testing
 | ------------- |:-------------:| 
 |  Precondition     | Gas Station GS exists |
 |                    | User U is registered in the system  |
-| | G has an attached price list   |
+| | G has an attached price list uploaded by U2  |
 |  Post condition     |   Price list P is updated       |
 |                     | P.time_tag is set to the current timestamp of the system |
 | | P is attached to G |
@@ -265,12 +267,51 @@ A mixed approach has been used for the integration testing
 |  1     |  The user selects a GS |
 |  2     |  The user select new report  |   
 |  3     |  User inserts prices for GS(only the available ones) |
-| 4 |System checks that the updated informations are valid|
-|5| GS updated|
+|  4     |  System checks that U.trust_level >= U2.trust_level |
+| 5 |System checks that the updated informations are valid|
+|6| GS updated|
+
 
 ## Scenario UC7.2
 
 | Scenario |  Price list is created |
+| ------------- |:-------------:| 
+|  Precondition     | Gas Station GS exists |
+|                    | User U is registered in the system  |
+| | G has an attached price list uploaded by U2  |
+|  Post condition     |   Price list P is updated       |
+|                     | P.time_tag is set to the current timestamp of the system |
+| | P is attached to G |
+| | U is attached to P     |
+| Step#        | Description  |
+|  1     |  The user selects a GS |
+|  2     |  The user select new report  |   
+|  3     |  User inserts prices for GS(only the available ones) |
+|  4     |  U.trust_level < U2.trust_level && (today - P.time_tag ) > 4 days  |
+| 5 |System checks that the updated informations are valid|
+|6| GS updated|
+
+## Scenario UC7.3
+
+| Scenario |  name |
+| ------------- |:-------------:| 
+|  Precondition     | Gas Station GS exists |
+|                    | User U is registered in the system  |
+| | G has an attached price list uploaded by U2  |
+|  Post condition     |   Price list P is updated       |
+|                     | P.time_tag is set to the current timestamp of the system |
+| | P is attached to G |
+| | U is attached to P     |
+| Step#        | Description  |
+|  1     |  The user selects a GS |
+|  2     |  The user select new report  |   
+|  3     |  User inserts prices for GS(only the available ones) |
+|  4     |  U.trust_level < U2.trust_level && (today - P.time_tag ) < 4 days  |
+|5| GS not updated|
+
+## Scenario UC7.4
+
+| Scenario |  name |
 | ------------- |:-------------:| 
 |  Precondition     | Gas Station GS exists |
 |                    | User U is registered in the system  |
@@ -350,8 +391,10 @@ it.polito.ezgas package assumed for all classes
 | UC4.1 | FR3.1, FR4 |GasStationServiceAPITests.TC1_saveGasStation, GasStationServiceTests.TC1_saveGasStation,GasStationConverterTest.testToGasStationDto, GasStationConverterTest.testToGasStation |
 | UC5.1| FR3.1, FR4 |GasStationServiceAPITests.TC1_saveGasStation, GasStationServiceTests.TC1_saveGasStation,GasStationConverterTest.testToGasStationDto, GasStationConverterTest.testToGasStation|
 | UC6.1| FR3.2, FR3.3 | GasStationServiceAPITests.TC1_deleteGasStation, GasStationServiceTests.TC1_deleteGasStation |
-| UC7.1| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
-| UC7.2| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
+| UC7.1| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC1_setReport, GasStationServiceTests.TC1_setReport |
+| UC7.2| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC3_setReport, GasStationServiceTests.TC3_setReport |
+| UC7.3| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC4_setReport, GasStationServiceTests.TC4_setReport |
+| UC7.4| FR1.4 FR3.1 FR5.1|GasStationServiceAPITests.TC5_setReport, GasStationServiceTests.TC5_setReport |
 | UC8.1| FR4.2 |GasStationServiceAPITests.TC2_getGasStationByProximity, GasStationServiceTests.TC1_getGasStationByProximity,GasStationConverterTest.testToGasStationDtoList  |
 | UC8.2| FR4.5|GasStationServiceAPITests.TC8_getGasStationWithCoordinates, GasStationServiceTests.TC1_getGasWithCooordinates GasStationConverterTest.testToGasStationDtoList  |
 | UC8.3 | FR4.3, FR4.4|GasStationServiceAPITests.TC7_getGasStationWithoutCoordinates, GasStationServiceTests.TC1_getGasWithoutCooordinates GasStationConverterTest.testToGasStationDtoList |

@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -76,27 +78,27 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Override
 	public GasStationDto saveGasStation(GasStationDto gasStationDto) throws PriceException, GPSDataException {
-		if (gasStationDto.getCarSharing().equals("null")) {
+		if (gasStationDto.getCarSharing() != null && gasStationDto.getCarSharing().equals("null")) {
 			gasStationDto.setCarSharing(null);
 		}
 		this.checkCoordinates(gasStationDto.getLat(), gasStationDto.getLon());
 		List<Double> prices = new ArrayList<Double>();
-		if (gasStationDto.getHasDiesel()) {
+		if (gasStationDto.getHasDiesel() && gasStationDto.getDieselPrice()!=null) {
 			prices.add(gasStationDto.getDieselPrice());
 		}
-		if (gasStationDto.getHasMethane()) {
+		if (gasStationDto.getHasMethane()&& gasStationDto.getMethanePrice()!=null) {
 			prices.add(gasStationDto.getMethanePrice());
 		}
-		if (gasStationDto.getHasGas()) {
+		if (gasStationDto.getHasGas()&& gasStationDto.getGasPrice()!=null) {
 			prices.add(gasStationDto.getGasPrice());
 		}
-		if (gasStationDto.getHasSuper()) {
+		if (gasStationDto.getHasSuper()&& gasStationDto.getSuperPrice()!=null) {
 			prices.add(gasStationDto.getSuperPrice());
 		}
-		if (gasStationDto.getHasSuperPlus()) {
+		if (gasStationDto.getHasSuperPlus()&& gasStationDto.getSuperPlusPrice()!=null) {
 			prices.add(gasStationDto.getSuperPlusPrice());
 		}
-		if (gasStationDto.getHasPremiumDiesel()) {
+		if (gasStationDto.getHasPremiumDiesel()&& gasStationDto.getPremiumDieselPrice()!=null) {
 			prices.add(gasStationDto.getPremiumDieselPrice());
 		}
 		this.checkPriceList(prices);
@@ -304,6 +306,8 @@ public class GasStationServiceimpl implements GasStationService {
 			Double gasPrice, Double methanePrice, Double premiumDieselPrice, Integer userId)
 			throws InvalidGasStationException, PriceException, InvalidUserException {
 		this.checkId(gasStationId);
+		DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
+		DateFormat newFormatter = new SimpleDateFormat("YYYY-MM-dd");
 		GasStation gasStation = gasStationRepository.findOne(gasStationId);
 		if (gasStation != null) {
 			User user1 = userRepository.findOne(userId);
@@ -314,7 +318,14 @@ public class GasStationServiceimpl implements GasStationService {
 				LocalDate newDate = LocalDate.now(); // current date, the one of user1
 				User user2 = gasStation.getUser();
 				if (user2 != null) { // otherwise gasStation has never had a report
-					LocalDate oldDate = LocalDate.parse(gasStation.getReportTimestamp());
+					LocalDate oldDate;
+					try {
+						oldDate = LocalDate.parse(newFormatter.format(formatter.parse(gasStation.getReportTimestamp())));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return;
+					}
 					if (oldDate.getYear() == newDate.getYear()) {
 						if (user2.getReputation() > user1.getReputation()
 								&& newDate.getDayOfYear() - oldDate.getDayOfYear() < 4) { // time in milliseconds
@@ -358,7 +369,6 @@ public class GasStationServiceimpl implements GasStationService {
 			}
 			this.checkPriceList(prices);
 			User user = userRepository.findOne(userId);
-			DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
 			gasStation.setUser(user);
 			gasStation.setReportTimestamp(formatter.format(new Date(System.currentTimeMillis())));
 			gasStation.setReportDependability((OBSOLESCENCE_50 * (user.getReputation() + 5) / 10) + OBSOLESCENCE_50);
@@ -411,9 +421,18 @@ public class GasStationServiceimpl implements GasStationService {
 
 	@Scheduled(cron = "0 0 0 * * *")
 	private void calculateDependability() {
+		DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
+		DateFormat newFormatter = new SimpleDateFormat("YYYY-MM-dd");
 		for (GasStation gs : gasStationRepository.findAll()) {
 			if (gs.getReportUser() != null && gs.getReportUser() > 0 && gs.getUser() != null) {
-				LocalDate oldDate = LocalDate.parse(gs.getReportTimestamp());
+				LocalDate oldDate;
+				try {
+					oldDate = LocalDate.parse(newFormatter.format(formatter.parse(gs.getReportTimestamp())));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					continue;
+				}
 				LocalDate newDate = LocalDate.now();
 				if (oldDate.getYear() == newDate.getYear()) {
 					if (newDate.getDayOfYear() - oldDate.getDayOfYear() > 7) {

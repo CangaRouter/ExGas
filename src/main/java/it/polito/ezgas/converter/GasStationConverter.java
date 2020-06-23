@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GasStationConverter {
-	@Autowired
-	UserConverter userConverter;
+	
+	UserConverter userConverter= new UserConverter();
 
 	public GasStationDto toGasStationDto(GasStation gasStation) {
 		
