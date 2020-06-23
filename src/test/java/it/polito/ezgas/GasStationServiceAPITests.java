@@ -1155,7 +1155,8 @@ public class GasStationServiceAPITests {
 	public void TC4_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
 		// existing user sets price, has a lower reputation than previous one, and day difference is < 4
 		DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
-		UserDto userDto2 = new UserDto(3, "Test", "TestPw", "Test@email", 0);
+		UserDto userDto2 = new UserDto(null, "Test", "TestPw", "Test2@email", -3);
+		userDto2.setAdmin(false);
 		GasStationDto gsDto= gasStationDto;
 		gsDto.setUserDto(userService.saveUser(userDto));
 		gsDto.setReportUser(gasStationDto.getUserDto().getUserId());
