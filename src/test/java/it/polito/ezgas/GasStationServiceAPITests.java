@@ -31,7 +31,10 @@ import it.polito.ezgas.service.impl.UserServiceimpl;
 
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -58,14 +61,15 @@ public class GasStationServiceAPITests {
 		gasStationConverter = new GasStationConverter();
 		gasStationService = new GasStationServiceimpl(gasStationRepository, gasStationConverter, userRepository);
 		userConverter = new UserConverter();
+		userService= new UserServiceimpl(userRepository,userConverter);
 		gasStation = new GasStation("ENI", "corso Duca", true, true, true, true, true,true, "Enjoy", 40.0005, 25.0010, 0.99,
 				0.99, 0.99, 0.99, 0.99, 1.32,1, "2020-05-03", 0.88);
 		gasStationDto = new GasStationDto(null, "ENI", "corso Duca", true, true, true, true, true,true, "Enjoy", 40.0005,
 				25.0010, 0.99, 0.99, 0.99, 0.99, 0.99,1.32, 1, "2020-05-03", 0.88);
 		user = new User("nome", "password", "email", 0);
-		userDto = new UserDto(0, "nome", "password", "email", 0);
 		credentials = new IdPw("user", "pwd");
-		userDto = new UserDto(0, "Test", "TestPw", "Test@email", 0);
+		userDto = new UserDto(null, "Test", "TestPw", "Test@email", 2);
+		userDto.setAdmin(false);
 	}
 
 	@After
@@ -1115,9 +1119,73 @@ public class GasStationServiceAPITests {
 		}
 		assertTrue(thrown);
 	}
+	
+	@Test
+	public void TC3_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
+		// existing user sets price, has a lower reputation than previous one, but day difference is > 4
+		UserDto userDto2 = new UserDto(2, "Test", "TestPw", "Test@email", 0);
+		gasStationDto.setUserDto(userService.saveUser(userDto));
+		userService.saveUser(userDto2);
+		Boolean thrown = false;
+		gasStationDto.setGasStationId(null);
+		GasStationDto gsDto=new GasStationDto();
+		try {
+			 gsDto=gasStationService.saveGasStation(gasStationDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
 
+		try {
+			gasStationService.setReport(gsDto.getGasStationId(),3.0, 3.0, 3.0, 3.0, 3.0,3.0, userDto2.getUserId());
+			gsDto=gasStationService.getGasStationById(gsDto.getGasStationId());
+		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
+			thrown = true;
+		}
+		assertEquals(gsDto.getDieselPrice(),3.0,0);
+		assertEquals(gsDto.getPremiumDieselPrice(),3.0,0);
+		assertEquals(gsDto.getSuperPrice(),3.0,0);
+		assertEquals(gsDto.getSuperPlusPrice(),3.0,0);
+		assertEquals(gsDto.getMethanePrice(),3.0,0);
+		assertEquals(gsDto.getGasPrice(),3.0,0);
+		assertEquals(gsDto.getReportUser(),2,0);
+		assertFalse(thrown);
+	}
+	
 	@Test
 	public void TC4_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
+		// existing user sets price, has a lower reputation than previous one, and day difference is < 4
+		DateFormat formatter = new SimpleDateFormat("MM-dd-YYYY");
+		UserDto userDto2 = new UserDto(3, "Test", "TestPw", "Test@email", 0);
+		GasStationDto gsDto= gasStationDto;
+		gsDto.setUserDto(userService.saveUser(userDto));
+		gsDto.setReportUser(gasStationDto.getUserDto().getUserId());
+		userDto2=userService.saveUser(userDto2);
+		Boolean thrown = false;
+		gsDto.setGasStationId(null);
+		gsDto.setReportTimestamp(formatter.format(new Date(System.currentTimeMillis())));
+		try {
+			 gsDto=gasStationService.saveGasStation(gsDto);
+		} catch (PriceException | GPSDataException e1) {
+			thrown = true;
+		}
+
+		try {
+			gasStationService.setReport(gsDto.getGasStationId(),3.0, 3.0, 3.0, 3.0, 3.0,3.0, userDto2.getUserId());
+			gsDto=gasStationService.getGasStationById(gsDto.getGasStationId());
+		} catch (InvalidGasStationException | PriceException | InvalidUserException e) {
+			thrown = true;
+		}
+		assertEquals(gsDto.getDieselPrice(),gasStationDto.getDieselPrice(),0);
+		assertEquals(gsDto.getPremiumDieselPrice(),gasStationDto.getPremiumDieselPrice(),0);
+		assertEquals(gsDto.getSuperPrice(),gasStationDto.getSuperPrice(),0);
+		assertEquals(gsDto.getSuperPlusPrice(),gasStationDto.getSuperPlusPrice(),0);
+		assertEquals(gsDto.getMethanePrice(),gasStationDto.getMethanePrice(),0);
+		assertEquals(gsDto.getGasPrice(),gasStationDto.getGasPrice(),0);
+		assertFalse(thrown);
+	}
+
+	@Test
+	public void TC5_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
 		// non existing user -> the reportUser attribute of the gasStation with the
 		// given ID should be empty
 		Boolean thrown = false;
@@ -1141,9 +1209,10 @@ public class GasStationServiceAPITests {
 		assertTrue(thrown);
 //		assertEquals(gasStationService.getGasStationById(1).getUserDto(), null);
 	}
+	
 
 	@Test
-	public void TC5_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
+	public void TC6_setReport() throws InvalidGasStationException, PriceException, InvalidUserException {
 		// non-existing gas station
 		Boolean thrown = false;
 		try {
