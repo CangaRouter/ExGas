@@ -1,6 +1,6 @@
 click("1591036894868.png")
 click("1591036918581.png")
-type("1591048926238.png", "ENRICO MATTEI")
+type("1591048926238.png", "Enrico Mattei")
 type("1591048939028.png", "enrico.mattei@ezgas.com")
 type("1591048946658.png", "mySup&r$ecretP@ssw0rd")
 click("1591047995703.png")

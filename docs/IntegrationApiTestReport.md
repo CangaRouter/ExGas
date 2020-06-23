@@ -216,7 +216,7 @@ A mixed approach has been used for the integration testing
 
 ## Scenario UC4.1
 
-| Scenario |  name |
+| Scenario |  Create Gas Station |
 | ------------- |:-------------:| 
 |  Precondition     | Gas Station GS does not exist |
 |  Post condition     |  Gas Station GS created |
@@ -228,7 +228,7 @@ A mixed approach has been used for the integration testing
 
 ## Scenario UC5.1
 
-| Scenario |  name |
+| Scenario |  Modify Gas Station information |
 | ------------- |:-------------:| 
 |  Precondition     | Gas Station GS exists |
 |  Post condition     |  Gas Station GS modified |
@@ -240,7 +240,7 @@ A mixed approach has been used for the integration testing
 
 ## Scenario UC6.1
 
-| Scenario |  name |
+| Scenario |  Delete Gas Station |
 | ------------- |:-------------:| 
 |  Precondition     | Gas Station GS exists |
 |  Post condition     |  Gas Station GS deleted |
@@ -252,7 +252,7 @@ A mixed approach has been used for the integration testing
 
 ## Scenario UC7.1
 
-| Scenario |  name |
+| Scenario |  Price list is modified |
 | ------------- |:-------------:| 
 |  Precondition     | Gas Station GS exists |
 |                    | User U is registered in the system  |
@@ -270,7 +270,7 @@ A mixed approach has been used for the integration testing
 
 ## Scenario UC7.2
 
-| Scenario |  name |
+| Scenario |  Price list is created |
 | ------------- |:-------------:| 
 |  Precondition     | Gas Station GS exists |
 |                    | User U is registered in the system  |
