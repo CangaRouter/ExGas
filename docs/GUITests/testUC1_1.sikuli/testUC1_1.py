@@ -1,3 +1,4 @@
+click("1591019418185.png")
 click("1591036894868.png")
 click("1591036918581.png")
 type("1591048926238.png", "Enrico Mattei")

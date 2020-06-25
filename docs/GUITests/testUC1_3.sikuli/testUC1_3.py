@@ -1,3 +1,4 @@
+click("1591019418185.png")
 click("1591036894868.png")
 type("1591048946658.png", "admin")
 type("1591048939028.png", "admin@ezgas.com")

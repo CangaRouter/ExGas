@@ -52,19 +52,6 @@ public class TestController {
 
 	private GasStationDto gsDto;
 
-	static Integer newGsId;
-	static Integer newUsId;
-
-	/*
-	 * @Before public void setUp() throws PriceException, GPSDataException{
-	 * //gsConverter = new GasStationConverter(); //gsService = new
-	 * GasStationServiceimpl(gsRepository, gsConverter, userRepository); gsDto =
-	 * new GasStationDto(null, "Repsol",
-	 * "Corso Vittorio Emanuele II 169 Turin Piemont Italy", true, true, false,
-	 * false, true, "Enjoy", 45.07, 7.66, 1.26, 1.34, -1, -1, 1.17, 0,
-	 * "29052020", 0.0); //gsService.saveGasStation(gsDto); }
-	 */
-
 	// TEST ON /gasstation
 	@Test
 	public void TC01_TestsaveGasStation() throws ClientProtocolException, IOException { // /saveGasStation
@@ -85,19 +72,6 @@ public class TestController {
 
 		CloseableHttpResponse response = client.execute(httpPost);
 		assert (response.getStatusLine().getStatusCode() == 200);
-
-		String jsonFromResponse = EntityUtils.toString(response.getEntity());
-		Boolean thrown = false;
-		JSONObject obj;
-		try {
-			obj = new JSONObject(jsonFromResponse);
-			newGsId = new Integer(obj.getInt("gasStationId"));
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			thrown = true;
-			e.printStackTrace();
-		}
-		assert (thrown == false);
 		client.close();
 	}
 
@@ -118,14 +92,14 @@ public class TestController {
 			System.out.println(gs.getGasStationId() + " " + gs.getGasStationName());
 		}
 		assert (gsArray.length > 0);
-		// assert(jsonFromResponse.contains("Corso Vittorio Emanuele II"));
-
 	}
-
+	
+	//considering the return type of controller methods (for gs) and the fact that controller tests must be  
+	//independent from each other, it is necessary to write the explicit id of a gas station/user. However, it could 
+	//work only for a specific DB without the risk to modify/delete a real gas station/user needed by the app.
 	@Test
 	public void TC03_TestgetGasStationById() throws ClientProtocolException, IOException { // /getGasStation
-		assert (newGsId != null);
-		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStation/" + newGsId.toString());
+		HttpUriRequest request = new HttpGet("http://localhost:8080/gasstation/getGasStation/495");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 
 		System.out.println("--------> Resp getAll: " + response.getEntity().toString());
@@ -139,7 +113,7 @@ public class TestController {
 		GasStationDto gs = mapper.readValue(jsonFromResponse, GasStationDto.class);
 		System.out.println(gs.getGasStationId());
 
-		assert (gs.getGasStationId().equals(newGsId));
+		assert (gs.getGasStationId().equals(495));
 
 	}
 
@@ -162,13 +136,6 @@ public class TestController {
 
 		assert (gs.length > 0);
 	}
-
-	/*
-	 * @Test public void TC05_TestsearchGasStationsByNeighborhood() throws
-	 * ClientProtocolException, IOException{ // /searchGasStationByNeighborhood
-	 * 
-	 * }
-	 */
 
 	@Test
 	public void TC06_TestsearchGasStationsByGasolineType() throws ClientProtocolException, IOException { // /searchGasStationByGasolineType
@@ -207,35 +174,11 @@ public class TestController {
 		assert (gs.length > 0);
 	}
 
-	/*
-	 * @Test public void TC08_TestgetGasStationsWithoutCoordinates() throws
-	 * ClientProtocolException, IOException{ // getGasStationsWithoutCoordinates
-	 * HttpUriRequest request = new HttpGet(
-	 * "http://localhost:8080/gasstation/getGasStationsWithoutCoordinates/null/Enjoy"
-	 * ); HttpResponse response =
-	 * HttpClientBuilder.create().build().execute(request);
-	 * 
-	 * System.out.println("--------> Resp getAll: "+response.getEntity().
-	 * toString());
-	 * 
-	 * assert(response.getStatusLine().getStatusCode()==200);
-	 * 
-	 * System.out.println("--------> Resp: "+response.toString());
-	 * 
-	 * String jsonFromResponse = EntityUtils.toString(response.getEntity());
-	 * ObjectMapper mapper=new ObjectMapper().configure(DeserializationFeature.
-	 * FAIL_ON_UNKNOWN_PROPERTIES, false); GasStationDto[]
-	 * gs=mapper.readValue(jsonFromResponse, GasStationDto[].class);
-	 * 
-	 * 
-	 * assert(gs.length>0); }
-	 */
 	@Test
 	public void TC09_TestsetReport() throws ClientProtocolException, IOException { // /setGasStationReport
-		assert (newGsId != null);
 		CloseableHttpClient client = HttpClients.createDefault();
 		HttpPost httpPost = new HttpPost("http://localhost:8080/gasstation/setGasStationReport/");
-		String json = "{\"gasStationId\":\""+newGsId+"\","
+		String json = "{\"gasStationId\":495,"
 				+ "\"dieselPrice\":1.1," + "\"superPrice\":1.16,"
 				+ "\"superPrice\":1.29," + "\"superPlusPrice\":1.9," + "\"gasPrice\":0.87,"
 				+ "\"methanePrice\":0.96," + "\"premiumDieselPrice\":1.36," + "\"userId\":1," + "\"lon\":17.715888,"
@@ -255,9 +198,8 @@ public class TestController {
 
 	@Test
 	public void TC10_TestdeleteGasStation() throws ClientProtocolException, IOException { // /deleteGasStation,
-		assert (newGsId != null);
 		HttpUriRequest request = new HttpDelete(
-				"http://localhost:8080/gasstation/deleteGasStation/" + newGsId.toString());
+				"http://localhost:8080/gasstation/deleteGasStation/495");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		assert (response.getStatusLine().getStatusCode() == 200);
 	}
@@ -286,7 +228,8 @@ public class TestController {
 		JSONObject obj;
 		try {
 			obj = new JSONObject(jsonFromResponse);
-			newUsId = new Integer(obj.getInt("userId"));
+			int newUsId = new Integer(obj.getInt("userId"));
+			assert(newUsId>0);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			thrown = true;
@@ -298,10 +241,7 @@ public class TestController {
 
 	@Test
 	public void TC12_TestgetUserById() throws ClientProtocolException, IOException { // /getUser
-
-		// newUsId = 33; //admin created in BootEZGasApplication
-		assert (newUsId != null); // test on saveUser (which return a response) has been already executed
-		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/" + newUsId.toString());
+		HttpUriRequest request = new HttpGet("http://localhost:8080/user/getUser/1806");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 
 		assert (response.getStatusLine().getStatusCode() == 200);
@@ -309,7 +249,7 @@ public class TestController {
 		String jsonFromResponse = EntityUtils.toString(response.getEntity());
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		UserDto user = mapper.readValue(jsonFromResponse, UserDto.class);
-		assert (user.getUserId().equals(newUsId));
+		assert (user.getUserId().equals(1806));
 	}
 
 	@Test
@@ -330,9 +270,8 @@ public class TestController {
 
 	@Test
 	public void TC14_TestincreaseUserReputation() throws ClientProtocolException, IOException { // /increaseUserReputation
-		assert (newUsId != null);
 		HttpUriRequest request = new HttpPost(
-				"http://localhost:8080/user/increaseUserReputation/" + newUsId.toString());
+				"http://localhost:8080/user/increaseUserReputation/1806");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		assert (response.getStatusLine().getStatusCode() == 200);
 		
@@ -344,9 +283,8 @@ public class TestController {
 
 	@Test
 	public void TC15_TestdecreaseUserReputation() throws ClientProtocolException, IOException { // /decreaseUserReputation
-		assert (newUsId != null);
 		HttpUriRequest request = new HttpPost(
-				"http://localhost:8080/user/decreaseUserReputation/" + newUsId.toString());
+				"http://localhost:8080/user/decreaseUserReputation/1806");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		assert (response.getStatusLine().getStatusCode() == 200);
 		
@@ -375,13 +313,12 @@ public class TestController {
 		String jsonFromResponse = EntityUtils.toString(response.getEntity());
 		ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		LoginDto login = mapper.readValue(jsonFromResponse, LoginDto.class);
-		assert(login.getUserId().equals(newUsId));
+		assert(login.getUserId().equals(1806));
 	}
 
 	@Test
 	public void TC17_TestdeleteUser() throws ClientProtocolException, IOException { // /deleteUser
-		assert (newUsId != null);
-		HttpUriRequest request = new HttpDelete("http://localhost:8080/user/deleteUser/" + newUsId.toString());
+		HttpUriRequest request = new HttpDelete("http://localhost:8080/user/deleteUser/1806");
 		HttpResponse response = HttpClientBuilder.create().build().execute(request);
 		assert (response.getStatusLine().getStatusCode() == 200);
 		
