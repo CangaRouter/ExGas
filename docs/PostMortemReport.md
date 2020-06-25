@@ -5,7 +5,24 @@ Also this document will not be used for evaluations, but for improving the proje
 
 
 # Best things
+Gitlab and spring learning curve. 
+Real job-like experience. 
+Catme well-balanced group.
+Project experience improves subject comprehension.
+Right amount of workload.
+Internal group work division -> enhancing individual skills.
+
+
 
 # Worst things
+Covid-imposed distance. 
+Gitlab and spring learning curve. 
+Lot of open issues/bugs on the project that teaching staff never fixed.
+Delays on uploading new documents/APis, sometimes too close to deadlines.
+
+
 
 # Suggestions 
+Better coordination between staff members.
+On time delivery of APis/documents.
+Deeper specifications on requests.

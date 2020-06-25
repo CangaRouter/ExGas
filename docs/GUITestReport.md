@@ -31,6 +31,8 @@ This part of the document reports about testing at the GUI level. Tests are end 
 | UC6.1| FR3.2, FR3.3 |testUC6_1.py |
 | UC7.1| FR1.4 FR3.1 FR5.1| testUC7_1.py|
 | UC7.2| FR1.4 FR3.1 FR5.1|testUC7_2.py |
+| UC7.3| FR1.4 FR3.1 FR5.1|testUC7_3.py |
+| UC7.4| FR1.4 FR3.1 FR5.1|testUC7_4.py |
 | UC8.1| FR4.2 |testUC8_1.py |
 | UC8.2| FR4.5|testUC8_2.py|
 | UC8.3 | FR4.3, FR4.4|testUC8_3.py |

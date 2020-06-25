@@ -27,11 +27,11 @@ Version:
 |             | Estimate                        |             
 | ----------- | ------------------------------- |  
 | NC =  Estimated number of classes to be developed   | 35 |             
-| A = Estimated average size per class, in LOC       | 50 | 
-| S = Estimated size of project, in LOC (= NC * A) | 1750 |
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)  | 175 |   
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 5250 | 
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) | ~ 1.1 |               
+| A = Estimated average size per class, in LOC    | 250| 
+| S = Estimated size of project, in LOC (= NC * A) | 8750 |
+| E = Estimated effort, in person hours  | 487 |   
+| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 14.610 | 
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) | ~ 3|               
 
 
 # Estimate by activity decomposition
@@ -42,14 +42,14 @@ Version:
 
 |         Activity name    | Estimated effort (person hours)   |             
 | ----------- | ------------------------------- | 
-| requirements | 41 |
-| design | 28 |
-| coding | 22 |
-| documentation | 12 |
-| test plan | 22 |
-| test data | 14 |
-| test unit | 28 |
-| system test | 8 |
+| requirements | 130 |
+| design | 70 |
+| coding | 70 |
+| documentation | 34 |
+| test plan | 70 |
+| test data | 34 |
+| test unit | 70 |
+| system test | 9 |
 
 ###
 Insert here Gantt chart with above activities
