@@ -635,15 +635,15 @@ Version:
 
 
 
-### **Class *GasStation* - method *setMethanPrice***
+### **Class *GasStation* - method *setMethanePrice***
 
 
-**Criteria for method *setMethanPrice*:**
+**Criteria for method *setMethanePrice*:**
 
  - Is a double number
  - Range
 
-**Predicates for method *setMethanPrice*:**
+**Predicates for method *setMethanePrice*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
@@ -664,12 +664,12 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationMethanePrice|
-||||getMethanPrice() -> 1.45 ||
-||< (-Double.MAX_VALUE) | I | setMethanPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationMethanePrice|
-||||getMethanPrice() -> -Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationMethanePrice|
-||||getMethanPrice() -> Double.MAX_VALUE ||
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setMethanePrice(1.45);|it.polito.ezgas.GasStationTests.TC1_GasStationMethanePrice|
+||||getMethanePrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setMethanePrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationTests.TC2_GasStationMethanePrice|
+||||getMethanePrice() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setMethanePrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationTests.TC3_GasStationMethanePrice|
+||||getMethanePrice() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
 
@@ -1575,15 +1575,15 @@ Version:
 
 
 
-### **Class *GasStationDto* - method *setMethanPrice***
+### **Class *GasStationDto* - method *setMethanePrice***
 
 
-**Criteria for method *setMethanPrice*:**
+**Criteria for method *setMethanePrice*:**
 
  - Is a double number
  - Range
 
-**Predicates for method *setMethanPrice*:**
+**Predicates for method *setMethanePrice*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
@@ -1604,12 +1604,12 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);|it.polito.ezgas.GasStationDtoTests.TC1_GasStationMethanePrice|
-||||getMethanPrice() -> 1.45 ||
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setMethanePrice(1.45);|it.polito.ezgas.GasStationDtoTests.TC1_GasStationMethanePrice|
+||||getMethanePrice() -> 1.45 ||
 ||< (-Double.MAX_VALUE) | I | setMethanPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.GasStationDtoTests.TC2_GasStationMethanePrice|
-||||getMethanPrice() -> -Double.MAX_VALUE ||
+||||getMethanePrice() -> -Double.MAX_VALUE ||
 || > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) |it.polito.ezgas.GasStationDtoTests.TC3_GasStationMethanePrice|
-||||getMethanPrice() -> Double.MAX_VALUE ||
+||||getMethanePrice() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
 
@@ -2379,15 +2379,15 @@ Version:
 
 
 
-### **Class *PriceReportDto* - method *setMethanPrice***
+### **Class *PriceReportDto* - method *setMethanePrice***
 
 
-**Criteria for method *setMethanPrice*:**
+**Criteria for method *setMethanePrice*:**
 
  - Is a double number
  - Range
 
-**Predicates for method *setMethanPrice*:**
+**Predicates for method *setMethanePrice*:**
 
 | Criteria | Predicate |
 | -------- | --------- |
@@ -2408,12 +2408,12 @@ Version:
 
 | Is a double number | Boundary values | Valid / Invalid | Description of the test case | JUnit test case |
 |-------|-------|-------|-------|-------|
-|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setMethanPrice(1.45);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoMethanePrice|
-||||getMethanPrice() -> 1.45 ||
-||< (-Double.MAX_VALUE) | I | setMethanPrice(-Double.MAX_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoMethanePrice|
-||||getMethanPrice() -> -Double.MAX_VALUE ||
-|| > Double.MAX_VALUE| I | setMethanPrice(Double.MAX_VALUE+1) |it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoMethanePrice|
-||||getMethanPrice() -> Double.MAX_VALUE ||
+|Yes    |>= (-Double.MAX_VALUE)   and <= Double.MAX_VALUE| V |  setMethanePrice(1.45);|it.polito.ezgas.PriceReportDtoTests.TC1_PriceReportDtoMethanePrice|
+||||getMethanePrice() -> 1.45 ||
+||< (-Double.MAX_VALUE) | I | setMethanePrice(-Double.MAX_VALUE-1) |it.polito.ezgas.PriceReportDtoTests.TC2_PriceReportDtoMethanePrice|
+||||getMethanePrice() -> -Double.MAX_VALUE ||
+|| > Double.MAX_VALUE| I | setMethanePrice(Double.MAX_VALUE+1) |it.polito.ezgas.PriceReportDtoTests.TC3_PriceReportDtoMethanePrice|
+||||getMethanePrice() -> Double.MAX_VALUE ||
 |No   || I | Not feasible||
 
 
@@ -2512,9 +2512,13 @@ Version:
 ### Code coverage report
 
 
-![Coverage](./Coverage_Screenshots/units_coverage_v2.png)
+![Coverage](./Coverage_Screenshots/entity_coverage_v3.png)
+![Coverage](./Coverage_Screenshots/Dto_coverage_v3.png)
 
-### Loop coverage analysis
+
+### Loop coverage analysis 
+
+No loops
 
 |Unit name | Loop rows | Number of iterations | JUnit test case |
 |---|---|---|---|

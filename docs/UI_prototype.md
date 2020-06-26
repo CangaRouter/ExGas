@@ -7,7 +7,7 @@ Date:<br />19/04/2020
 
 Version:
 
-\<Report here the GUI that you propose. You are free to organize it as you prefer. A suggested presentation matches the Use cases and scenarios defined in the Requirement document. The GUI can be shown as a sequence of graphical files (jpg, png)  >
+
 
 
 #UC1:
@@ -52,7 +52,7 @@ Version:
 ![S7.1](./UI_Adobe_XD_Artboards/add-station.png)
 
 #UC8
-- Signal a gas station closure
+- Signal a close gas station 
 ![S8.1](./UI_Adobe_XD_Artboards/error-signaling1.png)
 
 #UC9 and UC10:
