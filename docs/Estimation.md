@@ -57,16 +57,16 @@ Insert here Gantt chart with above activities
 ```plantuml
 @startuml
 -- Requirements --
-[Requirements] as [TASK1] lasts 2 days
+[Requirements] as [TASK1] lasts 4 days
 -- Design --
-[Design] as [TASK2] lasts 1 days
+[Design] as [TASK2] lasts 2 days
 -- Coding --
-[Coding] as [TASK3] lasts 1 days
+[Coding] as [TASK3] lasts 2 days
 [Documentation] as [TASK6] lasts 1 days
 -- Testing --
-[Test Plan] as [TASK7] lasts 1 days
+[Test Plan] as [TASK7] lasts 2 days
 [Test Data] as [TASK4] lasts 1 days
-[Test Unit] as [TASK5] lasts 1 days
+[Test Unit] as [TASK5] lasts 2 days
 [System Test] as [TASK8] lasts 1 days
 [TASK1]->[TASK2]
 [TASK2]->[TASK3]
