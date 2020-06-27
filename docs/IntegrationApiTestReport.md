@@ -68,6 +68,8 @@ Class GasStationConverter
 Class GasStationDto
 Class GasStationEntity
 
+Class PriceReportDto
+
 UserController --> UserService 
 UserService <|-- UserServiceImpl
 UserServiceImpl --> UserRepository
@@ -89,7 +91,7 @@ GasStationServiceImpl --> GasStationConverter
 GasStationConverter --> GasStationEntity
 GasStationConverter --> GasStationDto
 GasStationRepository --> GasStationEntity
-
+GasStationController --> PriceReportDto
 @enduml
 ```
      

@@ -1,8 +1,9 @@
 # CR - Change Request Poll
 
-Authors:
+Authors:<br />
+Barco Luca<br />Di Vincenzo Alessandro<br />Pappalardo Marco Giulio Lorenzo<br />Petruzzi Rocco Luigi<br />
 
-Date:
+Date: 26/05/2020
 
 Version:
 
